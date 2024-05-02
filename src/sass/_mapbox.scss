@@ -1,0 +1,19 @@
+.mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-bottom-right {
+  display: none !important;
+}
+
+.my-mapbox-popup-popup {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border-radius: 5px;
+  bottom: 10px;
+  left: 10px;
+  width: 300px;
+  height: 200px;
+  border: solid 1px gainsboro;
+
+  &.show {
+    display: block;
+  }
+}

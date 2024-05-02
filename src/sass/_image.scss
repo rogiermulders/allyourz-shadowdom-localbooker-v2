@@ -1,0 +1,80 @@
+.ar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ar-box-inside-3-2 {
+  aspect-ratio: 3 / 2;
+}
+
+@supports not (aspect-ratio: 3 / 2) {
+  .ar-box-3-2 {
+    position: relative;
+    width: 100%;
+    padding-top: 66%;
+  }
+  .ar-box-inside-3-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.ar-box-inside-2-1 {
+  aspect-ratio: 2 / 1;
+}
+
+@supports not (aspect-ratio: 2 / 1) {
+  .ar-box-2-1 {
+    position: relative;
+    width: 100%;
+    padding-top: 50%;
+  }
+  .ar-box-inside-2-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.ar-box-inside-5-2 {
+  aspect-ratio: 5 / 2;
+}
+
+@supports not (aspect-ratio: 5 / 2) {
+  .ar-box-5-2 {
+    position: relative;
+    width: 100%;
+    padding-top: 40%;
+  }
+  .ar-box-inside-5-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+.ar-box-inside-1-1 {
+  aspect-ratio: 1 / 1;
+}
+
+@supports not (aspect-ratio: 1 / 1) {
+  .ar-box-5-2 {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+  }
+  .ar-box-inside-5-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

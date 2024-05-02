@@ -3,7 +3,7 @@ import axios from "axios";
 export const injectIconSvgIntoDom = (parent) => {
   axios({
     url: 'assets/images/icon-selection.svg',
-    baseURL: process.env.REACT_APP_WHITELABEL
+    baseURL: import.meta.env.VITE_APP_URL
   }).then(res => {
     const div = document.createElement("div")
     div.dataset.info = 'allyourz icons'

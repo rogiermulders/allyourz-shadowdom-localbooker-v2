@@ -1,0 +1,57 @@
+// WIDTH
+@for $i from 1 through 10 {
+  .w#{$i*10} {
+    width: 10% * $i !important;
+  }
+}
+
+.w25 {
+  width: 25% !important;
+}
+
+.w75 {
+  width: 75% !important;
+}
+
+.w33 {
+  width: 33.33333% !important;
+}
+
+// MARGIN
+@for $i from 0 through 16 {
+  .m-#{$i} {
+    margin: 0.125em * $i !important;
+  }
+  .mt-#{$i} {
+    margin-top: 0.125em * $i !important;
+  }
+  .mb-#{$i} {
+    margin-bottom: 0.125em * $i !important;
+  }
+  .ml-#{$i} {
+    margin-left: 0.125em * $i !important;
+  }
+  .mr-#{$i} {
+    margin-right: 0.125em * $i;
+  }
+}
+
+// PADDING
+@for $i from 0 through 16 {
+  .p-#{$i} {
+    padding: 0.125em * $i !important;
+  }
+  .pt-#{$i} {
+    padding-top: 0.125em * $i !important;
+  }
+  .pb-#{$i} {
+    padding-bottom: 0.125em * $i !important;
+  }
+  .pl-#{$i} {
+    padding-left: 0.125em * $i !important;
+  }
+  .pr-#{$i} {
+    padding-right: 0.125em * $i !important;
+  }
+}
+

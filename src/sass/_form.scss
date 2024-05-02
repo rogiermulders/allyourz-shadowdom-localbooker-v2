@@ -1,0 +1,26 @@
+.input-label {
+  & > span {
+    display: block;
+    padding-left: 0.1em;
+    padding-bottom: 0.4em;
+  }
+
+  .label {
+    padding-left: 0.1em;
+    padding-bottom: 0.4em;
+  }
+
+  .p-inputtext, .p-dropdown {
+    width: 100%;
+  }
+
+  .p-dropdown-label {
+    margin-left: 0.4em;
+  }
+}
+
+.pay-overview {
+  background-color: var(--gray-100);
+  border-radius: 0.5em;
+  padding: 1em;
+}

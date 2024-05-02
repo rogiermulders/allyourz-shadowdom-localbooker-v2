@@ -1,0 +1,69 @@
+.overlay {
+  // CONTAINERS
+  &.container {
+    position: relative;
+    z-index: 1000000000;
+    top: 1em;
+  }
+
+  .content-container {
+    position: absolute;
+    border-radius: 0.25em;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 0.4em;
+    background-color: var(--surface-0);
+    box-shadow: 0 1px 3px rgba(200, 200, 200, 0.7);
+  }
+
+  // ARROW
+  .box-arrow-border {
+    position: absolute;
+    z-index: 1;
+    top: -9px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid black;
+    width: 0;
+    height: 0;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+
+  .box-arrow-background {
+    position: absolute;
+    left: -10px;
+    top: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+    width: 0;
+    height: 0;
+  }
+
+  // TRANSITION
+  &.transition-enter {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  &.transition-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+  }
+
+  &.transition-exit {
+    opacity: 1;
+  }
+
+  &.transition-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 300ms, transform 300ms;
+  }
+
+
+}

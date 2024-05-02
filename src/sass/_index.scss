@@ -1,0 +1,97 @@
+@import "buttstrip";
+@import "helpers";
+@import "swiper";
+@import "tooltip";
+@import "form";
+@import "image";
+@import "book_cart";
+@import "molecules/overlay";
+@import "width_padding_margin";
+@import "text_and_font";
+@import "calendar";
+@import "molecules/fake_dropdown";
+@import "mapbox";
+/**
+ Same as font-size in the html tag but that does not work (we have no control)
+ Had to search and replace primereact rem -> em... bit risky but for now but
+ seems to work.
+ BTW it's done auto on each build, not on 'hot' compiles b.t.w!
+ You need to run a build once!
+ */
+:host {
+  font-size: 16px
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.app {
+  border: $containerHeaderBorder;
+  border-radius: $borderRadius;
+  background-color: var(--surface-a);
+}
+
+.p-button {
+  overflow: visible;
+}
+
+a {
+  color: var(--text-color-secondary);
+}
+
+.flex {
+  display: flex;
+  &.align-center {
+    align-items: center;
+  }
+}
+
+
+.pointer {
+  cursor: pointer;
+}
+.pointer-default {
+  cursor: default;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.ul-none {
+  list-style-type: none;
+}
+
+.li-vert {
+  display: inline-block;
+}
+
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.float-r {
+  float: right;
+}
+
+
+.loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 2000000000;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  i {
+    color: gainsboro;
+    font-size: 6rem;
+  }
+}

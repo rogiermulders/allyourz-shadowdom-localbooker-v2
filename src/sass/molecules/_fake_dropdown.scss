@@ -1,0 +1,14 @@
+.fake-dropdown {
+
+  .content {
+    z-index: 2;
+    background-color: var(--surface-b);
+    border-radius: 0 0 $borderRadius $borderRadius;
+    border: solid 1px $containerHeaderBorderColor;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+  }
+}

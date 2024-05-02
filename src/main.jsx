@@ -7,6 +7,7 @@ import Shadow from './shadow/Shadow.jsx'
 import {addLocale} from 'primereact/api';
 
 import axios from 'axios'
+import { injectIconSvgIntoDom } from './services/injectIconSvgIntoDom.js'
 
 // Set the base URL for axios
 axios.defaults.baseURL = import.meta.env.VITE_APP_API
@@ -19,7 +20,9 @@ const mode = import.meta.env.VITE_APP_MODE
 let options = {}
 if (mode === 'SHADOW') {
   window.zaffius_root_node.attachShadow({ mode: 'open' })
+  injectIconSvgIntoDom(window.zaffius_root_node.shadowRoot)                // Insert the allyourz icons into the shadow dom
   window.zaffius_appRoot = window.zaffius_root_node.shadowRoot
+
   options = {
     appendTo: window.zaffius_appRoot,
     styleContainer: window.zaffius_appRoot,
@@ -27,6 +30,8 @@ if (mode === 'SHADOW') {
 } else {
   window.zaffius_appRoot = window.zaffius_root_node
 }
+
+
 const data = window.zaffius_root_node.dataset
 /**
  * Hack so we can change some stuff with url parameter

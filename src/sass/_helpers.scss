@@ -1,0 +1,22 @@
+.debby {
+  border: solid 1px rebeccapurple;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.none {
+  display: none;
+}
+
+.border-radius {
+  border-radius: $borderRadius;
+}
+
+.hover_highlight:hover {
+  color: map-get($colors,"primary")
+}
+
