@@ -23,7 +23,7 @@ export default function SpaList() {
 
       <div className={col({def: 9, xs: 12, sm: 12})}>
         <Paginator className="mt-4"
-                   dropdownAppendTo={context.shadowRoot}
+
                    first={mainFilter.offset}
                    rows={rowsPerPage}
                    totalRecords={avail.total}
@@ -36,7 +36,7 @@ export default function SpaList() {
         <Administrations/>
 
         <Paginator className="mt-4"
-                   dropdownAppendTo={context.shadowRoot}
+
                    first={mainFilter.offset}
                    rows={rowsPerPage}
                    totalRecords={avail.total}

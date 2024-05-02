@@ -60,7 +60,7 @@ function MapStays({width, height, request}) {
     map.current = mc // Save the map instance
 
     // Add the markers to the map
-    const marker = process.env.REACT_APP_WHITELABEL + '/mapbox/STAYS/marker-'
+    const marker = import.meta.env.VITE_APP_URL + '/mapbox/STAYS/marker-'
     mc.loadImage(marker + 'default@2x.png', (error, image) => {
       mc.addImage('stay-marker', image);
     });

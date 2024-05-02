@@ -131,7 +131,7 @@ export default function FormNaw({optionalFees, onFormSubmit, options, setOptions
             <Dropdown
               id="country"
               name="country"
-              appendTo={context.shadowRoot}
+
               value={formik.values.country}
               onChange={(e) => formik.setFieldValue('country', e.value)}
               options={_t.countries}

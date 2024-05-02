@@ -243,7 +243,6 @@ export default function PageConfirm() {
   return <>
     <Dialog
       header={locale.error_header}
-      appendTo={context.shadowRoot}
       onHide={() => setDialog(false)} visible={dialog}>
       <div>
         <DangerouslyInsertTextToBr>

@@ -34,7 +34,6 @@ const CalendarDialog = forwardRef( (props, ref) => {
       }}
       contentStyle={{padding: 0}}
       onShow={() => {zIndex.tempFix()}}
-      appendTo={context.shadowRoot}
       visible={visible}
       onHide={() => {
         setVisible(false)

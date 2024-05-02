@@ -1,26 +1,88 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-    <style>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + React</title>
+  <style>
       body {
-        background-color: #111827;
+          font-family: Helvetica, Arial, sans-serif;
+          font-size: 32px;
       }
+
       #my-shadow-container {
-        margin: auto;
-        width: 1200px;
+          width: 100%
       }
-    </style>
-  </head>
-  <body class="p-2">
-    <div id="my-shadow-container"
-         data-page="spa"
-         data-pid="lb-on-vite"
-         data-locale="nl">
+
+      /* Extra small devices XS */
+      @media only screen and (max-width: 810px) {
+          #my-shadow-container {
+              width: 100%
+          }
+      }
+
+      /* Small devices SM */
+      @media only screen and (min-width: 810px) {
+
+      }
+
+      /* Medium devices MD */
+      @media only screen and (min-width: 1040px) {
+
+      }
+
+      /* Large devices LG) */
+      @media only screen and (min-width: 1380px) {
+          #my-shadow-container {
+              width: 60%;
+              margin: auto;
+          }
+
+      }
+
+      /* Extra large devices XL */
+      @media only screen and (min-width: 1920px) {
+      }
+
+      #header {
+          border: solid 1px gainsboro;
+          background-color: black;
+          opacity: 0.33;
+          height: 136px;
+          position: fixed;
+          z-index: 2;
+          top: 0;
+          right: 0;
+          left: 0;
+      }
+
+      #main {
+          width: 100%;
+      }
+
+  </style>
+
+</head>
+<body data-deep="0" style="background-color: #666; padding: 0; margin: 0;">
+
+<div data-deep="1" style="display: flex;">
+  <div id="header"></div>
+  <main data-deep="2" id="main" style="z-index: 1; font-size: 16px; position:relative">
+    <div data-deep="3" class="my-container" style="margin-top:136px">
+
+      <div data-deep="4" style="">
+        <div id="my-shadow-container"
+             data-page="spa"
+             data-pid="lb-on-vite"
+             data-offset="#header"
+             data-locale="nl">
+        </div>
+      </div>
     </div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+  </main>
+</div>
+
+<script type="module" src="/src/main.jsx"></script>
+</body>
 </html>

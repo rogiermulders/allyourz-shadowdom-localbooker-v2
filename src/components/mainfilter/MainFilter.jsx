@@ -89,7 +89,7 @@ export default function MainFilter() {
         <div>{destName}</div>
       </div>
       {destinationZip &&
-        <Dropdown appendTo={context.shadowRoot}
+        <Dropdown
                   options={rangeOptions}
                   value={range}
                   onMouseDown={() => dropdownActive = true}

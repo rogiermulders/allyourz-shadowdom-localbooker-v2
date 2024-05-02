@@ -57,7 +57,7 @@ export default function FormOptions({optionalFees, setOptions, options}) {
                             value={
                               options.filter(item => item.id === fee.id)[0]?.quantity
                             }
-                            appendTo={context.shadowRoot}/> :
+                            /> :
                   <Checkbox
                     inputId={fee.id}
                     checked={!!options.filter(item => item.id === fee.id).length}

@@ -150,7 +150,6 @@ export default function Spa() {
                   {/* FILTER */}
                   <Dropdown
                     className="w100"
-                    appendTo={context.shadowRoot}
                     options={_t.page_spa.filterOptions}
                     value={mainFilter.sort}
                     onChange={e => setMainFilter(old => {

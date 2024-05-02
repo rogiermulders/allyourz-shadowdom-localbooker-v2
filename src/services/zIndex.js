@@ -1,4 +1,4 @@
-const lb = document.getElementById('localbooker')
+const lb = document.getElementById(import.meta.env.VITE_APP_ROOT)
 let prevStyles = []
 
 export default {

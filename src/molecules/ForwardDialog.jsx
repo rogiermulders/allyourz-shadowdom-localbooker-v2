@@ -37,7 +37,7 @@ const ForwardDialog = forwardRef((props, ref) => {
       header={header}
       onShow={() => {zIndex.tempFix()}}
       draggable={true}
-      appendTo={context.shadowRoot}
+
       visible={visible}
       onHide={() => {
         setVisible(false)

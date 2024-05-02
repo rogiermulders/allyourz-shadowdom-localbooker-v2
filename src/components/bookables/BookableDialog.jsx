@@ -36,9 +36,9 @@ const BookableDialog = forwardRef((props, ref) => {
   return <>
     <Dialog
       header={bookable.name}
-      onShow={() => {zIndex.tempFix()}}
+      // onShow={() => {zIndex.tempFix()}}
       draggable={true}
-      appendTo={context.shadowRoot}
+      
       visible={visible}
       onHide={() => {
         setVisible(false)

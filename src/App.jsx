@@ -11,6 +11,7 @@ import deviceCheck from './services/deviceCheck.js'
 import { plotBreakpint } from './services/debug.js'
 import PageHome from './pages/PageHome.jsx'
 import Spa from './pages/Spa.jsx'
+import Pdp from './pages/Pdp.jsx'
 
 function App({
                page,
@@ -159,7 +160,7 @@ function App({
           </> : <>
             {page === 'spa' && <>
               <Route key="000" exact path="/" element={<Spa/>}/>
-              {/*<Route key="010" exact path="/:administration_slug" element={<Pdp/>}/>*/}
+              <Route key="010" exact path="/:administration_slug" element={<Pdp/>}/>
             </>}
             {page === 'pdp' && <>
               {/*<Route key="010" exact path="/" element={<Pdp administration_slug={slug}/>}/>*/}
