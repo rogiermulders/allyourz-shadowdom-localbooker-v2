@@ -1,6 +1,6 @@
 /**
  * Maybe do this buttstrip based
- * For allyourz we of course can use _next but my guess is we should not rely on it
+ * For renesseaanzee we of course can use _next but my guess is we should not rely on it
  *
  * 384
  */

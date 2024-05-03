@@ -9,9 +9,12 @@ import recoilConfig from './recoil/recoilConfig.js'
 import recoilMainFilter from './recoil/recoilMainFilter.js'
 import deviceCheck from './services/deviceCheck.js'
 import { plotBreakpint } from './services/debug.js'
-import PageHome from './pages/PageHome.jsx'
 import Spa from './pages/Spa.jsx'
 import Pdp from './pages/Pdp.jsx'
+import PageTest from './pages/PageTest.jsx'
+import PageForm from './pages/PageForm.jsx'
+import PageConfirm from './pages/PageConfirm.jsx'
+import PageThankYou from './pages/PageThankYou.jsx'
 
 function App({
                page,
@@ -163,13 +166,13 @@ function App({
               <Route key="010" exact path="/:administration_slug" element={<Pdp/>}/>
             </>}
             {page === 'pdp' && <>
-              {/*<Route key="010" exact path="/" element={<Pdp administration_slug={slug}/>}/>*/}
+              <Route key="010" exact path="/" element={<Pdp administration_slug={slug}/>}/>
             </>}
             {/*<Route key="000" exact path="/" element={<PageThankYou/>}/>*/}
-            {/*<Route key="020" exact path="/book" element={<PageForm/>}/>*/}
-            {/*<Route key="030" exact path="/check" element={<PageConfirm/>}/>*/}
-            {/*<Route key="040" exact path="/thankyou" element={<PageThankYou/>}/>*/}
-            {/*<Route key="040" exact path="/test" element={<PageTest/>}/>*/}
+            <Route key="020" exact path="/book" element={<PageForm/>}/>
+            <Route key="030" exact path="/check" element={<PageConfirm/>}/>
+            <Route key="040" exact path="/thankyou" element={<PageThankYou/>}/>
+            <Route key="040" exact path="/test" element={<PageTest/>}/>
 
           </>}
       </Routes>

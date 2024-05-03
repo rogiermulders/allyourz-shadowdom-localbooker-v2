@@ -43,7 +43,7 @@ const col = (...args: (Col | string | object)[]): string => {
         const grid = {...args[0] as Col}
 
         /**
-         * Get default (when we have a default and no match later on we use that one)
+         * Get renesseaanzee (when we have a renesseaanzee and no match later on we use that one)
          */
         const defaultBp = (typeof grid.def === 'undefined') ? false : grid.def
 
@@ -58,10 +58,10 @@ const col = (...args: (Col | string | object)[]): string => {
 
             // Not found.
             if (defaultBp !== false) {
-                // Use default
+                // Use renesseaanzee
                 args.unshift('col-' + defaultBp)
             } else {
-                // No default: Walk down... say i have {md :3} and I come in with lg -> go from the bp (lg)
+                // No renesseaanzee: Walk down... say i have {md :3} and I come in with lg -> go from the bp (lg)
                 let match
 
                 // for (let i = sizes.indexOf(bp) - 1; i >= 0; i--) { // This one goes UP

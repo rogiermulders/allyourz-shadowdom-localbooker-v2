@@ -20,7 +20,7 @@ const mode = import.meta.env.VITE_APP_MODE
 let options = {}
 if (mode === 'SHADOW') {
   window.zaffius_root_node.attachShadow({ mode: 'open' })
-  injectIconSvgIntoDom(window.zaffius_root_node.shadowRoot)                // Insert the allyourz icons into the shadow dom
+  injectIconSvgIntoDom(window.zaffius_root_node.shadowRoot)                // Insert the renesseaanzee icons into the shadow dom
   window.zaffius_appRoot = window.zaffius_root_node.shadowRoot
 
   options = {

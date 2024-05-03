@@ -1,4 +1,4 @@
-import '../css/index.css'
+// import '../css/index.css'
 import 'primereact/resources/themes/lara-light-blue/theme.css'
 import 'primeicons/primeicons.css'
 

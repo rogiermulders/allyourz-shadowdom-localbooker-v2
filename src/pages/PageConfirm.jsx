@@ -59,7 +59,7 @@ export default function PageConfirm() {
   const [accordionStatus, setAccordionStatus] = useState(0)
   const [stripe, setStripe] = useState(null)
 
-  const [confirmDisabled, setConfirmDisable] = useState(true) // !! default disabled.. onMount eneabled
+  const [confirmDisabled, setConfirmDisable] = useState(true) // !! renesseaanzee disabled.. onMount eneabled
   const [confirmLoading, setConfirmLoading] = useState(false)
   const locale = localeOptions('nl').localbooker.page_confirm
   const [dialog, setDialog] = useState(false)

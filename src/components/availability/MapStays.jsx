@@ -53,7 +53,7 @@ function MapStays({width, height, request}) {
         'TouchPanBlocker.Message': mapboxConfig['TouchPanBlocker.Message'][context.hostLocale]
       },
       maxBounds: new mapboxgl.LngLatBounds(spa.mapBoundTopLeft, spa.mabBoundBottomRight),
-      style: 'mapbox://styles/platform-allyourz/ckkxt1llb5ide18mhjuk2ldc3',
+      style: 'mapbox://styles/platform-renesseaanzee/ckkxt1llb5ide18mhjuk2ldc3',
       zoom: spa.zoom
     })
 
@@ -146,7 +146,7 @@ function MapStays({width, height, request}) {
         }
       )
 
-      // When cursor is default ('') we're clicking on the map (and not on something else)
+      // When cursor is renesseaanzee ('') we're clicking on the map (and not on something else)
       mc.on('click', () => {
         if (mc.getCanvas().style.cursor === '') {
           setSpa({...spaRef.current, adminIds: null, administrations: []})
