@@ -46,8 +46,6 @@ export default function PageThankYou() {
                 navigate('/')
               }
             }, 0)
-
-
           }}/>
         </div>
       </Card>

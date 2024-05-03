@@ -1,13 +1,10 @@
-// This one will always get hotloaded cuz of the css imports
-// Don't know what to do about it
-import theme_css from '../sass/renesseaanzee.scss?inline'
+import { useEffect } from 'react'
+
 import primeicons_css from 'primeicons/primeicons.css?inline'
 import swiper from 'swiper/swiper-bundle.css?inline'
 import mapbox from 'mapbox-gl/dist/mapbox-gl.css?inline'
-
-
-import { useEffect } from 'react'
 import loadfonts from './loadfonts.js'
+
 
 const insertIntoShadowDom = (element) => {
   let current = window.zaffius_appRoot.getElementById(element.id)
@@ -17,9 +14,10 @@ const insertIntoShadowDom = (element) => {
   window.zaffius_appRoot.insertBefore(element, window.zaffius_appRoot.firstChild)
 }
 
-const styles = {primeicons_css, theme_css, swiper, mapbox}
+export default function Shadow({ children, theme_css }) {
 
-if('SHADOW' === import.meta.env.VITE_APP_MODE) {
+  const styles = { primeicons_css, theme_css, swiper, mapbox }
+
   const handle = setInterval(() => {
     if (window.zaffius_appRoot) {
       clearInterval(handle)
@@ -32,17 +30,15 @@ if('SHADOW' === import.meta.env.VITE_APP_MODE) {
       }
     }
   }, 10)
-}
 
-export default function Shadow({ children }) {
 
   useEffect(() => {
     const fetch = async () => {
       await loadfonts()
     }
-    if (import.meta.env.PROD) {
-      fetch().then()
-    }
+    fetch().then()
   }, [])
+
   return children
+
 }

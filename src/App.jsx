@@ -159,7 +159,7 @@ function App({
       <Routes>
         {searchParams.get('payment_intent') ?
           <>
-            {/*<Route key="040" exact path="/" element={<PageThankYou/>}/>*/}
+            <Route key="040" exact path="/" element={<PageThankYou/>}/>
           </> : <>
             {page === 'spa' && <>
               <Route key="000" exact path="/" element={<Spa/>}/>
@@ -168,7 +168,7 @@ function App({
             {page === 'pdp' && <>
               <Route key="010" exact path="/" element={<Pdp administration_slug={slug}/>}/>
             </>}
-            {/*<Route key="000" exact path="/" element={<PageThankYou/>}/>*/}
+            <Route key="000" exact path="/" element={<PageThankYou/>}/>
             <Route key="020" exact path="/book" element={<PageForm/>}/>
             <Route key="030" exact path="/check" element={<PageConfirm/>}/>
             <Route key="040" exact path="/thankyou" element={<PageThankYou/>}/>
@@ -183,7 +183,7 @@ function App({
 
   return (
     <RecoilRoot>
-      <MainContextProvider>
+
         <div className="app p-component">
           <MyRouter
             content={content}
@@ -196,7 +196,7 @@ function App({
             mainfilter={mainfilter || null}
           />
         </div>
-      </MainContextProvider>
+
     </RecoilRoot>
 
 

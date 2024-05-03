@@ -24,7 +24,7 @@ const MainContextProvider = ({children}) => {
     const [maxGuests, setMaxGuests] = useState(0)
     const [maxPets, setMaxPets] = useState(0)
     const [cheapest, setCheapest] = useState(0)
-
+    const [themeCss,setThemeCss] = useState(null)
 
     const _t = () => {
         const locale = localeOptions(hostLocale) as Translate
@@ -71,13 +71,13 @@ const MainContextProvider = ({children}) => {
         maxGuests,
         maxPets,
         cheapest,
-
+        themeCss,
         setLoading,
         setMaxGuests,
         setMaxPets,
         setCheapest,
         setHostLocale,
-
+        setThemeCss,
         _t
     }}>
         {children}

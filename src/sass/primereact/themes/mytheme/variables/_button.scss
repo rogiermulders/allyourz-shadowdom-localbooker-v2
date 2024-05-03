@@ -114,7 +114,7 @@ $secondaryButtonTextActiveColor: #ffffff;
 /// @group button
 $secondaryButtonActiveBorderColor: #455A64;
 
-/// Box shadow of a secondary button in focused state
+/// Box themes of a secondary button in focused state
 /// @group button
 $secondaryButtonFocusShadow: 0 0 0 0.2rem #B0BEC5;
 
@@ -154,7 +154,7 @@ $infoButtonTextActiveColor: #ffffff;
 /// @group button
 $infoButtonActiveBorderColor: #0288D1;
 
-/// Box shadow of an info button in focused state
+/// Box themes of an info button in focused state
 /// @group button
 $infoButtonFocusShadow: 0 0 0 0.2rem lighten($infoButtonBg, 35%);
 
@@ -194,7 +194,7 @@ $successButtonTextActiveColor: #ffffff;
 /// @group button
 $successButtonActiveBorderColor: #388E3C;
 
-/// Box shadow of a success button in focused state
+/// Box themes of a success button in focused state
 /// @group button
 $successButtonFocusShadow: 0 0 0 0.2rem lighten($successButtonBg, 35%);
 
@@ -234,7 +234,7 @@ $warningButtonTextActiveColor: $textColor;
 /// @group button
 $warningButtonActiveBorderColor: #FFA000;
 
-/// Box shadow of a warning button in focused state
+/// Box themes of a warning button in focused state
 /// @group button
 $warningButtonFocusShadow: 0 0 0 0.2rem lighten($warningButtonBg, 35%);
 
@@ -274,7 +274,7 @@ $helpButtonTextActiveColor:#ffffff;
 /// @group button
 $helpButtonActiveBorderColor:#7B1FA2;
 
-/// Box shadow of a help button in focused state
+/// Box themes of a help button in focused state
 /// @group button
 $helpButtonFocusShadow:0 0 0 0.2rem #CE93D8;
 
@@ -314,7 +314,7 @@ $dangerButtonTextActiveColor: #ffffff;
 /// @group button
 $dangerButtonActiveBorderColor: #d32f2f;
 
-/// Box shadow of a danger button in focused state
+/// Box themes of a danger button in focused state
 /// @group button
 $dangerButtonFocusShadow: 0 0 0 0.2rem lighten($dangerButtonBg, 35%);
 
@@ -330,7 +330,7 @@ $linkButtonHoverColor:$primaryDarkerColor;
 /// @group button
 $linkButtonTextHoverDecoration:underline;
 
-/// Box shadow of a link button in focused state
+/// Box themes of a link button in focused state
 /// @group button
 $linkButtonFocusShadow: 0 0 0 0.2rem $focusOutlineColor;
 
