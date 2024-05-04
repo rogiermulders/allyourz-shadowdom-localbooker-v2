@@ -144,6 +144,16 @@ function App({
     }, [context.breakpoint?.s, context.breakpoint?.sw, context.breakpoint?.ih])
 
     /**
+     * Wait for all css to be loaded before we show the app
+     */
+    useEffect(() => {
+      if(context.allCssLoaded){
+          window.zaffius_appRoot.getElementById('app').style.visibility= 'visible'
+      }
+    }, [context.allCssLoaded])
+
+
+    /**
      * wait for breakpoints
      */
     if (!context.breakpoint?.s) return null
@@ -184,7 +194,7 @@ function App({
   return (
     <RecoilRoot>
 
-        <div className="app p-component">
+        <div id="app" className="p-component" style={{visibility:'hidden'}}>
           <MyRouter
             content={content}
             page={page || null}

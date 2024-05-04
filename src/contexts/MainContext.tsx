@@ -17,6 +17,7 @@ const breakpoints = [
 const MainContextProvider = ({children}) => {
     const ref = useRef()
     const [loading, setLoading] = useState(false)
+    const [allCssLoaded, setAllCssLoaded] = useState(false)
     const [shadowRoot, setShadowRoot] = useState(null)
     const [breakpoint, setBreakpoint] = useState(null)
     const [reactApp, setReactApp] = useState(null)
@@ -67,7 +68,7 @@ const MainContextProvider = ({children}) => {
         shadowRoot,
         reactApp,
         hostLocale,
-
+        allCssLoaded,
         maxGuests,
         maxPets,
         cheapest,
@@ -78,6 +79,7 @@ const MainContextProvider = ({children}) => {
         setCheapest,
         setHostLocale,
         setThemeCss,
+        setAllCssLoaded,
         _t
     }}>
         {children}

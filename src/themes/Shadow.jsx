@@ -1,9 +1,10 @@
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 
 import primeicons_css from 'primeicons/primeicons.css?inline'
 import swiper from 'swiper/swiper-bundle.css?inline'
 import mapbox from 'mapbox-gl/dist/mapbox-gl.css?inline'
 import loadfonts from './loadfonts.js'
+import { MainContext } from '../contexts/MainContext'
 
 
 const insertIntoShadowDom = (element) => {
@@ -15,8 +16,8 @@ const insertIntoShadowDom = (element) => {
 }
 
 export default function Shadow({ children, theme_css }) {
-
-  const styles = { primeicons_css, theme_css, swiper, mapbox }
+  const context = useContext(MainContext)
+  const styles = { theme_css, primeicons_css, swiper, mapbox }
 
   const handle = setInterval(() => {
     if (window.zaffius_appRoot) {
@@ -28,6 +29,8 @@ export default function Shadow({ children, theme_css }) {
         s.innerHTML = value
         insertIntoShadowDom(s)
       }
+      // Tell the world all css has been loaded
+      context.setAllCssLoaded(true)
     }
   }, 10)
 

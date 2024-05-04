@@ -136,8 +136,8 @@
             }
 
             &.p-highlight-contextmenu {
-                outline: 0.15rem solid $focusOutlineColor;
-                outline-offset: -0.15rem;
+                outline: 0.15em solid $focusOutlineColor;
+                outline-offset: -0.15em;
             }
 
             &.p-datatable-dragpoint-top > td {
@@ -158,8 +158,8 @@
             }
 
             &:focus-visible {
-                outline: .15rem solid $focusOutlineColor;
-                outline-offset: -.15rem;
+                outline: .15em solid $focusOutlineColor;
+                outline-offset: -.15em;
             }
         }
     }
@@ -173,8 +173,8 @@
                 }
 
                 &:focus-visible {
-                    outline: .15rem solid $focusOutlineColor;
-                    outline-offset: -.15rem;
+                    outline: .15em solid $focusOutlineColor;
+                    outline-offset: -.15em;
                 }
             }
         }

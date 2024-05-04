@@ -16,8 +16,8 @@
         
         .p-metergroup-label-type {
             background: $progressBarValueBg;
-            width: 0.5rem;
-            height: 0.5rem;
+            width: 0.5em;
+            height: 0.5em;
             border-radius: 100%;
             margin-right: $inlineSpacing;
         }
@@ -27,8 +27,8 @@
         }
     
         .p-metergroup-label-icon {
-            width: 1rem;
-            height: 1rem;
+            width: 1em;
+            height: 1em;
             margin-right: $inlineSpacing;
         }
     }
@@ -36,7 +36,7 @@
 
     &.p-metergroup-horizontal {
         .p-metergroup-meter-container {
-            height: 0.5rem;
+            height: 0.5em;
         }
 
         .p-metergroup-meter:first-of-type {
@@ -60,7 +60,7 @@
 
     &.p-metergroup-vertical {
         .p-metergroup-meter-container {
-            width: 0.5rem;
+            width: 0.5em;
             height: 100%;
         }
 
