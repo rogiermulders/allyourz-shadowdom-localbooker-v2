@@ -2,7 +2,7 @@ function plotBreakpint(s, sw, ih) {
 
   if(!s || !sw) return;
 
-  if(import.meta.env.VITE_APP_ENV !== 'DEV') return
+  if(import.meta.env.PROD) return
 
   /**
    * Set some debby breakpoint

@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { RecoilRoot, useRecoilState } from 'recoil'
-import { MainContext, MainContextProvider } from './contexts/MainContext'
+import { MainContext } from './contexts/MainContext'
 import PageError from './pages/PageError.jsx'
 import {locale} from 'primereact/api';
 import {loadStripe} from '@stripe/stripe-js';
@@ -78,7 +78,7 @@ function App({
      * Routes when landing on SPA
      *
      * When DEV we do not have a localbooker-root so just '/'
-     * In the wild, localbooker is bootstrapped with localbooker.php -> localbooker.js
+     * In the wild, localbooker is bootstrapped with localbooker.js
      * (from within the public folder)
      * That one sets the root pages
      */

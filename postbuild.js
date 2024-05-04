@@ -13,7 +13,7 @@ export default async function runPostbuild() {
   let index_html = await fs.readFile(indexFile, {encoding: 'utf8'});
   const jsFileName = index_html.substring(index_html.indexOf('.js') - 14, index_html.indexOf('.js') + 3)
 
-  const launchFile = buildPath + '/shadow_launch.js'
+  const launchFile = buildPath + '/localbooker.js'
   let shadow_launch_js = await fs.readFile(launchFile, {encoding: 'utf8'});
 
   shadow_launch_js = shadow_launch_js.replaceAll('$index_js', '/assets/' + jsFileName)
