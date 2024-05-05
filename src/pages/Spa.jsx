@@ -1,28 +1,30 @@
-import Loading from "../molecules/Loading.jsx";
-import {col, lte} from "../services/buttstrip";
-import SubFilter from "../components/subfilter/SubFilter.jsx";
-import {useRecoilState, useRecoilValue} from "recoil";
-import selectorMainFilter from "../recoil/selectors/selectorMainFilter";
-import {useContext, useEffect, useMemo, useState} from "react";
-import {MainContext} from "../contexts/MainContext";
-import recoilMainFilter from "../recoil/recoilMainFilter";
-import recoilAvailability from "../recoil/recoilAvailability";
-import {classNames} from "primereact/utils";
-import recoilSpa from "../recoil/recoilSpa";
-import {rowsPerPage} from "../data/constants";
-import {Button} from "primereact/button";
-import Icon from "../molecules/Icon.jsx";
-import {Dropdown} from "primereact/dropdown";
-import {Badge} from 'primereact/badge';
-import recoilSubfilter from "../recoil/recoilSubfilter";
-import {getYmd} from "../services/dates";
-import axios from "axios";
-import MainFilter from "../components/mainfilter/MainFilter.jsx";
-import Takeover from "../molecules/Takeover.jsx";
-import PowerdBy from "../molecules/PowerdBy.jsx";
+import Loading from '../molecules/Loading.jsx'
+import { col, lte } from '../services/buttstrip'
+import SubFilter from '../components/subfilter/SubFilter.jsx'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import selectorMainFilter from '../recoil/selectors/selectorMainFilter'
+import { lazy, Suspense, useContext, useEffect, useMemo, useState } from 'react'
+import { MainContext } from '../contexts/MainContext'
+import recoilMainFilter from '../recoil/recoilMainFilter'
+import recoilAvailability from '../recoil/recoilAvailability'
+import { classNames } from 'primereact/utils'
+import recoilSpa from '../recoil/recoilSpa'
+import { rowsPerPage } from '../data/constants'
+import { Button } from 'primereact/button'
+import Icon from '../molecules/Icon.jsx'
+import { Dropdown } from 'primereact/dropdown'
+import { Badge } from 'primereact/badge'
+import recoilSubfilter from '../recoil/recoilSubfilter'
+import { getYmd } from '../services/dates'
+import axios from 'axios'
+import MainFilter from '../components/mainfilter/MainFilter.jsx'
+import Takeover from '../molecules/Takeover.jsx'
+import PowerdBy from '../molecules/PowerdBy.jsx'
 
-import SpaList from "../components/availability/SpaList.jsx";
-import MapStays from "../components/availability/MapStays.jsx";
+import SpaList from '../components/availability/SpaList.jsx'
+
+const MapStays = lazy(() => import('../components/availability/MapStays'))
+
 
 export default function Spa() {
   const context = useContext(MainContext)
@@ -64,7 +66,7 @@ export default function Spa() {
       sort,
       offset,
       limit: rowsPerPage,
-      limitMedia: 1,
+      limitMedia: 1
     }
     // WhereContent
     if (regionId === null) {                        // regionId not selected. must be place
@@ -92,32 +94,31 @@ export default function Spa() {
        * Below some 'run once' code (only when the request changes)
        * or list/map switch
        */
-        context.setLoading(true)
+      context.setLoading(true)
 
-        // always set this one because it knows the proper bookable count (guess)
-        axios.post('/v1/availability/get', request).then(res => {
-          setAvailability(res.data)
-          context.setLoading(false)
-        })
+      // always set this one because it knows the proper bookable count (guess)
+      axios.post('/v1/availability/get', request).then(res => {
+        setAvailability(res.data)
+        context.setLoading(false)
+      })
 
     }, [request]
   )
 
   const MapButton = () => <Button
-      icon={<Icon name={spa.mapListMode === 'map' ? 'list' : 'map'} size="1.5em"
-                  style={{marginRight: '0.3em'}}/>}
-      label={_t.page_spa[spa.mapListMode === 'map' ? 'list' : 'map'] || 'Kaart'}
-      onClick={() => {
-        setSpa({...spa, mapListMode: (spa.mapListMode === 'map' ? 'list' : 'map')})
-      }}
-      outlined
-      severity="secondary"
-      rounded/>
-
+    icon={<Icon name={spa.mapListMode === 'map' ? 'list' : 'map'} size="1.5em"
+                style={{ marginRight: '0.3em' }} />}
+    label={_t.page_spa[spa.mapListMode === 'map' ? 'list' : 'map'] || 'Kaart'}
+    onClick={() => {
+      setSpa({ ...spa, mapListMode: (spa.mapListMode === 'map' ? 'list' : 'map') })
+    }}
+    outlined
+    severity="secondary"
+    rounded />
 
 
   return <div>
-    <Loading/>
+    <Loading />
     {
       showSubFilter ?
         // ============== TAKEPOVER ============
@@ -131,21 +132,21 @@ export default function Spa() {
             label: 'Bekijke resultaten',
             onClick: () => setShowSubFilter(false)
           }}>
-          <SubFilter/>
+          <SubFilter />
         </Takeover>
         :
         // ============== ACTUAL PAGE ============
         <>
-          <MainFilter/>
+          <MainFilter />
           <div className="filter-result p-4 text-color">
             <div className="grid padding">
               {/* TOTALS */}
-              <div className={col({sm: 12, md: 6}, 'pt-5')}>
+              <div className={col({ sm: 12, md: 6 }, 'pt-5')}>
                 {availability.total && _t.page_spa.accos_found.replace('{accos}', availability.totalBookable).replace('{ents}', availability.total)}
               </div>
-              <div className={col({def: 0, md: 0, lg: 2, xl: 2}, 'pt-5')}>
+              <div className={col({ def: 0, md: 0, lg: 2, xl: 2 }, 'pt-5')}>
               </div>
-              <div className={col({sm: 6, md: 6}, "flex")}>
+              <div className={col({ sm: 6, md: 6 }, 'flex')}>
                 <div className="w75">
                   {/* FILTER */}
                   <Dropdown
@@ -153,39 +154,43 @@ export default function Spa() {
                     options={_t.page_spa.filterOptions}
                     value={mainFilter.sort}
                     onChange={e => setMainFilter(old => {
-                      return {...old, sort: e.value}
+                      return { ...old, sort: e.value }
                     })}
                   />
                 </div>
-                <div className={classNames({'none':lte('sm')}, "w25 text-center")}>
+                <div className={classNames({ 'none': lte('sm') }, 'w25 text-center')}>
                   {/* MAP BUTTON LARGE */}
-                  <MapButton/>
+                  <MapButton />
                 </div>
               </div>
-              <div className={col({def: 0, xs: 6, sm: 6}, 'text-right')}>
+              <div className={col({ def: 0, xs: 6, sm: 6 }, 'text-right')}>
                 {(subFilters.length !== 0) && <Badge value={subFilters.length} style={{
                   position: 'absolute',
                   top: '-0.5em',
                   right: '-0.5em',
                   zIndex: 1
-                }}/>}
+                }} />}
                 {/*MAP BUTTON SMALL*/}
                 <MapButton />
                 {/*FILTERS SMALL*/}
                 <Button
-                  icon={<Icon name="filter" size="1.5em"/>}
+                  icon={<Icon name="filter" size="1.5em" />}
                   className="ml-8"
                   label="Filters"
                   onClick={() => setShowSubFilter(true)}
                   outlined
                   severity="secondary"
-                  rounded/>
+                  rounded />
               </div>
 
-              {spa.mapListMode === 'list' && <SpaList/>}
+              {spa.mapListMode === 'list' && <SpaList />}
 
 
-              {spa.mapListMode === 'map' && <MapStays request={request} width="100%" height="600px"/>}
+              {spa.mapListMode === 'map' &&
+                <Suspense fallback={<Loading />}>
+                  <MapStays request={request} width="100%" height="600px" />
+                </Suspense>
+              }
 
 
             </div>
@@ -193,6 +198,6 @@ export default function Spa() {
 
         </>
     }
-    <PowerdBy/>
+    <PowerdBy />
   </div>
 }
