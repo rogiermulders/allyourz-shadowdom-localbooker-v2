@@ -14,8 +14,9 @@ export default function WhoContent({usedIn}) {
 
 
   const plusMinusClicked = (type, direction) => {
+
     const o = {}
-    o[type] = eval(type) + direction
+    o[type] = mainFilter.who[type] + direction
     setMainFilter(old => {
       return {...old, who: {...old.who, ...o}}
     })
@@ -50,7 +51,7 @@ export default function WhoContent({usedIn}) {
           outlined rounded/>
       </div>
       <div className="w20">
-        <InputText className="w100 text-center" readOnly value={eval(type)}/>
+        <InputText className="w100 text-center" readOnly value={mainFilter.who[type]}/>
       </div>
       <div className="w20 text-center">
         {/*THE PLUS BUTT*/}
