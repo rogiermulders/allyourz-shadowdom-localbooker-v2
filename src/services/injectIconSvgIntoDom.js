@@ -6,7 +6,7 @@ export const injectIconSvgIntoDom = (parent) => {
     baseURL: import.meta.env.VITE_APP_URL
   }).then(res => {
     const div = document.createElement("div")
-    div.dataset.info = 'renesseaanzee icons'
+    div.dataset.info = 'localbooker icons'
     div.style.display = 'none'
     div.innerHTML = res.data
 

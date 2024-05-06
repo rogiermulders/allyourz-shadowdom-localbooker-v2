@@ -32,7 +32,7 @@ const col = (...args: (Col | string | object)[]): string => {
     /**
      * Get the breakpoint (low level shit, dunno this will work)
      */
-    const bp = window.zaffius_root_node.breakpoint.s
+    const bp = window.localbooker_container.breakpoint.s
     /**
      * Check the first arg, when the value is a number it is our grid
      */
@@ -90,7 +90,7 @@ const col = (...args: (Col | string | object)[]): string => {
     return classNames(...args)
 
 }
-const bpIndex = () => sizes.indexOf(window.zaffius_root_node.breakpoint.s)
+const bpIndex = () => sizes.indexOf(window.localbooker_container.breakpoint.s)
 
 const lte = (bp: 'xl' | 'lg' | 'md' | 'sm' | 'xs') => {
     const queryIndex = sizes.indexOf(bp);
@@ -107,7 +107,7 @@ const wh = (width: WidthHeight, height: WidthHeight, style?: object): object => 
     /**
      * Get the breakpoint (low level shit, dunno this will work)
      */
-    const bp = window.zaffius_root_node.breakpoint.s
+    const bp = window.localbooker_container.breakpoint.s
 
     // Handle width
     let myWidth = width.def;
@@ -130,20 +130,20 @@ const wh = (width: WidthHeight, height: WidthHeight, style?: object): object => 
  * Adds a breakpoint to the class thing
  */
 const addBp = (...args: any[]): string => {
-    args.push(window.zaffius_root_node.breakpoint.s)
+    args.push(window.localbooker_container.breakpoint.s)
     return classNames(...args)
 }
 
 /**
  * Gets the breakpoint
  */
-const getBp = (): string => window.zaffius_root_node.breakpoint.s
+const getBp = (): string => window.localbooker_container.breakpoint.s
 
 const ifBp = (bps: string | [string]): boolean => {
     if (typeof bps === 'string') {
         bps = [bps]
     }
-    return bps.includes(window.zaffius_root_node.breakpoint.s)
+    return bps.includes(window.localbooker_container.breakpoint.s)
 }
 
 export {col, getBp, ifBp, addBp, wh, lte, gte, bpIndex}

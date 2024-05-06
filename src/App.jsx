@@ -148,7 +148,7 @@ function App({
      */
     useEffect(() => {
       if(context.allCssLoaded){
-          window.zaffius_appRoot.getElementById('app').style.visibility= 'visible'
+          window.localbooker_shadowRoot.getElementById('app').style.visibility= 'visible'
       }
     }, [context.allCssLoaded])
 

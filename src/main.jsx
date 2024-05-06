@@ -13,26 +13,37 @@ import ThemeRenesseAanZee from './themes/ThemeRenesseAanZee.jsx'
 import ThemeAllyourz from './themes/ThemeAllyourz.jsx'
 import ThemeNova from './themes/ThemeNova.jsx'
 
+import relativeToStatic from './services/relativeToStatic.js'
+
 // Set the base URL for axios
 axios.defaults.baseURL = import.meta.env.VITE_APP_API
 
-// Set the React root node
-window.zaffius_root_node = document.getElementById(import.meta.env.VITE_APP_ROOT)
+// Find and store the localbooker container
+window.localbooker_container = document.getElementById(import.meta.env.VITE_APP_ROOT)
+/**
+ * Have a hard time with relative containers
+ * Seems to not have too many issues wen just convert them to static
+ */
+relativeToStatic.run(window.localbooker_container)
 
+// Open the shadow dom
+window.localbooker_container.attachShadow({ mode: 'open' })
+window.localbooker_shadowRoot = window.localbooker_container.shadowRoot
+// need them icons in the shadow dom
+injectIconSvgIntoDom(window.localbooker_container.shadowRoot)
 
-window.zaffius_root_node.attachShadow({ mode: 'open' })
-injectIconSvgIntoDom(window.zaffius_root_node.shadowRoot)                // Insert the renesseaanzee icons into the themes dom
-window.zaffius_appRoot = window.zaffius_root_node.shadowRoot
-
+// Set the options for PrimeReact
 const options = {
-  appendTo: window.zaffius_appRoot,
-  styleContainer: window.zaffius_appRoot
+  appendTo: window.localbooker_shadowRoot,
+  styleContainer: window.localbooker_shadowRoot
 }
 
-const data = window.zaffius_root_node.dataset
+// Easy reading
+const data = window.localbooker_container.dataset
+
 /**
  * Hack so we can change some stuff with url parameter
- * This is debugging stuff.. Would like to remove
+ * This is debugging stuff. Would like to remove
  */
 const searchParams = new URLSearchParams(document.location.search)
 const locale = searchParams.get('localbooker-locale')
@@ -47,7 +58,7 @@ const app = () => <App
   hostlocale={locale || data.locale}
   content={data.content !== 'false'}
   scroll={data.scroll !== 'false'}
-  scrollto={window.zaffius_root_node.getBoundingClientRect().y}
+  scrollto={window.localbooker_container.getBoundingClientRect().y}
 />
 
 const switcher = () => {
@@ -68,11 +79,11 @@ axios.get('/localbooker/locales').then(res => {
       addLocale(locale, JSON.parse(json))
     }
   }
-  ReactDOM.createRoot(window.zaffius_appRoot).render(
+  ReactDOM.createRoot(window.localbooker_shadowRoot).render(
     <React.StrictMode>
       <PrimeReactProvider value={options}>
         <MainContextProvider>
-            {switcher()}
+          {switcher()}
         </MainContextProvider>
       </PrimeReactProvider>
     </React.StrictMode>

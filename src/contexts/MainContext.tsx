@@ -34,12 +34,12 @@ const MainContextProvider = ({children}) => {
 
     useEffect(() => {
         // @ts-ignore
-        setShadowRoot(window.zaffius_appRoot)
+        setShadowRoot(window.localbooker_shadowRoot)
         // @ts-ignore
-        setReactApp(window.zaffius_appRoot.getElementById('react-app'))
+        setReactApp(window.localbooker_shadowRoot.getElementById('react-app'))
         const handleResize = () => {
             // @ts-ignore
-            const clientWidth = window.zaffius_root_node.clientWidth
+            const clientWidth = window.localbooker_container.clientWidth
 
             // @ts-ignore
             const bp = breakpoints.find((el) => clientWidth >= el.w)
@@ -49,7 +49,7 @@ const MainContextProvider = ({children}) => {
             bp.sw = clientWidth
             bp.ih = window.innerHeight
             // @ts-ignore
-            window.zaffius_root_node.breakpoint = bp
+            window.localbooker_container.breakpoint = bp
             setBreakpoint({...bp})
         }
 

@@ -8,11 +8,11 @@ import { MainContext } from '../contexts/MainContext'
 
 
 const insertIntoShadowDom = (element) => {
-  let current = window.zaffius_appRoot.getElementById(element.id)
+  let current = window.localbooker_shadowRoot.getElementById(element.id)
   if (current) {
     current.remove()
   }
-  window.zaffius_appRoot.insertBefore(element, window.zaffius_appRoot.firstChild)
+  window.localbooker_shadowRoot.insertBefore(element, window.localbooker_shadowRoot.firstChild)
 }
 
 export default function Shadow({ children, theme_css }) {
@@ -20,7 +20,7 @@ export default function Shadow({ children, theme_css }) {
   const styles = { theme_css, primeicons_css, swiper, mapbox }
 
   const handle = setInterval(() => {
-    if (window.zaffius_appRoot) {
+    if (window.localbooker_shadowRoot) {
       clearInterval(handle)
       for (const [key, value] of Object.entries(styles)) {
         const s = document.createElement('style')
