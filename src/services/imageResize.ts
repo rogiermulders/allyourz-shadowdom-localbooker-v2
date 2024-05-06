@@ -13,7 +13,9 @@ export const imageResize = (imgSrc, width: 96 | 128 | 256 | 384 | 640 | 750 | 82
     /**
      * Do we get the images from next?
      */
+    // @ts-ignore
     if(import.meta.env.VITE_APP_IMAGESERVICE.includes('_next')) {
+        // @ts-ignore
         return import.meta.env.VITE_APP_IMAGESERVICE + '?url=' + encodeURIComponent(imgSrc) + '&w=' + width + '&q=75'
     } else {
         if(width <= 384) {

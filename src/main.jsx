@@ -61,6 +61,10 @@ const app = () => <App
   scrollto={window.localbooker_container.getBoundingClientRect().y}
 />
 
+/*******************************************************************************
+  * Switcher
+  * @returns {JSX.Element}
+  *****************************************************************************/
 const switcher = () => {
   switch (import.meta.env.VITE_APP_THEME) {
     case 'renesseaanzee':
@@ -83,7 +87,7 @@ axios.get('/localbooker/locales').then(res => {
     <React.StrictMode>
       <PrimeReactProvider value={options}>
         <MainContextProvider>
-          {switcher()}
+            {switcher()}
         </MainContextProvider>
       </PrimeReactProvider>
     </React.StrictMode>

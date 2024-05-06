@@ -85,7 +85,6 @@ function App({
     const lbRoot = JSON.parse(sessionStorage.getItem('localbooker-root'))
     const basename = lbRoot ? lbRoot[hostlocale][page] : '/'
 
-
     useEffect(() => {
 
       context.setHostLocale(hostlocale)

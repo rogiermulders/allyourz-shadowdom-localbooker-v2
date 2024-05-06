@@ -21,8 +21,8 @@ import MainFilter from '../components/mainfilter/MainFilter.jsx'
 import Takeover from '../molecules/Takeover.jsx'
 import PowerdBy from '../molecules/PowerdBy.jsx'
 
-import SpaList from '../components/availability/SpaList.jsx'
 
+const SpaList = lazy(() => import('../components/availability/SpaList.jsx'))
 const MapStays = lazy(() => import('../components/availability/MapStays'))
 
 
@@ -183,8 +183,11 @@ export default function Spa() {
                   rounded />
               </div>
 
-              {spa.mapListMode === 'list' && <SpaList />}
-
+              {spa.mapListMode === 'list' &&
+                <Suspense fallback={<Loading />}>
+                  <SpaList />
+                </Suspense>
+              }
 
               {spa.mapListMode === 'map' &&
                 <Suspense fallback={<Loading />}>
