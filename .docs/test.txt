@@ -1,1 +1,18 @@
-test 3cd
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name renesseaanzee.localbooker.nl;
+
+    root /home/allyourz/renesseaanzee.localbooker.nl;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+    location ~* \.(eot|ttf|woff|woff2|js)$ {
+        add_header Access-Control-Allow-Origin *;
+    }
+
+}
+

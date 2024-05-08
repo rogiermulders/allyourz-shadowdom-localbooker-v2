@@ -80,7 +80,7 @@ export default function FormNaw({optionalFees, onFormSubmit, options, setOptions
         name={name}
         value={formik.values[name]}
         onChange={(e) => {
-          formik.setFieldValue(name, e.target.value)
+          formik.setFieldValue(name, e.target.value, false)
         }}
         placeholder={_t.page_form.placeholder[name]}/>
       {getFormErrorMessage(name)}
@@ -133,7 +133,7 @@ export default function FormNaw({optionalFees, onFormSubmit, options, setOptions
               name="country"
 
               value={formik.values.country}
-              onChange={(e) => formik.setFieldValue('country', e.value)}
+              onChange={(e) => formik.setFieldValue('country', e.value, false)}
               options={_t.countries}
               placeholder={_t.page_form.placeholder.country}/>
             {getFormErrorMessage('country')}
@@ -151,7 +151,7 @@ export default function FormNaw({optionalFees, onFormSubmit, options, setOptions
             <InputTextarea
               name='extra_message'
               value={formik.values.extra_message}
-              onChange={(e) => formik.setFieldValue('extra_message', e.target.value)}
+              onChange={(e) => formik.setFieldValue('extra_message', e.target.value, false)}
               rows={4}
             />
           </label>
