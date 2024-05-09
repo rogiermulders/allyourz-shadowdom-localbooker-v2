@@ -42,8 +42,6 @@ export default function Pdp({administration_slug}) {
     })
   }, [administration_slug, context.hostLocale])
 
-  // console.log(administration)
-
   return <>
 
     <div ref={srollInViewRef} className={lte('sm') ? 'grid' : 'grid padding'}>
@@ -116,6 +114,7 @@ export default function Pdp({administration_slug}) {
         {administration &&
           // + 8 cuz we have a padding 8
           <div style={{position: 'sticky', top: (config.offset + 8)}}>
+
             <PdpCart
               administration={administration}
               pdpScrollToFirstBookabe={() => {

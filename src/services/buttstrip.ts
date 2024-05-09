@@ -102,6 +102,14 @@ const gte = (bp: 'xl' | 'lg' | 'md' | 'sm' | 'xs') => {
     return queryIndex >= bpIndex()
 }
 
+const box = () =>{
+    const {breakpoint} = window.localbooker_container
+    return {
+        w: breakpoint.sw,
+        h: breakpoint.ih
+    }
+}
+
 const wh = (width: WidthHeight, height: WidthHeight, style?: object): object => {
 
     /**
@@ -146,4 +154,4 @@ const ifBp = (bps: string | [string]): boolean => {
     return bps.includes(window.localbooker_container.breakpoint.s)
 }
 
-export {col, getBp, ifBp, addBp, wh, lte, gte, bpIndex}
+export {col, getBp, ifBp, addBp, wh, lte, gte, bpIndex, box}

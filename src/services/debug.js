@@ -11,7 +11,7 @@ function plotBreakpint(s, sw, ih) {
   if (!d) {
     d = window.document.createElement('div')
     d.setAttribute('id', 'localbooker-breakpoint')
-    d.style.cssText = "color:#dddddd; position:absolute;top:0px;margin:5px;font-size:16px;font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";"
+    d.style.cssText = "color:white;z-index:100000000;position:absolute;top:0px;margin:5px;font-size:16px;font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";"
     window.document.body.appendChild(d)
   }
 
