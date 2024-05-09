@@ -1,6 +1,6 @@
-import React, { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useImperativeHandle } from "react";
 import {Dialog} from "primereact/dialog";
-import {lte} from "../../services/buttstrip";
+import {lte, wh, box} from "../../services/buttstrip";
 import {useContext, useState} from "react";
 import {MainContext} from "../../contexts/MainContext";
 import {freeze,unFreeze} from "../../services/hostscroll";
@@ -24,6 +24,8 @@ const CalendarDialog = forwardRef( (props, ref) => {
     },
   }));
 
+  // console.log(box())
+
   return <>
     <Dialog
       header={_t.labels.select_dates}
@@ -40,10 +42,11 @@ const CalendarDialog = forwardRef( (props, ref) => {
         zIndex.removeTempFix()
         setTimeout(() => unFreeze(),250) // Give it a tad... just cosmetic
       }}
-      // style={wh(
-      //   {def: '400px',xs:'300px'},
-      //   {def: '550px',xs:'440px'},
-      // )}
+
+      style={wh(
+        {def: '400px',xs: (box.w + 'px') },
+        {def: '550px'},
+      )}
     >
       <div className="m-0" style={{width:'100%'}}>
         <AdministrationCalendar
