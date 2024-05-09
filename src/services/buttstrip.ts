@@ -102,6 +102,9 @@ const gte = (bp: 'xl' | 'lg' | 'md' | 'sm' | 'xs') => {
     return queryIndex >= bpIndex()
 }
 
+/**
+ * Can not be used as box ... cuz have to wait for the breakpoint
+ */
 const box = () =>{
     const {breakpoint} = window.localbooker_container
     return {
@@ -109,6 +112,7 @@ const box = () =>{
         h: breakpoint.ih
     }
 }
+
 
 const wh = (width: WidthHeight, height: WidthHeight, style?: object): object => {
 

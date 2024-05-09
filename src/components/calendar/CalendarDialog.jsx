@@ -24,7 +24,6 @@ const CalendarDialog = forwardRef( (props, ref) => {
     },
   }));
 
-  // console.log(box())
 
   return <>
     <Dialog
@@ -42,11 +41,12 @@ const CalendarDialog = forwardRef( (props, ref) => {
         zIndex.removeTempFix()
         setTimeout(() => unFreeze(),250) // Give it a tad... just cosmetic
       }}
-
-      style={wh(
-        {def: '400px',xs: (box.w + 'px') },
-        {def: '550px'},
-      )}
+      style={{
+          width: ((box().w * 0.9) + 'px'),
+          height: ((box().w * 0.9 * (550/400)) + 'px'),
+          maxWidth: '400px',
+          maxHeight: '550px'
+        }}
     >
       <div className="m-0" style={{width:'100%'}}>
         <AdministrationCalendar
