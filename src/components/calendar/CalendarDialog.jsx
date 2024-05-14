@@ -31,9 +31,6 @@ const CalendarDialog = forwardRef( (props, ref) => {
       pt={{
         content: {
           style: {overflow: 'hidden'}
-        },
-        mask:{
-          style:{zIndex:999999999}
         }
       }}
       contentStyle={{padding: 0}}
