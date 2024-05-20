@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { RecoilRoot, useRecoilState } from 'recoil'
+import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil'
 import { MainContext } from './contexts/MainContext'
 import PageError from './pages/PageError.jsx'
 import {locale} from 'primereact/api';
@@ -15,6 +15,8 @@ import PageTest from './pages/PageTest.jsx'
 import PageForm from './pages/PageForm.jsx'
 import PageConfirm from './pages/PageConfirm.jsx'
 import PageThankYou from './pages/PageThankYou.jsx'
+import recoilReservation from './recoil/recoilReservation.js'
+import PageStripe from './pages/PageStripe.jsx'
 
 function App({
                page,
@@ -70,7 +72,7 @@ function App({
 
   // eslint-disable-next-line react/prop-types
   const MyRouter = ({content, page, slug, pid, scroll, offset, mainfilter, hostlocale}) => {
-
+    const { paymentStarted } = useRecoilValue(recoilReservation)
     const context = useContext(MainContext)
     const [config, setConfig] = useRecoilState(recoilConfig)
     const [, setMainFilter] = useRecoilState(recoilMainFilter)
@@ -170,6 +172,9 @@ function App({
           <>
             <Route key="040" exact path="/" element={<PageThankYou/>}/>
           </> : <>
+            {paymentStarted && <>
+              <Route key="060" exact path="/" element={<PageStripe/>}/>
+            </>}
             {page === 'spa' && <>
               <Route key="000" exact path="/" element={<Spa/>}/>
               <Route key="010" exact path="/:administration_slug" element={<Pdp/>}/>
@@ -181,7 +186,7 @@ function App({
             <Route key="020" exact path="/book" element={<PageForm/>}/>
             <Route key="030" exact path="/check" element={<PageConfirm/>}/>
             <Route key="040" exact path="/thankyou" element={<PageThankYou/>}/>
-            <Route key="040" exact path="/test" element={<PageTest/>}/>
+            <Route key="050" exact path="/test" element={<PageTest/>}/>
 
           </>}
       </Routes>

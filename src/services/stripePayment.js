@@ -61,7 +61,9 @@ export default function stripePayment(
     const button = document.createElement('button')
     button.append(document.createTextNode(_t.stripe.pay))
     button.setAttribute('style', buttonStyle + 'background-color:#6D6E78;color:white;')
-    button.onclick = () => payClicked()
+    button.onclick = () => {
+      payClicked()
+    }
     return button
   }
 
@@ -71,6 +73,7 @@ export default function stripePayment(
   }
 
   const closeClicked = () => {
+    confirm("Press a button!");
     payment.unmount()
     cleanup()
     onCloseClicked()

@@ -5,22 +5,21 @@ import {Button} from 'primereact/button'
 import {localeOptions} from "primereact/api";
 import {Dialog} from "primereact/dialog";
 import {Accordion, AccordionTab} from 'primereact/accordion';
-import axios from "axios";
+
 // recoil and context
 import {MainContext} from "../contexts/MainContext";
 import selectorMainFilter from '../recoil/selectors/selectorMainFilter'
 import recoilForm from "../recoil/recoilForm";
-import recoilConfig from "../recoil/recoilConfig";
 import recoilReservation from "../recoil/recoilReservation";
+
 // services
 import {col} from '../services/buttstrip'
 import {toEuro} from "../services/money";
-import {getYmd} from "../services/dates";
-import scrollIntoViewWithOffset from "../services/scrollIntoViewWithOffset";
-import stripePayment from "../services/stripePayment";
+
 // molecules
 import Icon from "../molecules/Icon.jsx";
 import Loading from "../molecules/Loading.jsx";
+
 // components
 import Fees from "../components/cart/Fees.jsx";
 import BookCart from '../components/cart/BookCart.jsx'
@@ -37,207 +36,38 @@ import Extras from "../components/cart/Extras.jsx";
 
 export default function PageConfirm() {
   const context = useContext(MainContext)
+
   const navigate = useNavigate()
   const _t = context._t()
   const srollInViewRef = useRef(null)
   const [form] = useRecoilState(recoilForm)
-  const config = useRecoilValue(recoilConfig)
+
   const [reservation, setReservation] = useRecoilState(recoilReservation)
-  const resetReservation = useResetRecoilState(recoilReservation);
+
   const {
     administration,
     bookable,
     checkIn,
     checkOut,
-    adults,
-    children,
-    babies,
-    pets
   } = useRecoilValue(selectorMainFilter)
 
   const monthNames = localeOptions('nl').monthNames
   const [accordionStatus, setAccordionStatus] = useState(0)
-  const [stripe, setStripe] = useState(null)
-
-  const [confirmDisabled, setConfirmDisable] = useState(true) // !! renesseaanzee disabled.. onMount eneabled
-  const [confirmLoading, setConfirmLoading] = useState(false)
   const locale = localeOptions('nl').localbooker.page_confirm
   const [dialog, setDialog] = useState(false)
 
   const cartData = useRecoilValue(recoilCartData)
   const {totals} = cartData
-  /**
-   * onMount
-   */
+
+
   useEffect(() => {
-
-    scrollIntoViewWithOffset(srollInViewRef, config.offset, config.scroll)
-
-    window.localbookerStripe.then(stripe => {
-      setStripe(stripe)
-
-      if (!reservation.stripeClientSecret) {
-        // No stripe secret we just can confirm
-        setConfirmDisable(false)
-      } else {
-        // Get the Stripe payment status from the Stripe server
-        stripe.retrievePaymentIntent(reservation.stripeClientSecret).then(({paymentIntent, error}) => {
-          if (paymentIntent) {
-            // Now on status do some...
-            switch (paymentIntent.status) {
-              // Have to pay
-              case 'requires_payment_method':
-                setConfirmDisable(true)
-                setConfirmLoading(true)
-                // Pay
-                stripePayment(
-                  config.basename,
-                  stripe,
-                  reservation.stripeClientSecret,
-                  form,
-                  onStripePayButtonClicked,
-                  onStripeCloseButtonClicked,
-                  onStripeReady,
-                  onStripeError,
-                  _t
-                )
-                break
-              // Payment OK
-              case 'succeeded':
-              case 'processing':
-                navigate('/thankyou')
-                break
-              // Error. Payment cancelled or some
-              default:
-                onStripeError()
-                break
-            }
-          } else if (error) {
-            onStripeError()
-          }
-        })
-      }
-    })
-  }, [reservation.stripeClientSecret])
-
-
-  const onStripeReady = () => {
-    setConfirmLoading(false)    // Removes the loading animation on the button
-  }
-  const onStripePayButtonClicked = () => {
-    context.setLoading(true)    // Sets the loading overlay on the page
-  }
-  const onStripeCloseButtonClicked = () => {
-    setConfirmDisable(false)    // Removes the loading animation on the button
-  }
-  const onStripeError = () => {
-    resetReservation()          // remove the order
-    context.setLoading(false)   // Disable the loading overlay
-    setConfirmDisable(false)    // disable the confirmation butt, cuz we should make new res
-    setDialog(true)             // Open the error dialog
-  }
+    if(reservation.paymentStarted) {
+      navigate('/')
+    }
+  }, [reservation.paymentStarted])
 
   const confirmBooking = () => {
-
-    setConfirmDisable(true)
-    setConfirmLoading(true)
-
-    /**
-     * When we HAVE a stripe secret already just open stripe again.
-     * This happens on page refreshes
-     */
-    if (reservation.stripeClientSecret) {
-      stripePayment(
-        config.basename,
-        stripe,
-        reservation.stripeClientSecret,
-        form,
-        onStripePayButtonClicked,
-        onStripeCloseButtonClicked,
-        onStripeReady,
-        onStripeError,
-        _t
-      )
-      return;
-    }
-
-    const personalDetails = {
-      valid: true,
-      firstName: form.first_name,
-      lastName: form.last_name,
-      email: form.email,
-      phoneNumber: form.phone_number,
-      zipCode: form.zip_code,
-      houseNumber: form.house_number,
-      street: form.street,
-      city: form.city,
-      country: form.country,
-      extraMessage: form.extra_message
-    }
-
-    /**
-     * Create the payload to make the booking
-     */
-    const payload = {
-      locale: 'nl',
-      pid: config.pid,
-      personalDetails,
-      products: [
-        {
-          id: bookable.id,
-          guests: {
-            adults,
-            babies,
-            children,
-            pets
-          },
-          quantity: 1,
-          checkIn: getYmd(checkIn),
-          checkOut: getYmd(checkOut),
-          options: [...form.options]
-        }
-      ]
-    }
-
-    axios.post('/v1/booking/create', payload).then(res => {
-
-      // Store
-      setReservation({
-        reservationId: res.data.reservationId,
-        reservationNumber: res.data.reservationNumber,
-        stripeClientSecret: res.data.stripeClientSecret
-      })
-
-      // What to do after the creation of the booking
-      const pay_or_thank_you = res.data?.stripeClientSecret ? 'pay' : 'thankyou'
-
-      switch (pay_or_thank_you) {
-        /**
-         * When need to pay we stay here until payed
-         */
-        case 'pay':
-          // And Pay
-          stripePayment(
-            config.basename,
-            stripe,
-            res.data.stripeClientSecret,
-            form,
-            onStripePayButtonClicked,
-            onStripeCloseButtonClicked,
-            onStripeReady,
-            onStripeError,
-            _t
-          )
-          break;
-
-        /**
-         * When no need to pay go thank you
-         */
-        case 'thankyou':
-          navigate('/thankyou')
-          break;
-      }
-    })
+    setReservation({...reservation,paymentStarted: true})
   }
 
   return <>
@@ -254,6 +84,7 @@ export default function PageConfirm() {
       </div>
     </Dialog>
     <Loading/>
+
     <div ref={srollInViewRef} className="grid padding text-color">
       <div className={col({md: 8, sm: 12})}>
         <div className="h1">{_t.page_confirm.almost_ready}</div>
@@ -320,8 +151,6 @@ export default function PageConfirm() {
         <div className="grid grid-valign mt-8 mb-4">
           <div>
             <Button
-              loading={confirmLoading}
-              disabled={confirmDisabled}
               label={totals.payNow ? _t.labels.confirm_and_pay : _t.labels.confirm_booking}
               onClick={() => confirmBooking()}
             />
