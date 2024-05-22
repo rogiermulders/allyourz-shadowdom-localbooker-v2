@@ -7,15 +7,17 @@ import { getYmd } from '../services/dates.js'
 import axios from 'axios'
 import recoilForm from '../recoil/recoilForm.js'
 import recoilConfig from '../recoil/recoilConfig.js'
-// import scrollIntoViewWithOffset from '../services/scrollIntoViewWithOffset.js'
+
 import selectorMainFilter from '../recoil/selectors/selectorMainFilter.js'
 import { useNavigate } from 'react-router-dom'
+
 
 
 export default function PageStripe() {
   const navigate = useNavigate()
   const context = useContext(MainContext)
   const [reservation, setReservation] = useRecoilState(recoilReservation)
+
   const resetReservation = useResetRecoilState(recoilReservation)
   const [form] = useRecoilState(recoilForm)
   const config = useRecoilValue(recoilConfig)
@@ -48,9 +50,9 @@ export default function PageStripe() {
     const onStripePayButtonClicked = () => {
 
     }
-    const onStripeCloseButtonClicked = () => {
-
-      // setConfirmDisable(false)    // Removes the loading animation on the button
+    const onStripeCancelOrderClicked = () => {
+      resetReservation()
+      navigate('/')
     }
     const onStripeError = () => {
       // resetReservation()          // remove the order
@@ -64,6 +66,7 @@ export default function PageStripe() {
      * When payed redirect to thankyou
      */
     if (reservation.stripeClientSecret) {
+
       stripe.retrievePaymentIntent(reservation.stripeClientSecret).then(({paymentIntent, error}) => {
         if (paymentIntent) {
           console.log(paymentIntent.status)
@@ -79,12 +82,15 @@ export default function PageStripe() {
                 reservation.stripeClientSecret,
                 form,
                 onStripePayButtonClicked,
-                onStripeCloseButtonClicked,
+                onStripeCancelOrderClicked,
                 onStripeReady,
                 onStripeError,
                 _t
               )
               break
+            case 'canceled':
+              alert('canceled by user')
+              break;
             // Payment OK
             case 'succeeded':
             case 'processing':
@@ -183,9 +189,9 @@ export default function PageStripe() {
 
   }, [stripe, reservation.stripeClientSecret])
 
-  return (
+  return <>
     <div>
       <h1>PageStripe</h1>
     </div>
-  )
+  </>
 }
