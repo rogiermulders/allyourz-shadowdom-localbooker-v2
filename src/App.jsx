@@ -168,13 +168,17 @@ function App({
 
     return <BrowserRouter basename={basename}>
       <Routes>
-        {searchParams.get('payment_intent') ?
+        {/*{searchParams.get('payment_intent') ?*/}
+        {/*  // IF*/}
+        {/*  <>*/}
+        {/*    <Route key="040" exact path="/" element={<PageThankYou/>}/>*/}
+        {/*  </> :*/}
+        {/*  // ELSE*/}
           <>
-            <Route key="040" exact path="/" element={<PageThankYou/>}/>
-          </> : <>
             {paymentStarted && <>
               <Route key="060" exact path="/" element={<PageStripe/>}/>
             </>}
+
             {page === 'spa' && <>
               <Route key="000" exact path="/" element={<Spa/>}/>
               <Route key="010" exact path="/:administration_slug" element={<Pdp/>}/>
@@ -187,8 +191,8 @@ function App({
             <Route key="030" exact path="/check" element={<PageConfirm/>}/>
             <Route key="040" exact path="/thankyou" element={<PageThankYou/>}/>
             <Route key="050" exact path="/test" element={<PageTest/>}/>
-
-          </>}
+          </>
+        {/*}*/}
       </Routes>
 
     </BrowserRouter>

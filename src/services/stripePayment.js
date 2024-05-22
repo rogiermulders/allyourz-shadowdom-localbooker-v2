@@ -8,23 +8,18 @@ export default function stripePayment(
   stripe,
   stripeClientSecret,
   form,
-  onPayClicked,
   onCancelOrderClicked,
-  onStripeReady,
-  onError,
+  onStripeError,
+  onPaymentReady,
   _t
 ) {
   const buttonStyle = 'top:12px;position:absolute;border:solid 1px #e6e6e6;padding:8px 16px;border-radius:6px;font-size:16px;cursor:pointer;'
   let elements, payment, handler
 
+  /**
+   * This one runs when the 'Klik hier om te betalen' button is clicked
+   */
   const payClicked = () => {
-
-    /**
-     * Tell mamma we clicked pay
-     */
-    if (onPayClicked) {
-      onPayClicked()
-    }
 
     stripe.confirmPayment({
       elements,
@@ -33,15 +28,25 @@ export default function stripePayment(
         return_url: document.location.origin + basename
       }
     }).then(result => {
-      onError(result)
-      payment.unmount()
+      // This one fires on an error
+      onStripeError(result)
       cleanup()
     })
   }
 
   /**
+   * This one runs when the 'Klik hier om deze boeking te annuleren' button is clicked
+   */
+  const cancelOrderClicked = () => {
+
+    cleanup()
+    onCancelOrderClicked()
+  }
+
+  /**
    * Create some html OUTSIDE the shadowRoot
    * So far Stripe does not seem to work in the shadowRoot
+   * This function returns the stripe container
    */
   const addStripeParentAndContainerToDocumentBody = () => {
     const stripeParent = document.createElement('div')
@@ -53,14 +58,21 @@ export default function stripePayment(
     stripeParent.append(stripeContainer)
     document.body.append(stripeParent)
     return stripeContainer
-
   }
 
   /**
-   * Animate the button
-   * @param butt
-   * @param func
-   * @param timeout
+   * Should clean everything up
+   */
+  const cleanup = () => {
+    payment.unmount()
+    const s = document.getElementById('localbooker-stripe-parent')
+    const p = s.parentNode
+    p.removeChild(s)
+    clearInterval(handler)
+  }
+
+  /**
+   * Function to animate the button
    */
   const animator = (butt, func, timeout) => {
     if(!timeout) timeout = 0
@@ -78,29 +90,8 @@ export default function stripePayment(
     }, timeout)
   }
 
-
-  const cleanup = () => {
-    const s = document.getElementById('localbooker-stripe-parent')
-    const p = s.parentNode
-    p.removeChild(s)
-    clearInterval(handler)
-  }
-
-  const cancelOrderClicked = () => {
-
-    payment.unmount()
-    cleanup()
-    onCancelOrderClicked()
-  }
-
-
   /**
-   * Create a button
-   * @param text
-   * @param style
-   * @param func
-   * @param delay
-   * @returns {HTMLButtonElement}
+   * Function to create a button
    */
   const butt = (text, style, func, delay) => {
 
@@ -115,76 +106,17 @@ export default function stripePayment(
       }
     }
     return button
-
-  }
-
-  // const closeButt = () => {
-  //   return butt(
-  //     _t.stripe.close_stripe || 'Sluit dit venster',
-  //     'background-color:white;color:#333333;right:0',
-  //     () => {
-  //       document.getElementById('localbooker-stripe-cancel-wrapper').style.display = 'block'
-  //       document.getElementById('localbooker-stripe-pay-wrapper').style.display = 'none'
-  //     })
-  //   // const button = document.createElement('button')
-  //   // button.append(document.createTextNode(_t.stripe.close_stripe || 'Sluit dit venster'))
-  //   // button.setAttribute('style', buttonStyle + 'background-color:white;color:#333333;right:0px')
-  //   // button.onclick = () => {
-  //   //   document.getElementById('localbooker-stripe-cancel-wrapper').style.display = 'block'
-  //   //   document.getElementById('localbooker-stripe-pay-wrapper').style.display = 'none'
-  //   // }
-  //   // return button
-  // }
-
-
-  // const payButt = () => {
-  //   return butt(
-  //     _t.stripe.pay || 'Klik hier om te betalen',
-  //     'background-color:#6D6E78;color:white',
-  //     payClicked)
-  //   // const button = document.createElement('button')
-  //   // button.append(document.createTextNode(_t.stripe.pay))
-  //   // button.setAttribute('style', buttonStyle + 'background-color:#6D6E78;color:white;')
-  //   // button.onclick = (e) => {animator(e.target,payClicked)}
-  //   // return button
-  // }
-
-  const cancelButt = () => {
-    return butt(
-      _t.stripe.cancel_button || 'Klik hier om deze boeking te annuleren',
-      'background-color:steelblue;color:white',
-      cancelOrderClicked, 2000)
-    // const button = document.createElement('button')
-    // button.append(document.createTextNode(_t.stripe.cancel_button || 'Klik hier om deze boeking te annuleren'))
-    // button.setAttribute('style', buttonStyle + 'background-color:steelblue;color:white;')
-    // button.onclick = (e) => {animator(e.target,cancelOrderClicked, 2000)}
-    // return button
-  }
-  const backButt = () => {
-    return butt(_t.stripe.goback_button || 'Ga terug',
-      'background-color:white;color:#333333;right:0px',
-      () => {
-        document.getElementById('localbooker-stripe-cancel-wrapper').style.display = 'none'
-        document.getElementById('localbooker-stripe-pay-wrapper').style.display = 'block'
-      }
-    )
-    // const button = document.createElement('button')
-    // button.append(document.createTextNode(_t.stripe.goback_button || 'Ga terug'))
-    // button.setAttribute('style', buttonStyle + 'background-color:white;color:#333333;right:0px')
-    // button.onclick = () => {
-    //   document.getElementById('localbooker-stripe-cancel-wrapper').style.display = 'none'
-    //   document.getElementById('localbooker-stripe-pay-wrapper').style.display = 'block'
-    // }
-    // return button
   }
 
   // Add the overlay and container to the
   const stripeContainer = addStripeParentAndContainerToDocumentBody()
 
+  // Create the elements
   elements = stripe.elements({
     clientSecret: stripeClientSecret
   })
 
+  // Create the payment
   elements.create('payment', {
     defaultValues: {
       billingDetails: {
@@ -241,12 +173,12 @@ export default function stripePayment(
     div = document.createElement('div')
     div.id = 'localbooker-stripe-cancel-wrapper'
     div.setAttribute('style', 'position:relative;height:48px;display:block;display:none')
-    // --
+    // Klik hier om deze boeking te annuleren
     div.append(butt(
       _t.stripe.cancel_button || 'Klik hier om deze boeking te annuleren',
       'background-color:steelblue;color:white',
       cancelOrderClicked, 2000))
-    // --
+    // Ga terug
     div.append(butt(_t.stripe.goback_button || 'Ga terug',
       'background-color:white;color:#333333;right:0px',
       () => {
@@ -254,8 +186,8 @@ export default function stripePayment(
         document.getElementById('localbooker-stripe-pay-wrapper').style.display = 'block'
       }
     ))
+    // --
     stripeContainer.append(div)
-
-    onStripeReady()
+    onPaymentReady()
   })
 }
