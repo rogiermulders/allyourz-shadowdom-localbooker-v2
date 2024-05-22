@@ -28,6 +28,9 @@ import recoilCartData from "../recoil/recoilCartData";
 import {useNavigate} from "react-router-dom";
 import PowerdBy from "../molecules/PowerdBy.jsx";
 import Extras from "../components/cart/Extras.jsx";
+import { getYmd } from '../services/dates.js'
+import axios from 'axios'
+import recoilConfig from '../recoil/recoilConfig.js'
 
 
 /**
@@ -36,7 +39,7 @@ import Extras from "../components/cart/Extras.jsx";
 
 export default function PageConfirm() {
   const context = useContext(MainContext)
-
+  const config = useRecoilValue(recoilConfig)
   const navigate = useNavigate()
   const _t = context._t()
   const srollInViewRef = useRef(null)
@@ -49,6 +52,11 @@ export default function PageConfirm() {
     bookable,
     checkIn,
     checkOut,
+    adults,
+    babies,
+    children,
+    pets
+
   } = useRecoilValue(selectorMainFilter)
 
   const monthNames = localeOptions('nl').monthNames
@@ -66,8 +74,64 @@ export default function PageConfirm() {
     }
   }, [reservation.paymentStarted])
 
+  /**
+   * BOOK!
+   */
   const confirmBooking = () => {
-    setReservation({...reservation,paymentStarted: true})
+    const personalDetails = {
+      valid: true,
+      firstName: form.first_name,
+      lastName: form.last_name,
+      email: form.email,
+      phoneNumber: form.phone_number,
+      zipCode: form.zip_code,
+      houseNumber: form.house_number,
+      street: form.street,
+      city: form.city,
+      country: form.country,
+      extraMessage: form.extra_message
+    }
+
+    /**
+     * Create the payload to make the booking
+     */
+    const payload = {
+      locale: config.locale,
+      pid: config.pid,
+      personalDetails,
+      products: [
+        {
+          id: bookable.id,
+          guests: {
+            adults,
+            babies,
+            children,
+            pets
+          },
+          quantity: 1,
+          checkIn: getYmd(checkIn),
+          checkOut: getYmd(checkOut),
+          options: [...form.options]
+        }
+      ]
+    }
+
+    axios.post('/v1/booking/create', payload).then(res => {
+      // Store
+      setReservation({
+        reservationId: res.data.reservationId,
+        reservationNumber: res.data.reservationNumber,
+        stripeClientSecret: res?.data.stripeClientSecret
+      })
+
+      // The server adds the stripeClientSecret to the response
+      // when there is a need to pay
+      if (res.data?.stripeClientSecret) {
+        navigate('/')
+      } else {
+        navigate('/thankyou')
+      }
+    })
   }
 
   return <>

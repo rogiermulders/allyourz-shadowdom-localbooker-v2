@@ -2,8 +2,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil'
 import { MainContext } from './contexts/MainContext'
 import PageError from './pages/PageError.jsx'
-import {locale} from 'primereact/api';
-import {loadStripe} from '@stripe/stripe-js';
+import { locale } from 'primereact/api'
+import { loadStripe } from '@stripe/stripe-js'
 import { useContext, useEffect } from 'react'
 import recoilConfig from './recoil/recoilConfig.js'
 import recoilMainFilter from './recoil/recoilMainFilter.js'
@@ -33,7 +33,7 @@ function App({
     return <PageError messages={[
       'No data-pid attribute given. Please provide like so:',
       '<div id="localbooker" data-pid="demo.localbooker.nl"/>'
-    ]}/>
+    ]} />
   }
 
   try {
@@ -42,7 +42,7 @@ function App({
     return <PageError messages={[
       'No valid JSON in the data-mainfilter parameter',
       mainfilter
-    ]}/>
+    ]} />
   }
 
   if (typeof offset !== 'undefined') {
@@ -55,7 +55,7 @@ function App({
           `Offset can be a number or an existing element.`,
           `Element '${offset}' not found on this page.`,
           `document.querySelector('${offset}') = undefined`
-        ]}/>
+        ]} />
       }
     }
   }
@@ -68,11 +68,11 @@ function App({
   /**
    * Set Stripe global!
    */
-  window.localbookerStripe = loadStripe(import.meta.env.VITE_APP_STRIPE_API_KEY, {locale: hostlocale});
+  window.localbookerStripe = loadStripe(import.meta.env.VITE_APP_STRIPE_API_KEY, { locale: hostlocale })
 
   // eslint-disable-next-line react/prop-types
-  const MyRouter = ({content, page, slug, pid, scroll, offset, mainfilter, hostlocale}) => {
-    const { paymentStarted } = useRecoilValue(recoilReservation)
+  const MyRouter = ({ content, page, slug, pid, scroll, offset, mainfilter, hostlocale }) => {
+    const { stripeClientSecret } = useRecoilValue(recoilReservation)
     const context = useContext(MainContext)
     const [config, setConfig] = useRecoilState(recoilConfig)
     const [, setMainFilter] = useRecoilState(recoilMainFilter)
@@ -134,7 +134,7 @@ function App({
           context.setHostLocale(locale)
           return true
         } else {
-          return "Enkel 'nl','de','en','tp' toegestaan"
+          return 'Enkel \'nl\',\'de\',\'en\',\'tp\' toegestaan'
         }
       }
     }
@@ -148,8 +148,8 @@ function App({
      * Wait for all css to be loaded before we show the app
      */
     useEffect(() => {
-      if(context.allCssLoaded){
-          window.localbooker_shadowRoot.getElementById('app').style.visibility= 'visible'
+      if (context.allCssLoaded) {
+        window.localbooker_shadowRoot.getElementById('app').style.visibility = 'visible'
       }
     }, [context.allCssLoaded])
 
@@ -159,40 +159,23 @@ function App({
      */
     if (!context.breakpoint?.s) return null
 
-    /**
-     * This one hurts... this is a stripe redirect
-     * When we detect a payment_intent GET variable
-     * It's the strip redirect so can not use routing
-     */
-    const searchParams = new URLSearchParams(document.location.search);
-
     return <BrowserRouter basename={basename}>
       <Routes>
-        {/*{searchParams.get('payment_intent') ?*/}
-        {/*  // IF*/}
-        {/*  <>*/}
-        {/*    <Route key="040" exact path="/" element={<PageThankYou/>}/>*/}
-        {/*  </> :*/}
-        {/*  // ELSE*/}
-          <>
-            {paymentStarted && <>
-              <Route key="060" exact path="/" element={<PageStripe/>}/>
-            </>}
-
-            {page === 'spa' && <>
-              <Route key="000" exact path="/" element={<Spa/>}/>
-              <Route key="010" exact path="/:administration_slug" element={<Pdp/>}/>
-            </>}
-            {page === 'pdp' && <>
-              <Route key="010" exact path="/" element={<Pdp administration_slug={slug}/>}/>
-            </>}
-            <Route key="000" exact path="/" element={<PageThankYou/>}/>
-            <Route key="020" exact path="/book" element={<PageForm/>}/>
-            <Route key="030" exact path="/check" element={<PageConfirm/>}/>
-            <Route key="040" exact path="/thankyou" element={<PageThankYou/>}/>
-            <Route key="050" exact path="/test" element={<PageTest/>}/>
-          </>
-        {/*}*/}
+        {stripeClientSecret && <>
+          <Route key="060" exact path="/" element={<PageStripe />} />
+        </>}
+        {page === 'spa' && <>
+          <Route key="000" exact path="/" element={<Spa />} />
+          <Route key="010" exact path="/:administration_slug" element={<Pdp />} />
+        </>}
+        {page === 'pdp' && <>
+          <Route key="010" exact path="/" element={<Pdp administration_slug={slug} />} />
+        </>}
+        <Route key="000" exact path="/" element={<PageThankYou />} />
+        <Route key="020" exact path="/book" element={<PageForm />} />
+        <Route key="030" exact path="/check" element={<PageConfirm />} />
+        <Route key="040" exact path="/thankyou" element={<PageThankYou />} />
+        <Route key="050" exact path="/test" element={<PageTest />} />
       </Routes>
 
     </BrowserRouter>
@@ -202,18 +185,18 @@ function App({
   return (
     <RecoilRoot>
 
-        <div id="app" className="p-component" style={{visibility:'hidden'}}>
-          <MyRouter
-            content={content}
-            page={page || null}
-            slug={slug || null}
-            pid={pid || null}
-            scroll={scroll}
-            offset={parseInt(offset || 0)}
-            hostlocale={hostlocale || 'nl'}
-            mainfilter={mainfilter || null}
-          />
-        </div>
+      <div id="app" className="p-component" style={{ visibility: 'hidden' }}>
+        <MyRouter
+          content={content}
+          page={page || null}
+          slug={slug || null}
+          pid={pid || null}
+          scroll={scroll}
+          offset={parseInt(offset || 0)}
+          hostlocale={hostlocale || 'nl'}
+          mainfilter={mainfilter || null}
+        />
+      </div>
 
     </RecoilRoot>
 
