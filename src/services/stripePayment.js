@@ -8,42 +8,45 @@ export default function stripePayment(
   stripe,
   stripeClientSecret,
   form,
-  onPayClicked,
-  onCloseClicked,
-  onStripeReady,
-  onError,
+  onCancelOrderClicked,
+  onStripeError,
+  onPaymentReady,
   _t
 ) {
   const buttonStyle = 'top:12px;position:absolute;border:solid 1px #e6e6e6;padding:8px 16px;border-radius:6px;font-size:16px;cursor:pointer;'
-  let elements, payment
+  let elements, payment, handler
 
+  /**
+   * This one runs when the 'Klik hier om te betalen' button is clicked
+   */
   const payClicked = () => {
-
-    /**
-     * Tell mamma we clicked pay
-     */
-    if(onPayClicked){
-      onPayClicked()
-    }
 
     stripe.confirmPayment({
       elements,
       confirmParams: {
         // Return URL where the customer should be redirected after the PaymentIntent is confirmed.
-        return_url: document.location.origin + basename,
-      },
+        return_url: document.location.origin + basename
+      }
     }).then(result => {
-      onError(result)
-      payment.unmount()
+      // This one fires on an error
+      onStripeError(result)
       cleanup()
-
     })
   }
 
+  /**
+   * This one runs when the 'Klik hier om deze boeking te annuleren' button is clicked
+   */
+  const cancelOrderClicked = () => {
+
+    cleanup()
+    onCancelOrderClicked()
+  }
 
   /**
    * Create some html OUTSIDE the shadowRoot
    * So far Stripe does not seem to work in the shadowRoot
+   * This function returns the stripe container
    */
   const addStripeParentAndContainerToDocumentBody = () => {
     const stripeParent = document.createElement('div')
@@ -57,40 +60,63 @@ export default function stripePayment(
     return stripeContainer
   }
 
-  const createPayButton = () => {
-    const button = document.createElement('button')
-    button.append(document.createTextNode(_t.stripe.pay))
-    button.setAttribute('style', buttonStyle + 'background-color:#6D6E78;color:white;')
-    button.onclick = () => payClicked()
-    return button
-  }
-
+  /**
+   * Should clean everything up
+   */
   const cleanup = () => {
-    document.getElementById('localbooker-stripe-parent').remove()
-
-  }
-
-  const closeClicked = () => {
     payment.unmount()
-    cleanup()
-    onCloseClicked()
+    const s = document.getElementById('localbooker-stripe-parent')
+    const p = s.parentNode
+    p.removeChild(s)
+    clearInterval(handler)
   }
 
-  const createCloseButton = () => {
+  /**
+   * Function to animate the button
+   */
+  const animator = (butt, func, timeout) => {
+    if(!timeout) timeout = 0
+    let text = butt.innerHTML, i = 0
+    handler = setInterval(() => {
+      i++
+      console.log(i)
+      butt.innerHTML = text + '.'.repeat(i)
+    },200)
+    window.addEventListener('unload', () => {
+      clearInterval(handler)
+    })
+    setTimeout(() => {
+      func()
+    }, timeout)
+  }
+
+  /**
+   * Function to create a button
+   */
+  const butt = (text, style, func, delay) => {
+
     const button = document.createElement('button')
-    button.append(document.createTextNode(_t.stripe.close_stripe))
-    button.setAttribute('style', buttonStyle + 'background-color:white;color:#333333;right:0px')
-    button.onclick = () => closeClicked()
+    button.append(document.createTextNode(text))
+    button.setAttribute('style', buttonStyle + style)
+    button.onclick = (e) => {
+      if(delay) {
+        animator(e.target, func, delay)
+      } else {
+        func()
+      }
+    }
     return button
   }
 
   // Add the overlay and container to the
   const stripeContainer = addStripeParentAndContainerToDocumentBody()
 
+  // Create the elements
   elements = stripe.elements({
     clientSecret: stripeClientSecret
   })
 
+  // Create the payment
   elements.create('payment', {
     defaultValues: {
       billingDetails: {
@@ -106,20 +132,62 @@ export default function stripePayment(
         }
       }
     }
-  });
+  })
 
   // Get the payment element
   payment = elements.getElement('payment')
   // And mount
   payment.mount(stripeContainer)
 
+  //////////////////////////////////////////////////////////////////////////////
   // After the mount add the buttons
+  // So below is our custom HTML
+  //////////////////////////////////////////////////////////////////////////////
   payment.on('ready', () => {
-    const div = document.createElement('div')
-    div.setAttribute('style','position:relative;height:48px')
-    div.append(createPayButton())
-    div.append(createCloseButton())
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Pay row
+    ////////////////////////////////////////////////////////////////////////////
+    let div = document.createElement('div')
+    div.id = 'localbooker-stripe-pay-wrapper'
+    div.setAttribute('style', 'position:relative;height:48px')
+    // Klik hier om te betalen
+    div.append(butt(
+      _t.stripe.pay,
+      'background-color:#6D6E78;color:white',
+      payClicked, 1))
+    // Sluit dit venster
+    div.append(butt(
+      _t.stripe.close_stripe,
+      'background-color:white;color:#333333;right:0',
+      () => {
+        document.getElementById('localbooker-stripe-cancel-wrapper').style.display = 'block'
+        document.getElementById('localbooker-stripe-pay-wrapper').style.display = 'none'
+      }))
+    // --
     stripeContainer.append(div)
-    onStripeReady()
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Cancel row
+    ////////////////////////////////////////////////////////////////////////////
+    div = document.createElement('div')
+    div.id = 'localbooker-stripe-cancel-wrapper'
+    div.setAttribute('style', 'position:relative;height:48px;display:block;display:none')
+    // Klik hier om deze boeking te annuleren
+    div.append(butt(
+      _t.stripe.cancel_button || 'Klik hier om deze boeking te annuleren',
+      'background-color:steelblue;color:white',
+      cancelOrderClicked, 2000))
+    // Ga terug
+    div.append(butt(_t.stripe.goback_button || 'Ga terug',
+      'background-color:white;color:#333333;right:0px',
+      () => {
+        document.getElementById('localbooker-stripe-cancel-wrapper').style.display = 'none'
+        document.getElementById('localbooker-stripe-pay-wrapper').style.display = 'block'
+      }
+    ))
+    // --
+    stripeContainer.append(div)
+    onPaymentReady()
   })
 }
