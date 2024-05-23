@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 
@@ -17,6 +16,8 @@ import relativeToStatic from './services/relativeToStatic.js'
 
 // Set the base URL for axios
 axios.defaults.baseURL = import.meta.env.VITE_APP_API
+
+window.localbooker_preview = false
 
 // Find and store the localbooker container
 window.localbooker_container = document.getElementById(import.meta.env.VITE_APP_ROOT)
