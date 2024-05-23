@@ -47,7 +47,9 @@ a {
     align-items: center;
   }
 }
-
+.hidden {
+  visibility: hidden;
+}
 
 .pointer {
   cursor: pointer;

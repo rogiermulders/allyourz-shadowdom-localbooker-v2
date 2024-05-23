@@ -34,8 +34,7 @@ export default function Pdp({administration_slug}) {
   useEffect(() => {
     axios.post('/v1/administration/get', {
       locale: context.hostLocale === 'tp' ? 'nl' : context.hostLocale,
-      slug: administration_slug || params.administration_slug,
-      preview: true
+      slug: administration_slug || params.administration_slug
     }).then(res => {
       context.setMaxPets(res.data.max_pets)
       setAdministration(res.data)
