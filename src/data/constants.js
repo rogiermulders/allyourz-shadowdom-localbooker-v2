@@ -2,6 +2,7 @@
 // PEN = Prijs per huisdier per nacht
 // STA = Prijs per verblijf
 // PAC = Prijs per set
+// UNI = Prijs per eenheid
 export const chargeModesThatNeedADropdown = ['DAU', 'PEN', 'STA', 'PAC','UNI'];
 
 export const imageNotFound = import.meta.env.VITE_APP_URL + '/assets/images/not-found.png'
