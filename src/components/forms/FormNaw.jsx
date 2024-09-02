@@ -17,7 +17,7 @@ import {col} from '../../services/buttstrip'
 
 let formikSubmitClicked = false
 
-export default function FormNaw({optionalFees, onFormSubmit, options, setOptions}) {
+export default function FormNaw({optionalFees, onFormSubmit, options, setOptions, available}) {
   const config = useRecoilValue(recoilConfig)
   const [form] = useRecoilState(recoilForm)
   const context = useContext(MainContext)
@@ -169,6 +169,7 @@ export default function FormNaw({optionalFees, onFormSubmit, options, setOptions
           <div className='flex'>
             <div className='mr-4'>
               <Button type='submit'
+                      disabled={!available}
                       label={_t.labels.confirm_booking}
                       icon='pi pi-arrow-right'
                       iconPos='right'/>
