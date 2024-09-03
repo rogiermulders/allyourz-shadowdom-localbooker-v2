@@ -85,7 +85,7 @@ export default function Spa() {
       r.mainFilters.endDate = getYmd(checkOut)
     }
     return r
-  }, [regionId, destinationZip, adults, children, pets, range, checkIn, checkOut, category, offset, sort, subFilters])
+  }, [context.hostLocale, regionId, destinationZip, adults, children, pets, range, checkIn, checkOut, category, offset, sort, subFilters])
 
 
   useEffect(() => {
@@ -147,10 +147,10 @@ export default function Spa() {
               <div className={col({ def: 0, md: 0, lg: 2, xl: 2 }, 'pt-5')}>
               </div>
               <div className={col({ sm: 6, md: 6 }, 'flex')}>
-                <div className="w75">
+                <div className="w100">
                   {/* FILTER */}
                   <Dropdown
-                    className="w100"
+                    className={lte('sm') ? 'w100' : 'w75'}
                     options={_t.page_spa.filterOptions}
                     value={mainFilter.sort}
                     onChange={e => setMainFilter(old => {
@@ -175,7 +175,7 @@ export default function Spa() {
                 {/*FILTERS SMALL*/}
                 <Button
                   icon={<Icon name="filter" size="1.5em" />}
-                  className="ml-8"
+                  className="ml-8 mt-3"
                   label="Filters"
                   onClick={() => setShowSubFilter(true)}
                   outlined
