@@ -1,6 +1,7 @@
 import recoilReservation from '../recoil/recoilReservation.js'
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
 import { useContext, useEffect, useState } from 'react'
+import { loadStripe } from '@stripe/stripe-js/pure'
 import stripePayment from '../services/stripePayment.js'
 import { MainContext } from '../contexts/MainContext'
 import recoilForm from '../recoil/recoilForm.js'
@@ -23,10 +24,12 @@ export default function PageStripe() {
 
   useEffect(() => {
     // Init stripe
-    window.localbookerStripe.then(stripe => {
+    loadStripe.setLoadParameters({advancedFraudSignals: false});
+    const localbookerStripe = loadStripe(import.meta.env.VITE_APP_STRIPE_API_KEY, { locale: context.hostLocale })
+    localbookerStripe.then(stripe => {
       setStripe(stripe)
     })
-  }, [])
+  }, [context.hostLocale])
 
   useEffect(() => {
 

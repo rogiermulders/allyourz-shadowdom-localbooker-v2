@@ -3,8 +3,7 @@ import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil'
 import { MainContext } from './contexts/MainContext'
 import PageError from './pages/PageError.jsx'
 import { locale } from 'primereact/api'
-import { loadStripe } from '@stripe/stripe-js'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, lazy } from 'react'
 import recoilConfig from './recoil/recoilConfig.js'
 import recoilMainFilter from './recoil/recoilMainFilter.js'
 import deviceCheck from './services/deviceCheck.js'
@@ -16,7 +15,8 @@ import PageForm from './pages/PageForm.jsx'
 import PageConfirm from './pages/PageConfirm.jsx'
 import PageThankYou from './pages/PageThankYou.jsx'
 import recoilReservation from './recoil/recoilReservation.js'
-import PageStripe from './pages/PageStripe.jsx'
+
+const PageStripe = lazy(() => import('./pages/PageStripe.jsx'));
 
 function App({
                page,
@@ -65,10 +65,6 @@ function App({
    */
   locale(hostlocale || 'nl')
 
-  /**
-   * Set Stripe global!
-   */
-  window.localbookerStripe = loadStripe(import.meta.env.VITE_APP_STRIPE_API_KEY, { locale: hostlocale })
 
   // eslint-disable-next-line react/prop-types
   const MyRouter = ({ content, page, slug, pid, scroll, offset, mainfilter, hostlocale }) => {
@@ -162,7 +158,9 @@ function App({
     return <BrowserRouter basename={basename}>
       <Routes>
         {stripeClientSecret && <>
-          <Route key="060" exact path="/" element={<PageStripe />} />
+
+            <Route key="060" exact path="/" element={<PageStripe />} />
+
         </>}
         {page === 'spa' && <>
           <Route key="000" exact path="/" element={<Spa />} />

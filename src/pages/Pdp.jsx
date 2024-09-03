@@ -8,7 +8,7 @@ import {useRecoilValue} from "recoil";
 import {MainContext} from "../contexts/MainContext";
 import recoilConfig from "../recoil/recoilConfig";
 import {useParams} from "react-router-dom";
-import PowerdBy from "../molecules/PowerdBy.jsx";
+import PoweredBy from "../molecules/PoweredBy.jsx";
 import scrollIntoViewWithOffset from "../services/scrollIntoViewWithOffset";
 import {Accordion, AccordionTab} from "primereact/accordion";
 import Icon from "../molecules/Icon.jsx";
@@ -127,7 +127,7 @@ export default function Pdp({administration_slug}) {
       </div>
       }
     </div>
-    <PowerdBy/>
+    <PoweredBy/>
   </>
 
 
