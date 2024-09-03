@@ -7,7 +7,7 @@ import recoilReservation from "../recoil/recoilReservation";
 import {useNavigate} from "react-router-dom";
 import recoilCartData from "../recoil/recoilCartData";
 import recoilConfig from "../recoil/recoilConfig";
-import PowerdBy from "../molecules/PowerdBy.jsx";
+import PoweredBy from "../molecules/PoweredBy.jsx";
 
 
 export default function PageThankYou() {
@@ -50,6 +50,6 @@ export default function PageThankYou() {
         </div>
       </Card>
     </div>
-    <PowerdBy/>
+    <PoweredBy/>
   </>
 }

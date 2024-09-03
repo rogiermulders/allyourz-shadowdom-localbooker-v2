@@ -1,0 +1,157 @@
+=================================================================================================
+== Localbooker kent twee soorten pagina's:
+== - Zoek pagina (spa)
+== - Accommodatie pagina (pdp) LET OP! enkel nodig wanneer er een unieke pagina voor een accommodatie is.
+== - Normaal gesproken handelt localbooker de accommodatie pagina zelf af.
+== spa of pdp wordt als volgt ingesteld
+=================================================================================================
+data-page: (spa|pdp)
+Wanneer spa (Zoek pagina) zal localbooker de 'zoek' pagina tonen.
+Wanneer pdp (Accommodatie) zal localbooker de 'accommodatie' pagina tonen.
+
+data-slug: (slug|niet meegegeven wanneer spa)
+Wanneer data-page="pdp" dan moet er ook een data-slug worden meegegeven.
+Dit is de localbooker 'slug' van de accommodatie (i.e. demo-hotel-slug).
+
+data-content: (true|niet meegegeven wanneer spa)
+Wanneer data-page="pdp" en data-slug="demo-hotel-slug" dan kan aan data-content 'false' worden meegegeven.
+Wanneer data-content="false" dan worden enkel de boekbare objecten getoond en niet de content (foto's, omschrijving e.t.c) van de accommodatie.
+
+Minimale 'spa' implementatie:
+<div
+    id="localbooker"
+    data-page="spa"
+    data-pid="pid"
+    >
+</div>
+
+Minimale 'pdp' implementatie:
+<div
+    id="localbooker"
+    data-page="pdp"
+    data-pid="pid"
+    data-slug="logement-de-spaerpot"
+    >
+</div>
+
+De localbooker widget kan/moet de volgende attributen bevatten:
+<div
+    id="localbooker"
+    data-pid="..."
+    data-locale="..."
+    data-page="..."
+    data-slug="..."
+    data-content="..."
+    scroll="..."
+    data-offset="..."
+    data-hostcss="..."
+    data-mainfilter="..."
+    >
+</div>
+
+=================================================================================================
+== Hieronder een uitleg van de verschillende attributen:
+=================================================================================================
+
+id: 'localbooker' Deze moet altijd localbooker zijn.
+
+data-pid: (string)
+Een unieke identifier voor deze localbooker implementatie.
+Deze wordt meegegeven tijdens een boeking zodat in de backend te zien is waar de boeking vandaan komt.
+
+data-locale: (nl|de|niet meegegeven)
+De taal van localbooker. Op dit moment hebben we 'nl' en 'de', default nl
+
+data-scroll:(false|true|niet meegegeven)
+Wanneer data-scroll="false" dan wordt de scroll functie van localbooker uitgeschakeld.
+
+data-offset:(css selector|getal|niet meegegeven)
+Hieraan kan een css selector OF een getal (in pixels) aan worden meegegeven.
+Dit bepaalt tot waar de implementatie van localbooker scrolt.
+
+data-hostcss:(relative path|niet meegegeven)
+Het is niet zonder meer mogelijk om de css van de widget te overschrijven.
+Dit kan via de attribuut data-hostcss. Hier kan een (relatief!) pad naar een extra css bestand worden meegegeven.
+
+=================================================================================================
+== Hieronder een uitleg hoe de filters via het daya-mainfilter attribuut kan worden ingesteld:
+== Voorbeeld: data-mainfilter='{"where":{"regionId":"6BAB4CCF-C0E8-4B99-A5E0-02FD4B7EFD35"}}'
+=================================================================================================
+data-mainfilter: (json object|niet meegegeven)
+
+== Regio ==
+"where":{"regionId":"6BAB4CCF-C0E8-4B99-A5E0-02FD4B7EFD35"}
+Wanneer de regio door de gebruiker niet mag worden aangepast:
+"where":{"regionId":"6BAB4CCF-C0E8-4B99-A5E0-02FD4B7EFD35","disabled":true}
+
+-- mogelijke waarden --
+4519714F-EC6C-4A5E-86E4-F6ED52401246 - Zuid-Beveland
+6138FCBE-FF4F-4ABE-86B2-DEB3B9A50070 - Goeree-Overflakkee
+62201A77-E505-452A-BFDF-DB1CCD834469 - Walcheren
+6BAB4CCF-C0E8-4B99-A5E0-02FD4B7EFD35 - Zeeuws-Vlaanderen
+8EE7A816-5100-43B7-8909-4F5AC09A3311 - Tholen & Sint Philipsland
+B0BA847B-D0A7-4106-AD60-132C43BBAD21 - Schouwen-Duiveland
+FDCC48AA-2771-431D-9C77-1236BDEA6056 - Noord-Beveland
+
+== Stad ==
+"where":{"destinationZip":"4461AJ","range":2}
+Wanneer de stad door de gebruiker niet mag worden aangepast:
+"where":{"destinationZip":"4461AJ","range":2,"disabled":true}
+
+-- mogelijke waarden --
+4363AC - Aagtekerke
+4341EP - Arnemuiden
+4511AN - Breskens
+4318EB - Brouwershaven
+4311AS - Bruinisse
+4328AE - Burgh-Haamstede
+4506JK - Cadzand
+4486AA - Colijnsplaat
+4371PW - Dishoek
+4357BG - Domburg
+4494NS - Geersdijk
+3252BZ - Goedereede
+4461AJ - Goes
+4503AG - Groede
+3249BA - Herkingen
+4561AS - Hulst
+4493PG - Kamperland
+4484CV - Kortgene
+4371AB - Koudekerke
+4331LK - Middelburg
+4504PR - Nieuwvliet
+4356BJ - Oostkapelle
+3253AR - Ouddorp
+4325AA - Renesse
+4525AH - Retranchement
+4322BP - Scharendijke
+4524CV - Sluis
+4696BZ - Stavenisse
+4531EP - Terneuzen
+4691BX - Tholen
+4351AG - Veere
+4381CK - Vlissingen
+4354AE - Vrouwenpolder
+4424CA - Wemeldinge
+4361AE - Westkapelle
+4471NC - Wolphaartsdijk
+4401ED - Yerseke
+4301JD - Zierikzee
+4374AX - Zoutelande
+
+== Type instellen:
+"type":{"category":["camping","hotel"]}
+Wanneer de categorie door de gebruiker niet mag worden aangepast:
+"type":{"category":["camping","hotel"],"disabled":true}
+
+-- mogelijke waarden --
+b-b
+hotel
+holiday-resort
+apartment
+camping
+hostel-bed
+vacation-home
+
+
+
