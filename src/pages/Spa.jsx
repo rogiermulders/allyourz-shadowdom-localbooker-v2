@@ -19,7 +19,7 @@ import { getYmd } from '../services/dates'
 import axios from 'axios'
 import MainFilter from '../components/mainfilter/MainFilter.jsx'
 import Takeover from '../molecules/Takeover.jsx'
-import PowerdBy from '../molecules/PowerdBy.jsx'
+import PoweredBy from '../molecules/PoweredBy.jsx'
 
 
 const SpaList = lazy(() => import('../components/availability/SpaList.jsx'))
@@ -201,6 +201,6 @@ export default function Spa() {
 
         </>
     }
-    <PowerdBy />
+    <PoweredBy />
   </div>
 }

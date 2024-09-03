@@ -17,7 +17,6 @@ import PageThankYou from './pages/PageThankYou.jsx'
 import recoilReservation from './recoil/recoilReservation.js'
 
 const PageStripe = lazy(() => import('./pages/PageStripe.jsx'));
-// import PageStripe from './pages/PageStripe.jsx'
 
 function App({
                page,

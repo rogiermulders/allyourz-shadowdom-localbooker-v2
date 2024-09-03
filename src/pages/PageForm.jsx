@@ -11,7 +11,7 @@ import { MainContext } from '../contexts/MainContext'
 import recoilConfig from '../recoil/recoilConfig'
 import { useNavigate } from 'react-router-dom'
 import recoilCartData from '../recoil/recoilCartData'
-import PowerdBy from '../molecules/PowerdBy.jsx'
+import PoweredBy from '../molecules/PoweredBy.jsx'
 import scrollIntoViewWithOffset from '../services/scrollIntoViewWithOffset'
 import ForwardDialog from '../molecules/ForwardDialog.jsx'
 import { Button } from 'primereact/button'
@@ -82,15 +82,19 @@ export default function PageForm() {
             'Het kan zijn dat iemand je net voor is. ' +
             'Probeer een andere datum of boek een andere accommodatie.'}
         </div>
-        <div className="mt-8">
-          <Button
-            label={_t.page_form.not_available_button || 'Aanpassen'}
-            onClick={() => navigate('/'+slug)}
-          />
+        <div className="mt-8 grid">
+            <Button
+              label={_t.page_form.not_available_other_date || 'Pas datum aan'}
+              onClick={() => navigate('/' + slug)}
+            />
+            <Button
+              className="ml-8"
+              label={_t.page_form.not_available_other_stay || 'Kies een ander verblijf'}
+              onClick={() => navigate('/')}
+            />
         </div>
       </div>
     )
-
   }
 
   /**
@@ -190,7 +194,7 @@ export default function PageForm() {
         </div>
       </div>
     </div>
-    <PowerdBy />
+    <PoweredBy />
   </>
 
 }

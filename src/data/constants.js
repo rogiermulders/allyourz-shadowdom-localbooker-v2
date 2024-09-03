@@ -5,6 +5,16 @@
 // UNI = Prijs per eenheid
 export const chargeModesThatNeedADropdown = ['DAU', 'PEN', 'STA', 'PAC','UNI'];
 
+export const breakpoints = [
+  {w: 1800, s: 'xl'},
+  {w: 1380, s: 'lg'},
+  {w: 1040, s: 'md'},
+  {w: 810, s: 'sm'},
+  {w: 0, s: 'xs'},
+  {sw: null},
+  {ih: null}
+]
+
 export const imageNotFound = import.meta.env.VITE_APP_URL + '/assets/images/not-found.png'
 
 export const rangeOptions = [
