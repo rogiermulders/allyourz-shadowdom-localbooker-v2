@@ -1,3 +1,5 @@
+import { breakpoints } from '../data/constants'
+
 /**
  * !! Fancy code because Stripe does NOT work inside the shadowRoot
  * So create some overlay in the host DOM tree and move the Stripe
@@ -47,14 +49,42 @@ export default function stripePayment(
    * Create some html OUTSIDE the shadowRoot
    * So far Stripe does not seem to work in the shadowRoot
    * This function returns the stripe container
+   *
+   * Do some calculations to properly size the stripe container
+   *
    */
   const addStripeParentAndContainerToDocumentBody = () => {
+    /**
+     * This one does not update on screen resize
+     * !! It uses the screen size of the GUEST window !!
+     */
+    const media = breakpoints.find((el) => window.innerWidth >= el.w).s
+
+    const map = {
+      'xl': {left: 50, top: 30, width: 30},
+      'lg': {left: 50, top: 30, width: 30},
+      'md': {left: 30, top: 30, width: 50},
+      'sm': {left: 20, top: 30, width: 75},
+      'xs': {left: 0, top: 30, width: 90},
+    }
+
+    const tl = map[media]
+
     const stripeParent = document.createElement('div')
     const stripeContainer = document.createElement('div')
     stripeParent.setAttribute('id', 'localbooker-stripe-parent')
     stripeParent.setAttribute('style', 'position:fixed;width:100%;height:100%;top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,0.5);z-index:1000000000;')
     stripeContainer.setAttribute('id', 'localbooker-stripe')
-    stripeContainer.setAttribute('style', 'position:absolute;top:30%;left:50%;border-radius: 8px;padding:16px;background-color: white;width: 30vw;transform: translateY(-30%) translateX(-50%);')
+    stripeContainer.setAttribute('style', `
+      position:absolute;
+      left:${50}%;
+      top:${30}%;      
+      width: ${tl.width}%;
+      border-radius: 8px;
+      padding:16px;
+      background-color: white;      
+      transform: translateY(-${30}%) translateX(-${50}%);
+      `)
     stripeParent.append(stripeContainer)
     document.body.append(stripeParent)
     return stripeContainer
@@ -75,13 +105,13 @@ export default function stripePayment(
    * Function to animate the button
    */
   const animator = (butt, func, timeout) => {
-    if(!timeout) timeout = 0
+    if (!timeout) timeout = 0
     let text = butt.innerHTML, i = 0
     handler = setInterval(() => {
       i++
       console.log(i)
       butt.innerHTML = text + '.'.repeat(i)
-    },200)
+    }, 200)
     window.addEventListener('unload', () => {
       clearInterval(handler)
     })
@@ -99,7 +129,7 @@ export default function stripePayment(
     button.append(document.createTextNode(text))
     button.setAttribute('style', buttonStyle + style)
     button.onclick = (e) => {
-      if(delay) {
+      if (delay) {
         animator(e.target, func, delay)
       } else {
         func()
@@ -166,7 +196,6 @@ export default function stripePayment(
       }))
     // --
     stripeContainer.append(div)
-
     ////////////////////////////////////////////////////////////////////////////
     // Cancel row
     ////////////////////////////////////////////////////////////////////////////
@@ -175,7 +204,7 @@ export default function stripePayment(
     div.setAttribute('style', 'position:relative;height:48px;display:block;display:none')
     // Klik hier om deze boeking te annuleren
     div.append(butt(
-      _t.stripe.cancel_button || 'Klik hier om deze boeking te annuleren',
+      _t.stripe.cancel_button || 'Boeking te annuleren',
       'background-color:steelblue;color:white',
       cancelOrderClicked, 2000))
     // Ga terug

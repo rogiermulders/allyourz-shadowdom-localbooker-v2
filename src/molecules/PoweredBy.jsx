@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-export default function PowerdBy() {
+export default function PoweredBy() {
   const [pv, setPv] = useState(false)
   const navigate = useNavigate()
 

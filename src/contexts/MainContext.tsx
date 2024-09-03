@@ -2,17 +2,19 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {localeOptions} from "primereact/api";
 import {Translate} from "../types/translate"
+import { breakpoints } from '../data/constants';
+
 const MainContext = React.createContext({});
 
-const breakpoints = [
-    {w: 1800, s: 'xl'},
-    {w: 1380, s: 'lg'},
-    {w: 1040, s: 'md'},
-    {w: 810, s: 'sm'},
-    {w: 0, s: 'xs'},
-    {sw: null},
-    {ih: null}
-]
+// const breakpoints = [
+//     {w: 1800, s: 'xl'},
+//     {w: 1380, s: 'lg'},
+//     {w: 1040, s: 'md'},
+//     {w: 810, s: 'sm'},
+//     {w: 0, s: 'xs'},
+//     {sw: null},
+//     {ih: null}
+// ]
 
 const MainContextProvider = ({children}) => {
     const ref = useRef()
