@@ -78,7 +78,7 @@ export default function Administrations() {
 
             {/*LINE WITH NICE ICONS*/}
             <ul className="ul-none m-0 p-0 nowrap">
-              <li className="mt-4 flex">
+              <li className="mt-4 flex-wrap">
                 {/*Hotel, Camping etc*/}
                 {accomodation.categories.map((e, i) => <LiContent key={i} icon={e.icon} label={e.label}/>)}
                 {/*Location*/}
@@ -88,7 +88,7 @@ export default function Administrations() {
 
             {/*LINE WITH MAX NUMBER OF GUESTS*/}
             <ul className="ul-none m-0 p-0 nowrap">
-              <li className="mt-4 flex">
+              <li className="mt-4 flex-wrap">
                 {accomodation.properties.maxPersons &&
                   <LiContent icon="users" label={accomodation.properties.maxPersons + ' pers.'}/>
                 }
