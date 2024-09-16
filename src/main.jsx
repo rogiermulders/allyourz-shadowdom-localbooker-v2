@@ -13,6 +13,7 @@ import ThemeAllyourz from './themes/ThemeAllyourz.jsx'
 import ThemeNova from './themes/ThemeNova.jsx'
 
 import relativeToStatic from './services/relativeToStatic.js'
+import ThemeProvincieZeeland from './themes/ThemeProvincieZeeland.jsx'
 
 // Set the base URL for axios
 axios.defaults.baseURL = import.meta.env.VITE_APP_API
@@ -72,6 +73,8 @@ const switcher = () => {
       return <ThemeRenesseAanZee>{app()}</ThemeRenesseAanZee>
     case 'allyourz':
       return <ThemeAllyourz>{app()}</ThemeAllyourz>
+    case 'provinciezeeland':
+      return <ThemeProvincieZeeland>{app()}</ThemeProvincieZeeland>
     default:
       return <ThemeNova>{app()}</ThemeNova>
   }
