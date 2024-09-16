@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>HTML 5 Boilerplate</title>
+  <style>
+      body {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+      }
+
+      #header {
+          position: sticky;
+          padding: 10px;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 100px;
+          background-color: #333;
+      }
+
+      #main {
+          padding: 10px;
+          margin: auto;
+          border: solid 1px #000;
+          width: 95vw;
+          height: 90vh;
+          background-color: #dddddd;
+      }
+
+  </style>
+
+</head>
+<body>
+
+<div class="wrapper"
+     style="
+     position: absolute;
+      width:100vw;
+      height: 100px;
+      background-color: red;
+      z-index:100">
+</div>
+
+<div class="wrapper" style="z-index:101">
+  <div id="header" style="position: sticky; z-index:1">
+    I'm the header
+  </div>
+  <div id="main" style="position: relative;z-index:2">
+    <div id="content">
+      I'm the content
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

@@ -44,10 +44,10 @@ export default function MainFilter() {
 
   // Debugging
   // useEffect(() => {
-  //   if (refs.where.current && process.env.REACT_APP_ENV === 'DEV') {
-  //     refs.where.current.open()
+  //   if (refs.when.current) {
+  //     refs.when.current.open()
   //   }
-  // }, [refs.where])
+  // }, [refs.when])
 
   useEffect(() => {
     if (refWhenButton.current) {
@@ -172,9 +172,13 @@ export default function MainFilter() {
       <WhenButton/>
       {/*Overlay content is calendar. When md or up we have 2 cals so the width = 2 * the buttwidth*/}
       {whenButtonWidth &&
-        <Overlay ref={refs.when} width={whenButtonWidth * (lte('sm') ? 1 : 2.5)}
-                 onOpen={() => closeOthers('when')}>
-          {/*<div style={{height:'400px',backgroundColor:'gainsboro'}}></div>*/}
+        <Overlay
+          ref={refs.when}
+          style={{
+            marginLeft:(lte('xs') ? '0' : '-255px')
+        }}
+          width={(lte('xs') ? '100%' : '650px')}
+          onOpen={() => closeOthers('when')}>
           <WhenContent
             onSelected={() => refs.when.current.close()}
             onClose={() => refs.when.current.close()}
