@@ -89,6 +89,21 @@ a {
 }
 
 
+.my-overlay {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+
+  top: 136px;
+  left: 0;
+  height: calc(100% - 136px);
+  width: 100%;
+  z-index: 1;
+  border: solid 2px red;
+  background-color: rgba(0, 0, 0, 0.5);
+
+}
+
 .loading {
   position: fixed;
   display: flex;

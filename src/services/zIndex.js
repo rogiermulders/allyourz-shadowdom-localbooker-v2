@@ -3,6 +3,7 @@ let prevStyles = []
 
 export default {
   tempFix: () => {
+    return null
     // I know where I'm attached to
     let parent = lb.parentNode
     while (parent.nodeName !== 'HTML') {
@@ -15,6 +16,7 @@ export default {
     }
   },
   removeTempFix: () => {
+    return null
     if(prevStyles.length){
       prevStyles.map(p => {
         p.node.setAttribute('style', p.style)

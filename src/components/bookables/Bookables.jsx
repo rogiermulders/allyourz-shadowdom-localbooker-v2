@@ -14,6 +14,7 @@ import {Card} from "primereact/card";
 import Props from "./Props.jsx";
 import {useNavigate} from "react-router-dom";
 import recoilMainFilter from "../../recoil/recoilMainFilter";
+import BookableOverlay from './BookableOverlay.jsx'
 
 
 export default function Bookables({administration}) {
@@ -130,7 +131,8 @@ export default function Bookables({administration}) {
   return <>
 
     {/*DIALOGS*/}
-    <BookableDialog ref={bookableDialogRef}/>
+    {/*<BookableDialog ref={bookableDialogRef}/>*/}
+    <BookableOverlay ref={bookableDialogRef}/>
     <CalendarDialog ref={calendarDialogRef}/>
 
     <div className="grid text-color">
