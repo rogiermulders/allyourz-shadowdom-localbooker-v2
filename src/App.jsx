@@ -87,10 +87,13 @@ function App({
 
       context.setHostLocale(hostlocale)
 
+      // When the basename switches OR we're new here we need to update the config
       if (lbRoot?.basenameSwitched) {
+
         // when basename switches (see localbooker.js)
         lbRoot.basenameSwitched = false
         sessionStorage.setItem('localbooker-root', JSON.stringify(lbRoot))
+
         setConfig(p => {
           return {
             ...p,
