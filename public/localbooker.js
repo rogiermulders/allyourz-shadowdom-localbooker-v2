@@ -78,10 +78,16 @@ var localbooker = {
     if (!storage[locale]) {
       storage[locale] = {}
     }
-    if (!storage[locale][page]) {
+
+    const basenameSwitched = !!(storage[locale][page] && storage[locale][page] !== document.location.pathname)
+
+    if (!storage[locale][page] || storage[locale][page] !== document.location.pathname) {
       storage[locale][page] = document.location.pathname
-      sessionStorage.setItem('localbooker-root', JSON.stringify(storage))
     }
+
+    storage.basenameSwitched = basenameSwitched
+    sessionStorage.setItem('localbooker-root', JSON.stringify(storage))
+
   },
 
 
