@@ -16,7 +16,7 @@ import PageConfirm from './pages/PageConfirm.jsx'
 import PageThankYou from './pages/PageThankYou.jsx'
 import recoilReservation from './recoil/recoilReservation.js'
 
-const PageStripe = lazy(() => import('./pages/PageStripe.jsx'));
+const PageStripe = lazy(() => import('./pages/PageStripe.jsx'))
 
 function App({
                page,
@@ -80,17 +80,19 @@ function App({
      * (from within the public folder)
      * That one sets the root pages
      */
-    const lbRoot = JSON.parse(sessionStorage.getItem('localbooker-root'))
-    const basename = lbRoot ? lbRoot[hostlocale][page] : '/'
+    let lbRoot = JSON.parse(sessionStorage.getItem('localbooker-root'))
+    if (!lbRoot) {
+      lbRoot = JSON.parse(`{"${hostlocale}":{"${page}":"/"},"basenameSwitched":true}`)
+    }
+    const basename = lbRoot[hostlocale][page]
 
     useEffect(() => {
 
       context.setHostLocale(hostlocale)
 
-      // When the basename switches OR we're new here we need to update the config
       if (lbRoot?.basenameSwitched) {
 
-        // when basename switches (see localbooker.js)
+        // when basename switches (see localbooker.js OR for dev see above)
         lbRoot.basenameSwitched = false
         sessionStorage.setItem('localbooker-root', JSON.stringify(lbRoot))
 
@@ -108,19 +110,19 @@ function App({
             locale: hostlocale      // nl,de,en
           }
         })
+
         // <== !! this is the JSON on the localbooker tag ==> //
-        if (mainfilter && mainfilter.where) {
-          setMainFilter(p => {
-            return {
-              ...p, where: {
-                disabled: !!mainfilter.where?.disabled,
-                regionId: mainfilter.where?.regionId || null,
-                destinationZip: mainfilter.where?.destinationZip || null,
-                range: mainfilter.where?.range || 2
-              }
+        setMainFilter(p => {
+          return {
+            ...p, where: {
+              disabled: !!mainfilter?.where?.disabled,
+              regionId: mainfilter?.where?.regionId || '0',
+              destinationZip: mainfilter?.where?.destinationZip || null,
+              range: mainfilter?.where?.range || 2
             }
-          })
-        }
+          }
+        })
+
       }
     }, [config])
 
@@ -162,7 +164,7 @@ function App({
       <Routes>
         {stripeClientSecret && <>
 
-            <Route key="060" exact path="/" element={<PageStripe />} />
+          <Route key="060" exact path="/" element={<PageStripe />} />
 
         </>}
         {page === 'spa' && <>
