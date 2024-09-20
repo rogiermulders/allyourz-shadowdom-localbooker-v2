@@ -82,7 +82,7 @@ function App({
      */
     let lbRoot = JSON.parse(sessionStorage.getItem('localbooker-root'))
     if (!lbRoot) {
-      lbRoot = JSON.parse(`{"${hostlocale}":{"${page}":"/"},"basenameSwitched":true},"type":"dev"}`)
+      lbRoot = JSON.parse(`{"${hostlocale}":{"${page}":"/"},"basenameSwitched":true,"type":"bare"}`)
     }
     const basename = lbRoot[hostlocale][page]
 
