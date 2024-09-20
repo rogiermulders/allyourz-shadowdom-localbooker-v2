@@ -79,9 +79,10 @@ var localbooker = {
       storage[locale] = {}
     }
 
-    const basenameSwitched = !!(storage[locale][page] && storage[locale][page] !== document.location.pathname)
+    // !! This one should be set BEFORE the if statement !!
+    const basenameSwitched = !storage[locale][page] || storage[locale][page] !== document.location.pathname
 
-    if (!storage[locale][page] || storage[locale][page] !== document.location.pathname) {
+    if (basenameSwitched) {
       storage[locale][page] = document.location.pathname
     }
 
