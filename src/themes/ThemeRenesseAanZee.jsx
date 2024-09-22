@@ -1,9 +1,17 @@
-import theme_css from '../sass/renesseaanzee.scss?inline'
 import Shadow from './Shadow.jsx'
+import { useState, useEffect } from 'react'
+
 
 export default function ThemeRenesseAanZee({ children }) {
+  const [css, setCss] = useState(null)
 
-  return <Shadow theme_css={theme_css}>
+  useEffect(() => {
+    import('../sass/renesseaanzee.scss?inline').then(e => setCss(e.default))
+  }, [])
+
+  if (!css) return null
+
+  return <Shadow theme_css={css}>
     {children}
   </Shadow>
 

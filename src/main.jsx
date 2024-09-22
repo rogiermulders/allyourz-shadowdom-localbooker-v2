@@ -90,7 +90,7 @@ axios.get('/localbooker/locales').then(res => {
   ReactDOM.createRoot(window.localbooker_shadowRoot).render(
     // <React.StrictMode>
       <PrimeReactProvider value={options}>
-        <MainContextProvider>
+        <MainContextProvider locale={locale || data.locale}>
             {switcher()}
         </MainContextProvider>
       </PrimeReactProvider>
