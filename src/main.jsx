@@ -8,12 +8,8 @@ import axios from 'axios'
 import { injectIconSvgIntoDom } from './services/injectIconSvgIntoDom.js'
 import { MainContextProvider } from './contexts/MainContext'
 
-import ThemeRenesseAanZee from './themes/ThemeRenesseAanZee.jsx'
-import ThemeAllyourz from './themes/ThemeAllyourz.jsx'
-import ThemeNova from './themes/ThemeNova.jsx'
-
 import relativeToStatic from './services/relativeToStatic.js'
-import ThemeProvincieZeeland from './themes/ThemeProvincieZeeland.jsx'
+import ThemeLoader from './themes/ThemeLoader.jsx'
 
 // Set the base URL for axios
 axios.defaults.baseURL = import.meta.env.VITE_APP_API
@@ -51,35 +47,6 @@ const searchParams = new URLSearchParams(document.location.search)
 const locale = searchParams.get('localbooker-locale')
 const offset = searchParams.get('localbooker-offset')
 
-const app = () => <App
-  page={data.page}
-  pid={data.pid}
-  slug={data.slug}
-  offset={offset || data.offset}
-  mainfilter={data.mainfilter}
-  hostlocale={locale || data.locale}
-  content={data.content !== 'false'}
-  scroll={data.scroll !== 'false'}
-  scrollto={window.localbooker_container.getBoundingClientRect().y}
-/>
-
-/*******************************************************************************
-  * Switcher
-  * @returns {JSX.Element}
-  *****************************************************************************/
-const switcher = () => {
-  switch (import.meta.env.VITE_APP_THEME) {
-    case 'renesseaanzee':
-      return <ThemeRenesseAanZee>{app()}</ThemeRenesseAanZee>
-    case 'allyourz':
-      return <ThemeAllyourz>{app()}</ThemeAllyourz>
-    case 'provinciezeeland':
-      return <ThemeProvincieZeeland>{app()}</ThemeProvincieZeeland>
-    default:
-      return <ThemeNova>{app()}</ThemeNova>
-  }
-}
-
 // First get the locale data
 axios.get('/localbooker/locales').then(res => {
   for (const [locale, json] of Object.entries(res.data)) {
@@ -89,11 +56,23 @@ axios.get('/localbooker/locales').then(res => {
   }
   ReactDOM.createRoot(window.localbooker_shadowRoot).render(
     // <React.StrictMode>
-      <PrimeReactProvider value={options}>
-        <MainContextProvider locale={locale || data.locale}>
-            {switcher()}
-        </MainContextProvider>
-      </PrimeReactProvider>
+    <PrimeReactProvider value={options}>
+      <MainContextProvider locale={locale || data.locale}>
+        <ThemeLoader>
+          <App
+            page={data.page}
+            pid={data.pid}
+            slug={data.slug}
+            offset={offset || data.offset}
+            mainfilter={data.mainfilter}
+            hostlocale={locale || data.locale}
+            content={data.content !== 'false'}
+            scroll={data.scroll !== 'false'}
+            scrollto={window.localbooker_container.getBoundingClientRect().y}
+          />
+        </ThemeLoader>
+      </MainContextProvider>
+    </PrimeReactProvider>
     // </React.StrictMode>
   )
 })
