@@ -68,8 +68,9 @@ export default function Spa() {
       limit: rowsPerPage,
       limitMedia: 1
     }
+
     // WhereContent
-    if (regionId === null) {                        // regionId not selected. must be place
+    if (regionId === '0') {                        // regionId not selected. must be place
       r.mainFilters.place = destinationZip
       r.mainFilters.range = range
     } else if (regionId !== '0') {                   // regionId === '0' means everything so only when not '0'
@@ -84,12 +85,13 @@ export default function Spa() {
       r.mainFilters.startDate = getYmd(checkIn)
       r.mainFilters.endDate = getYmd(checkOut)
     }
+    console.log(r)
     return r
   }, [context.hostLocale, regionId, destinationZip, adults, children, pets, range, checkIn, checkOut, category, offset, sort, subFilters])
 
 
   useEffect(() => {
-
+console.log(request)
       /**
        * Below some 'run once' code (only when the request changes)
        * or list/map switch
