@@ -1,5 +1,4 @@
 import fs from 'fs/promises'
-// Import Terser so we can use it
 import { minify } from 'terser'
 
 const terser_config = {
