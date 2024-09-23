@@ -16,14 +16,14 @@ const MainContext = React.createContext({});
 //     {ih: null}
 // ]
 
-const MainContextProvider = ({children}) => {
+const MainContextProvider = ({children, locale}) => {
     const ref = useRef()
     const [loading, setLoading] = useState(false)
     const [allCssLoaded, setAllCssLoaded] = useState(false)
     const [shadowRoot, setShadowRoot] = useState(null)
     const [breakpoint, setBreakpoint] = useState(null)
     const [reactApp, setReactApp] = useState(null)
-    const [hostLocale, setHostLocale] = useState(null)
+    const [hostLocale, setHostLocale] = useState(locale)
     const [maxGuests, setMaxGuests] = useState(0)
     const [maxPets, setMaxPets] = useState(0)
     const [cheapest, setCheapest] = useState(0)

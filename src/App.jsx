@@ -163,9 +163,7 @@ function App({
     return <BrowserRouter basename={basename}>
       <Routes>
         {stripeClientSecret && <>
-
           <Route key="060" exact path="/" element={<PageStripe />} />
-
         </>}
         {page === 'spa' && <>
           <Route key="000" exact path="/" element={<Spa />} />
@@ -180,14 +178,12 @@ function App({
         <Route key="040" exact path="/thankyou" element={<PageThankYou />} />
         <Route key="050" exact path="/test" element={<PageTest />} />
       </Routes>
-
     </BrowserRouter>
   }
 
 
   return (
     <RecoilRoot>
-
       <div id="app" className="p-component" style={{ visibility: 'hidden' }}>
         <MyRouter
           content={content}
@@ -200,10 +196,7 @@ function App({
           mainfilter={mainfilter || null}
         />
       </div>
-
     </RecoilRoot>
-
-
   )
 }
 
