@@ -85,13 +85,11 @@ export default function Spa() {
       r.mainFilters.startDate = getYmd(checkIn)
       r.mainFilters.endDate = getYmd(checkOut)
     }
-    console.log(r)
     return r
   }, [context.hostLocale, regionId, destinationZip, adults, children, pets, range, checkIn, checkOut, category, offset, sort, subFilters])
 
 
   useEffect(() => {
-console.log(request)
       /**
        * Below some 'run once' code (only when the request changes)
        * or list/map switch
