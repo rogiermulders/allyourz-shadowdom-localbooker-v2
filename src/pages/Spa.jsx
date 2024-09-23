@@ -21,7 +21,6 @@ import MainFilter from '../components/mainfilter/MainFilter.jsx'
 import Takeover from '../molecules/Takeover.jsx'
 import PoweredBy from '../molecules/PoweredBy.jsx'
 
-
 const SpaList = lazy(() => import('../components/availability/SpaList.jsx'))
 const MapStays = lazy(() => import('../components/availability/MapStays'))
 
