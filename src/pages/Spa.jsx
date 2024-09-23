@@ -20,7 +20,7 @@ import axios from 'axios'
 import MainFilter from '../components/mainfilter/MainFilter.jsx'
 import Takeover from '../molecules/Takeover.jsx'
 import PoweredBy from '../molecules/PoweredBy.jsx'
-
+import Layout from './Layout.jsx'
 
 const SpaList = lazy(() => import('../components/availability/SpaList.jsx'))
 const MapStays = lazy(() => import('../components/availability/MapStays'))
@@ -34,6 +34,7 @@ export default function Spa() {
   const [availability, setAvailability] = useRecoilState(recoilAvailability)
   const [showSubFilter, setShowSubFilter] = useState(false)
   const [spa, setSpa] = useRecoilState(recoilSpa)
+  
 
   const {
     regionId,
@@ -117,7 +118,7 @@ export default function Spa() {
     rounded />
 
 
-  return <div>
+  return <Layout>
     <Loading />
     {
       showSubFilter ?
@@ -202,5 +203,5 @@ export default function Spa() {
         </>
     }
     <PoweredBy />
-  </div>
+  </Layout>
 }

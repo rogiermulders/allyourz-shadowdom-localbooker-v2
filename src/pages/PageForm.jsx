@@ -16,6 +16,7 @@ import scrollIntoViewWithOffset from '../services/scrollIntoViewWithOffset'
 import ForwardDialog from '../molecules/ForwardDialog.jsx'
 import { Button } from 'primereact/button'
 import Loading from '../molecules/Loading.jsx'
+import Layout from './Layout.jsx'
 
 export default function PageForm() {
   const dialogRef = useRef()
@@ -149,7 +150,7 @@ export default function PageForm() {
 
   }
 
-  return <>
+  return <Layout>
     <Loading />
     {/*error message*/}
     <ForwardDialog
@@ -195,6 +196,6 @@ export default function PageForm() {
       </div>
     </div>
     <PoweredBy />
-  </>
+  </Layout>
 
 }

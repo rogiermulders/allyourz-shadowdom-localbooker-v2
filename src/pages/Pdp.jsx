@@ -12,6 +12,7 @@ import PoweredBy from "../molecules/PoweredBy.jsx";
 import scrollIntoViewWithOffset from "../services/scrollIntoViewWithOffset";
 import {Accordion, AccordionTab} from "primereact/accordion";
 import Icon from "../molecules/Icon.jsx";
+import Layout from './Layout.jsx'
 
 export default function Pdp({administration_slug}) {
   const params = useParams()
@@ -43,7 +44,7 @@ export default function Pdp({administration_slug}) {
     })
   }, [administration_slug, context.hostLocale])
 
-  return <>
+  return <Layout>
 
     <div ref={srollInViewRef} className={lte('sm') ? 'grid' : 'grid padding'}>
 
@@ -128,7 +129,6 @@ export default function Pdp({administration_slug}) {
       }
     </div>
     <PoweredBy/>
-  </>
-
+  </Layout>
 
 }

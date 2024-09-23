@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom";
 import recoilCartData from "../recoil/recoilCartData";
 import recoilConfig from "../recoil/recoilConfig";
 import PoweredBy from "../molecules/PoweredBy.jsx";
+import Layout from './Layout.jsx'
 
 
 export default function PageThankYou() {
@@ -19,7 +20,7 @@ export default function PageThankYou() {
   const resetReservation = useResetRecoilState(recoilReservation)
   const resetCartData = useResetRecoilState(recoilCartData)
 
-  return <>
+  return <Layout>
     <div className="p-4">
       <Card>
         <div className="h3">Je gaat op reis!</div>
@@ -51,5 +52,5 @@ export default function PageThankYou() {
       </Card>
     </div>
     <PoweredBy/>
-  </>
+  </Layout>
 }

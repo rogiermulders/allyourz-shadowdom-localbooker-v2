@@ -9,6 +9,7 @@ import recoilConfig from '../recoil/recoilConfig.js'
 import { classNames } from 'primereact/utils'
 
 import { useNavigate } from 'react-router-dom'
+import Layout from './Layout.jsx'
 
 export default function PageStripe() {
   const navigate = useNavigate()
@@ -24,7 +25,7 @@ export default function PageStripe() {
 
   useEffect(() => {
     // Init stripe
-    loadStripe.setLoadParameters({advancedFraudSignals: false});
+    loadStripe.setLoadParameters({ advancedFraudSignals: false })
     const localbookerStripe = loadStripe(import.meta.env.VITE_APP_STRIPE_API_KEY, { locale: context.hostLocale })
     localbookerStripe.then(stripe => {
       setStripe(stripe)
@@ -93,14 +94,14 @@ export default function PageStripe() {
     }
   }, [stripe, reservation.stripeClientSecret])
 
-  return <div className="m-8">
-    <div className="h3">{_t.stripe.page_pay || 'Betaalpagina'}</div>
-
-    <div className={classNames(
-      'mt-4', { hidden: !showWait })}>
-      <i className="pi pi-spin pi-spinner mr-4" />
-      {_t.stripe.wait_for_stripe || 'Wachten op stripe...'}
+  return <Layout>
+    <div className="m-8">
+      <div className="h3">{_t.stripe.page_pay || 'Betaalpagina'}</div>
+      <div className={classNames(
+        'mt-4', { hidden: !showWait })}>
+        <i className="pi pi-spin pi-spinner mr-4" />
+        {_t.stripe.wait_for_stripe || 'Wachten op stripe...'}
+      </div>
     </div>
-  </div>
-
+  </Layout>
 }

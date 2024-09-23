@@ -33,6 +33,7 @@ import DangerouslyInsertTextToBr from '../molecules/DangerouslyInsertTextToBr.js
 import Fees from '../components/cart/Fees.jsx'
 import BookCart from '../components/cart/BookCart.jsx'
 import Extras from '../components/cart/Extras.jsx'
+import Layout from './Layout.jsx'
 
 /**
  * Little complex stuff cuz we can pay here as well
@@ -136,7 +137,7 @@ export default function PageConfirm() {
     })
   }
 
-  return <>
+  return <Layout>
     <Dialog
       header={locale.error_header}
       onHide={() => setDialog(false)} visible={dialog}>
@@ -236,6 +237,6 @@ export default function PageConfirm() {
 
     </div>
     <PoweredBy />
-  </>
+  </Layout>
 
 }
