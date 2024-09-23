@@ -49,6 +49,8 @@ var localbooker = {
     const storage = JSON.parse(sessionStorage.getItem('localbooker-root'))
     if (!storage) return
 
+    if(storage.hasBaseName) return
+
     const {nl, de, en} = storage
     const {location} = document
     const {pathname} = location
@@ -70,20 +72,45 @@ var localbooker = {
      */
     let storage = JSON.parse(sessionStorage.getItem('localbooker-root')) || {} // storage
 
-    let {locale, page} = localbooker.root.dataset
+    let {locale, page, basename} = localbooker.root.dataset
     locale = locale || 'nl'
+
+    /**
+     * When the basename is not set, we will use the current location.pathname
+     */
+    if(basename){
+
+      let pathname = document.location.pathname
+
+      // Add / when not there
+      const realPathName = pathname.split('/').pop() === '' ? pathname : pathname + '/'
+      const testBaseName = basename.split('/').pop() === '' ? basename : basename + '/'
+
+      // check if test is in realPathname
+      if(realPathName.includes(testBaseName)){
+        // remove everything after the testBaseName string
+        basename = realPathName.split(testBaseName)[0] + testBaseName
+      } else {
+        basename = realPathName
+      }
+    } else {
+      basename = document.location.pathname
+    }
+
     /**
      * This will set the root path of the page (pdp or spa) in localstorage (once)
+     * Also sets if a basename is defined by the user
      */
     if (!storage[locale]) {
       storage[locale] = {}
+      storage.hasBaseName =  !!localbooker.root.dataset.basename
     }
 
     // !! This one should be set BEFORE the if statement !!
-    const basenameSwitched = !storage[locale][page] || storage[locale][page] !== document.location.pathname
+    const basenameSwitched = !storage[locale][page] || storage[locale][page] !== basename
 
     if (basenameSwitched) {
-      storage[locale][page] = document.location.pathname
+      storage[locale][page] = basename
     }
 
     storage.basenameSwitched = basenameSwitched
