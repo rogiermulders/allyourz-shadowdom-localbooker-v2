@@ -114,7 +114,9 @@ function App({
         // <== !! this is the JSON on the localbooker tag ==> //
         setMainFilter(p => {
           return {
-            ...p, where: {
+            ...p,
+            pre_init: false,
+            where: {
               disabled: !!mainfilter?.where?.disabled,
               regionId: mainfilter?.where?.regionId || '0',
               destinationZip: mainfilter?.where?.destinationZip || null,

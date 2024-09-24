@@ -12,6 +12,7 @@ const selectorMainFilter = selector({
     const checkOut = toDate(atom.when.checkOut)
 
     return {
+      pre_init: atom.pre_init,
       bookable: atom.bookable,
       administration: atom.administration,
 

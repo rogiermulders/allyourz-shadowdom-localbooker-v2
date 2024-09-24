@@ -21,7 +21,6 @@ import MainFilter from '../components/mainfilter/MainFilter.jsx'
 import Takeover from '../molecules/Takeover.jsx'
 import PoweredBy from '../molecules/PoweredBy.jsx'
 
-
 const SpaList = lazy(() => import('../components/availability/SpaList.jsx'))
 const MapStays = lazy(() => import('../components/availability/MapStays'))
 
@@ -36,6 +35,7 @@ export default function Spa() {
   const [spa, setSpa] = useRecoilState(recoilSpa)
 
   const {
+    pre_init,
     regionId,
     destinationZip,
     adults,
@@ -85,13 +85,17 @@ export default function Spa() {
       r.mainFilters.startDate = getYmd(checkIn)
       r.mainFilters.endDate = getYmd(checkOut)
     }
-    console.log(r)
     return r
   }, [context.hostLocale, regionId, destinationZip, adults, children, pets, range, checkIn, checkOut, category, offset, sort, subFilters])
 
 
   useEffect(() => {
-console.log(request)
+      /**
+       * Default this one is true,
+       * Is set to false in App when the config is loaded
+       */
+      if (pre_init) return
+
       /**
        * Below some 'run once' code (only when the request changes)
        * or list/map switch
@@ -104,7 +108,7 @@ console.log(request)
         context.setLoading(false)
       })
 
-    }, [request]
+    }, [request, pre_init]
   )
 
   const MapButton = () => <Button

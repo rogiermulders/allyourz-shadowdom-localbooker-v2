@@ -109,7 +109,6 @@ export default function stripePayment(
     let text = butt.innerHTML, i = 0
     handler = setInterval(() => {
       i++
-      console.log(i)
       butt.innerHTML = text + '.'.repeat(i)
     }, 200)
     window.addEventListener('unload', () => {
