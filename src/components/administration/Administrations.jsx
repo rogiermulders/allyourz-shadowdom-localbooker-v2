@@ -20,6 +20,7 @@ export default function Administrations() {
   const _t = context._t()
   if (!avail.accomodations) return null
 
+
   const LiContent = ({icon, label}) => {
     return <>
       <div>
