@@ -3,11 +3,12 @@ import {atom,persistAtom} from "./persistAtom";
 export default atom({
   key: 'mainFilter',
   default: {
+    pre_init: true,
     administration: null,
     bookable: null,
     where: {
       disabled: false,
-      regionId: '0', // Its a string cuz when we have data its a uuid
+      regionId: '0',
       destinationZip: null,
       range: 2
     },

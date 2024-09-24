@@ -111,6 +111,8 @@ var localbooker = {
 
     if (basenameSwitched) {
       storage[locale][page] = basename
+      // NEW SESSION!
+      sessionStorage.removeItem('localbooker-persist')
     }
 
     storage.basenameSwitched = basenameSwitched

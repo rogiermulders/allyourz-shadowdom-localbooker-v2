@@ -35,6 +35,7 @@ export default function Spa() {
   const [spa, setSpa] = useRecoilState(recoilSpa)
 
   const {
+    pre_init,
     regionId,
     destinationZip,
     adults,
@@ -90,6 +91,12 @@ export default function Spa() {
 
   useEffect(() => {
       /**
+       * Default this one is true,
+       * Is set to false in App when the config is loaded
+       */
+      if (pre_init) return
+
+      /**
        * Below some 'run once' code (only when the request changes)
        * or list/map switch
        */
@@ -101,7 +108,7 @@ export default function Spa() {
         context.setLoading(false)
       })
 
-    }, [request]
+    }, [request, pre_init]
   )
 
   const MapButton = () => <Button
