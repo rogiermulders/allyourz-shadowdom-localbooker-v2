@@ -47,6 +47,24 @@ const searchParams = new URLSearchParams(document.location.search)
 const locale = searchParams.get('localbooker-locale')
 const offset = searchParams.get('localbooker-offset')
 
+/**
+ * When no data-theme attribute is set
+ */
+if(!data.theme){
+  if(window.localbooker.domain){
+    /**
+     * If we're in production AND we have NO theme
+     * use the subdomain as theme
+     */
+    data.theme = window.localbooker.domain.split('//')[1].split('.')[0]
+  } else {
+    /**
+     * Should be DEV
+     */
+    data.theme = 'nova'
+  }
+}
+
 // First get the locale data
 axios.get('/localbooker/locales').then(res => {
   for (const [locale, json] of Object.entries(res.data)) {
@@ -55,11 +73,11 @@ axios.get('/localbooker/locales').then(res => {
     }
   }
   ReactDOM.createRoot(window.localbooker_shadowRoot).render(
-    // <React.StrictMode>
     <PrimeReactProvider value={options}>
       <MainContextProvider locale={locale || data.locale}>
-        <ThemeLoader>
+        <ThemeLoader theme={data.theme}>
           <App
+            theme={data.theme}
             page={data.page}
             pid={data.pid}
             slug={data.slug}
@@ -73,6 +91,5 @@ axios.get('/localbooker/locales').then(res => {
         </ThemeLoader>
       </MainContextProvider>
     </PrimeReactProvider>
-    // </React.StrictMode>
   )
 })

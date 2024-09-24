@@ -1,7 +1,7 @@
 import Shadow from './Shadow.jsx'
 import { useEffect, useState } from 'react'
 
-export default function ThemeLoader({ children }) {
+export default function ThemeLoader({ children,theme }) {
 
   const [css, setCss] = useState(null)
 
@@ -14,7 +14,7 @@ export default function ThemeLoader({ children }) {
    */
 
   useEffect(() => {
-    switch (import.meta.env.VITE_APP_THEME) {
+    switch (theme) {
       case 'renesseaanzee':
         import(`../sass/renesseaanzee.scss?inline`).then(e => setCss(e.default))
         break
@@ -30,9 +30,9 @@ export default function ThemeLoader({ children }) {
       default:
         setUnknownTheme(true)
     }
-  }, [])
+  }, [theme])
 
-  if (unknownTheme) return <div>Unknown theme '{import.meta.env.VITE_APP_THEME}'</div>
+  if (unknownTheme) return <div>Unknown theme '{theme}'</div>
 
   if (!css) return null
 
