@@ -70,10 +70,10 @@ export default function Spa() {
     }
 
     // WhereContent
-    if (regionId === '0') {                        // regionId not selected. must be place
+    if (regionId === '0' || regionId === null) {     // regionId not selected. must be place
       r.mainFilters.place = destinationZip
       r.mainFilters.range = range
-    } else if (regionId !== '0') {                   // regionId === '0' means everything so only when not '0'
+    } else {                                          // regionId === '0' means everything so only when not '0'
       r.mainFilters.region = regionId
     }
 
@@ -85,6 +85,7 @@ export default function Spa() {
       r.mainFilters.startDate = getYmd(checkIn)
       r.mainFilters.endDate = getYmd(checkOut)
     }
+
     return r
   }, [context.hostLocale, regionId, destinationZip, adults, children, pets, range, checkIn, checkOut, category, offset, sort, subFilters])
 
