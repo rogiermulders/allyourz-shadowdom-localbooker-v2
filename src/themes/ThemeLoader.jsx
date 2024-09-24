@@ -27,6 +27,9 @@ export default function ThemeLoader({ children,theme }) {
       case 'provinciezeeland':
         import(`../sass/provinciezeeland.scss?inline`).then(e => setCss(e.default))
         break
+      case 'demo':
+        import(`../sass/provinciezeeland.scss?inline`).then(e => setCss(e.default))
+        break
       default:
         setUnknownTheme(true)
     }
