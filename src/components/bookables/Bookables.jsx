@@ -2,7 +2,7 @@ import {useRecoilState, useRecoilValue} from "recoil";
 import {useContext, useEffect, useRef, useState} from "react";
 import {getYmd} from "../../services/dates";
 import axios from "axios";
-import {col, gte, lte} from "../../services/buttstrip";
+import { col, getBp, gte, lte } from '../../services/buttstrip'
 import {imageResize} from "../../services/imageResize";
 import {Button} from "primereact/button";
 import {toEuro} from "../../services/money";
@@ -78,7 +78,8 @@ export default function Bookables({administration}) {
     return bookable.status === 'available' && <>
       <div className="h02 text-color-secondary">{_t.labels.from_night}</div>
       <div className="h4 mt-1">
-        {toEuro(bookable.price?.cost / bookable.price?.days)}
+
+        {toEuro(bookable.price?.cost / bookable.price?.days,true)}
       </div>
     </>
   }
@@ -97,7 +98,8 @@ export default function Bookables({administration}) {
   const Image = ({bookable}) => <div className="ar-box-3-2">
     <div className="ar-box-inside-3-2">
       <img className="ar-image border-radius"
-           src={imageResize(bookable.images[0]?.url, 256)}
+           alt={bookable.name}
+           src={imageResize(bookable.images[0]?.url, getImageSize())}
            onClick={() => {
              bookableDialogRef.current.open(bookable)
            }}/>
@@ -122,6 +124,17 @@ export default function Bookables({administration}) {
         }
       }}
     />
+  }
+
+  const getImageSize = () => {
+    switch (getBp()) {
+      case 'xs':
+        return 1080
+      case 'sm':
+        return 640
+      default:
+        return 256
+    }
   }
 
   /*************************************************************************
