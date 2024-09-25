@@ -110,7 +110,7 @@ var localbooker = {
     const basenameSwitched = !storage[locale][page] || storage[locale][page] !== basename
 
     if (basenameSwitched) {
-      storage[locale][page] = basename + '/'
+      storage[locale][page] = basename
       // NEW SESSION!
       sessionStorage.removeItem('localbooker-persist')
     }
