@@ -15,7 +15,7 @@ export const breakpoints = [
   {ih: null}
 ]
 
-export const imageNotFound = import.meta.env.VITE_APP_URL + '/assets/images/not-found.png'
+export const imageNotFound = (window.localbooker.domain || document.location.origin ) + '/assets/images/not-found.png'
 
 export const rangeOptions = [
   {label: '1 km', value: 1},
