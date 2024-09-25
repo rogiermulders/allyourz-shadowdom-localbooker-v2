@@ -91,6 +91,7 @@ var localbooker = {
         // remove everything after the testBaseName string
         basename = realPathName.split(testBaseName)[0] + testBaseName
       } else {
+        console.log('basename not found in pathname',basename,pathname)
         basename = realPathName
       }
     } else {
