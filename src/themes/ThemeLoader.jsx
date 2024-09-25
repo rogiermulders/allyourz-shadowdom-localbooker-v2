@@ -16,19 +16,19 @@ export default function ThemeLoader({ children,theme }) {
   useEffect(() => {
     switch (theme) {
       case 'renesseaanzee':
-        import(`../sass/renesseaanzee.scss?inline`).then(e => setCss(e.default))
+        import(`../sass/primereact/themes/_renesseaanzee/index.scss?inline`).then(e => setCss(e.default))
         break
       case 'nova':
-        import(`../sass/nova.scss?inline`).then(e => setCss(e.default))
+        import(`../sass/primereact/themes/_nova/index.scss?inline`).then(e => setCss(e.default))
         break
       case 'allyourz':
-        import(`../sass/allyourz.scss?inline`).then(e => setCss(e.default))
+        import(`../sass/primereact/themes/_allyourz/index.scss?inline`).then(e => setCss(e.default))
         break
       case 'provinciezeeland':
-        import(`../sass/provinciezeeland.scss?inline`).then(e => setCss(e.default))
+        import(`../sass/primereact/themes/_provinciezeeland/index.scss?inline`).then(e => setCss(e.default))
         break
       case 'demo':
-        import(`../sass/provinciezeeland.scss?inline`).then(e => setCss(e.default))
+        import(`../sass/primereact/themes/_demo/index.scss?inline`).then(e => setCss(e.default))
         break
       default:
         setUnknownTheme(true)
