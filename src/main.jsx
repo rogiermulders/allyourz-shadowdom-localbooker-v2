@@ -61,13 +61,14 @@ if (import.meta.env.PROD) {
       /** Have NO window.localbooker.domain. This means we are on th lb domain itself */
       data.theme = document.location.origin.split('//')[1].split('.')[0]
     }
-  } else {
-    /** DEV */
-    if (!data.theme) {
-      data.theme = 'nova'
-    }
+  }
+} else {
+  /** DEV */
+  if (!data.theme) {
+    data.theme = 'nova'
   }
 }
+
 
 // First get the locale data
 axios.get('/localbooker/locales').then(res => {
