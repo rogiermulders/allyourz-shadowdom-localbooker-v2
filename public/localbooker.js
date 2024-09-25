@@ -89,10 +89,8 @@ var localbooker = {
       // check if test is in realPathname
       if(realPathName.includes(testBaseName)){
         // remove everything after the testBaseName string
-        console.log('basename not found in pathname',basename,pathname)
         basename = realPathName.split(testBaseName)[0] + testBaseName
       } else {
-        console.log('basename not found in pathname',basename,pathname)
         basename = realPathName
       }
     } else {
@@ -112,7 +110,7 @@ var localbooker = {
     const basenameSwitched = !storage[locale][page] || storage[locale][page] !== basename
 
     if (basenameSwitched) {
-      storage[locale][page] = basename
+      storage[locale][page] = basename + '/'
       // NEW SESSION!
       sessionStorage.removeItem('localbooker-persist')
     }
