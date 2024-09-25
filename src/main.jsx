@@ -50,18 +50,22 @@ const offset = searchParams.get('localbooker-offset')
 /**
  * When no data-theme attribute is set
  */
-if(!data.theme){
-  if(window.localbooker.domain){
-    /**
-     * If we're in production AND we have NO theme
-     * use the subdomain as theme
-     */
-    data.theme = window.localbooker.domain.split('//')[1].split('.')[0]
+
+if (import.meta.env.PROD) {
+  /** PROD */
+  if (!data.theme) {
+    if (window.localbooker.domain) {
+      /** Have a window.localbooker.domain. This means we MUST be on the HOST */
+      data.theme = window.localbooker.domain.split('//')[1].split('.')[0]
+    } else {
+      /** Have NO window.localbooker.domain. This means we are on th lb domain itself */
+      data.theme = document.location.origin.split('//')[1].split('.')[0]
+    }
   } else {
-    /**
-     * Should be DEV
-     */
-    data.theme = 'nova'
+    /** DEV */
+    if (!data.theme) {
+      data.theme = 'nova'
+    }
   }
 }
 
