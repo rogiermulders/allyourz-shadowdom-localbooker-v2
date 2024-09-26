@@ -79,13 +79,10 @@ var localbooker = {
      * When the basename is not set, we will use the current location.pathname
      */
     if(basename){
-
       let pathname = document.location.pathname
-
       // Add / when not there
       const realPathName = pathname.split('/').pop() === '' ? pathname : pathname + '/'
       const testBaseName = basename.split('/').pop() === '' ? basename : basename + '/'
-
       // check if test is in realPathname
       if(realPathName.includes(testBaseName)){
         // remove everything after the testBaseName string
@@ -96,6 +93,7 @@ var localbooker = {
     } else {
       basename = document.location.pathname
     }
+    basename = basename.replace(/\/$/, '')
 
     /**
      * This will set the root path of the page (pdp or spa) in localstorage (once)
@@ -110,7 +108,7 @@ var localbooker = {
     const basenameSwitched = !storage[locale][page] || storage[locale][page] !== basename
 
     if (basenameSwitched) {
-      storage[locale][page] = '/nl-nl/visit/zoek-en-boek'
+      storage[locale][page] = basename
       // NEW SESSION!
       sessionStorage.removeItem('localbooker-persist')
     }
