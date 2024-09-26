@@ -36,8 +36,8 @@ const options = {
   styleContainer: window.localbooker_shadowRoot
 }
 
-// Easy reading
-const data = window.localbooker_container.dataset
+// Cloneto to prevent updating the #localbooker <div>
+const data = JSON.parse(JSON.stringify(window.localbooker_container.dataset))
 
 /**
  * Hack so we can change some stuff with url parameter
@@ -50,20 +50,25 @@ const offset = searchParams.get('localbooker-offset')
 /**
  * When no data-theme attribute is set
  */
-if(!data.theme){
-  if(window.localbooker.domain){
-    /**
-     * If we're in production AND we have NO theme
-     * use the subdomain as theme
-     */
-    data.theme = window.localbooker.domain.split('//')[1].split('.')[0]
-  } else {
-    /**
-     * Should be DEV
-     */
+
+if (import.meta.env.PROD) {
+  /** PROD */
+  if (!data.theme) {
+    if (window.localbooker.domain) {
+      /** Have a window.localbooker.domain. This means we MUST be on the HOST */
+      data.theme = window.localbooker.domain.split('//')[1].split('.')[0]
+    } else {
+      /** Have NO window.localbooker.domain. This means we are on th lb domain itself */
+      data.theme = document.location.origin.split('//')[1].split('.')[0]
+    }
+  }
+} else {
+  /** DEV */
+  if (!data.theme) {
     data.theme = 'nova'
   }
 }
+
 
 // First get the locale data
 axios.get('/localbooker/locales').then(res => {
