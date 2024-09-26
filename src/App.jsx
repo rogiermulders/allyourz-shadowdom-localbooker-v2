@@ -165,20 +165,20 @@ function App({
     return <BrowserRouter basename={basename}>
       <Routes>
         {stripeClientSecret && <>
-          <Route key="060" exact path="/" element={<PageStripe />} />
+          <Route key="060" path="/" element={<PageStripe />} />
         </>}
         {page === 'spa' && <>
-          <Route key="000" exact path="/" element={<Spa />} />
-          <Route key="010" exact path="/:administration_slug" element={<Pdp />} />
+          <Route key="000" path="/" element={<Spa />} />
+          <Route key="010" path="/:administration_slug" element={<Pdp />} />
         </>}
         {page === 'pdp' && <>
-          <Route key="010" exact path="/" element={<Pdp administration_slug={slug} />} />
+          <Route key="010" path="/" element={<Pdp administration_slug={slug} />} />
         </>}
-        <Route key="000" exact path="/" element={<PageThankYou />} />
-        <Route key="020" exact path="/book" element={<PageForm />} />
-        <Route key="030" exact path="/check" element={<PageConfirm />} />
-        <Route key="040" exact path="/thankyou" element={<PageThankYou />} />
-        <Route key="050" exact path="/test" element={<PageTest />} />
+        <Route key="000" path="/" element={<PageThankYou />} />
+        <Route key="020" path="/book" element={<PageForm />} />
+        <Route key="030" path="/check" element={<PageConfirm />} />
+        <Route key="040" path="/thankyou" element={<PageThankYou />} />
+        <Route key="050" path="/test" element={<PageTest />} />
       </Routes>
     </BrowserRouter>
   }
