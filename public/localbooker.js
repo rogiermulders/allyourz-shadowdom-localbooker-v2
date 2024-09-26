@@ -110,7 +110,7 @@ var localbooker = {
     const basenameSwitched = !storage[locale][page] || storage[locale][page] !== basename
 
     if (basenameSwitched) {
-      storage[locale][page] = basename
+      storage[locale][page] = '/nl-nl/visit/zoek-en-boek'
       // NEW SESSION!
       sessionStorage.removeItem('localbooker-persist')
     }
