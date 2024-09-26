@@ -50,7 +50,7 @@ var localbooker = {
     if (!storage) return
 
     if(storage.hasBaseName) return
-
+console.log('Swapping')
     const {nl, de, en} = storage
     const {location} = document
     const {pathname} = location
