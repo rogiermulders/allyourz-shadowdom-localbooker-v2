@@ -36,8 +36,8 @@ const options = {
   styleContainer: window.localbooker_shadowRoot
 }
 
-// Easy reading
-const data = window.localbooker_container.dataset
+// Cloneto to prevent updating the #localbooker <div>
+const data = JSON.parse(JSON.stringify(window.localbooker_container.dataset))
 
 /**
  * Hack so we can change some stuff with url parameter
