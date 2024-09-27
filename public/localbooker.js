@@ -50,7 +50,6 @@ var localbooker = {
     if (!storage) return
 
     if(storage.hasBaseName) return
-console.log('Swapping')
     const {nl, de, en} = storage
     const {location} = document
     const {pathname} = location
@@ -72,8 +71,12 @@ console.log('Swapping')
      */
     let storage = JSON.parse(sessionStorage.getItem('localbooker-root')) || {} // storage
 
-    let {locale, page, basename} = localbooker.root.dataset
-    const givenBaseName = basename
+    // let {locale, page, basename} = localbooker.root.dataset
+    let {locale, page} = localbooker.root.dataset
+
+    const basename = 'zoek-en-boek' // default basename
+
+    let givenBaseName = basename
     locale = locale || 'nl'
 
     /**
