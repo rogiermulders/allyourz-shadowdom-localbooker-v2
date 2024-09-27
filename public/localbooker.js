@@ -50,7 +50,6 @@ var localbooker = {
     if (!storage) return
 
     if(storage.hasBaseName) return
-
     const {nl, de, en} = storage
     const {location} = document
     const {pathname} = location
@@ -73,7 +72,8 @@ var localbooker = {
     let storage = JSON.parse(sessionStorage.getItem('localbooker-root')) || {} // storage
 
     let {locale, page, basename} = localbooker.root.dataset
-    const givenBaseName = basename
+
+    let givenBaseName = basename
     locale = locale || 'nl'
 
     /**
