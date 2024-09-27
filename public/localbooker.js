@@ -71,10 +71,7 @@ var localbooker = {
      */
     let storage = JSON.parse(sessionStorage.getItem('localbooker-root')) || {} // storage
 
-    // let {locale, page, basename} = localbooker.root.dataset
-    let {locale, page} = localbooker.root.dataset
-
-    let basename = 'zoek-en-boek' // default basename
+    let {locale, page, basename} = localbooker.root.dataset
 
     let givenBaseName = basename
     locale = locale || 'nl'
