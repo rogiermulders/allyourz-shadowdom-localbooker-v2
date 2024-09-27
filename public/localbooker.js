@@ -73,6 +73,7 @@ console.log('Swapping')
     let storage = JSON.parse(sessionStorage.getItem('localbooker-root')) || {} // storage
 
     let {locale, page, basename} = localbooker.root.dataset
+    const givenBaseName = basename
     locale = locale || 'nl'
 
     /**
@@ -114,6 +115,7 @@ console.log('Swapping')
     }
 
     storage.basenameSwitched = basenameSwitched
+    storage.givenBaseName = givenBaseName
     sessionStorage.setItem('localbooker-root', JSON.stringify(storage))
 
   },
