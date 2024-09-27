@@ -74,7 +74,7 @@ var localbooker = {
     // let {locale, page, basename} = localbooker.root.dataset
     let {locale, page} = localbooker.root.dataset
 
-    const basename = 'zoek-en-boek' // default basename
+    let basename = 'zoek-en-boek' // default basename
 
     let givenBaseName = basename
     locale = locale || 'nl'
