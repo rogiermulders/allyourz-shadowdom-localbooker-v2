@@ -94,6 +94,12 @@ var localbooker = {
     } else {
       basename = document.location.pathname
     }
+    /**
+     * Remove trailing slash.
+     * I think react works always without trailing slash
+     * For both /foo/bar and /foo/bar/
+     * With trailing slash it will not work for /foo/bar
+     */
     basename = basename.replace(/\/$/, '')
 
     /**
