@@ -1,4 +1,5 @@
 
 
-document.querySelector('title').textContent.split(' | ')[0].toLowerCase().replaceAll(' ','-')
 
+
+document.querySelector('link[rel="alternate"][hreflang="nl"]').href.split('/').filter(function(e) { return e !== ',-w-,' }).pop()
