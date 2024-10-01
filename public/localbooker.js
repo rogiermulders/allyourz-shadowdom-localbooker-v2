@@ -30,7 +30,10 @@ var localbooker = {
     script.setAttribute('src', localbooker.domain + '$index_js');
     document.head.appendChild(script);
 
-    localbooker.root.dataset.sess = JSON.stringify(sessionStorage.getItem('localbooker-root'))
+    /**
+     * Also store as attribute cuz Chrome seems to be a bit slow with reading the session
+     */
+    localbooker.root.dataset.sess = sessionStorage.getItem('localbooker-root')
     /**
      * Add the custom style link (have to wait for the shadowRoot)
      */
@@ -123,6 +126,11 @@ var localbooker = {
 
     storage.basenameSwitched = basenameSwitched
     storage.givenBaseName = givenBaseName
+
+    // OK, we store it in the session here
+    // in init() it ALSO gets stored as an attribute in the localbooker div
+    // Some strange Chrome behaviour does not read the session when the page
+    // loads to fast,
     sessionStorage.setItem('localbooker-root', JSON.stringify(storage))
 
   },
