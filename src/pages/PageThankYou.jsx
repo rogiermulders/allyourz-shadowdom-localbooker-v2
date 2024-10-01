@@ -34,16 +34,20 @@ export default function PageThankYou() {
         </div>
         <div className="mt-8">
           <Button label="Afsluiten" onClick={() => {
-            resetReservation()
-            resetCartData()
-            // YUK YUK YUK
-            // When our route === '/' were after a payment redirect here
-            // Have to make a real redirect again to get back in routing
+            const config_basename = config.basename
+
+            // Just clear ALL after a booking and a hard redirect
+            sessionStorage.removeItem('localbooker-persist')
+            sessionStorage.removeItem('localbooker-root')
+
             setTimeout(() => {
-              if (document.location.pathname === config.basename) {
-                document.location.href = config.basename
+
+              if (document.location.pathname === config_basename) {
+                // when basename we're in the wild
+                document.location.href = config_basename
               } else {
-                navigate('/')
+                // Were dev or *.localbooker.nl
+                document.location.href = '/'
               }
             }, 0)
           }}/>
