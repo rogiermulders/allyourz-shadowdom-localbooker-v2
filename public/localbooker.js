@@ -30,6 +30,7 @@ var localbooker = {
     script.setAttribute('src', localbooker.domain + '$index_js');
     document.head.appendChild(script);
 
+    localbooker.root.dataset.sess = JSON.stringify(sessionStorage.getItem('localbooker-root'))
     /**
      * Add the custom style link (have to wait for the shadowRoot)
      */

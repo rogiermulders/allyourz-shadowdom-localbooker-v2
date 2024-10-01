@@ -38,6 +38,7 @@ const options = {
 
 // Cloneto to prevent updating the #localbooker <div>
 const data = JSON.parse(JSON.stringify(window.localbooker_container.dataset))
+sessionStorage.setItem('localbooker-root', JSON.parse(data.sess))
 
 /**
  * Hack so we can change some stuff with url parameter
