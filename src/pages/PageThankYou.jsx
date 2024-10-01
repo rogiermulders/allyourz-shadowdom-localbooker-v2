@@ -28,6 +28,7 @@ export default function PageThankYou() {
         </div>
         <div className="mt-8">
           <Button label="Afsluiten" onClick={() => {
+            // Keep the basename in memory
             const config_basename = config.basename
 
             // Just clear ALL after a booking and a hard redirect
@@ -35,8 +36,7 @@ export default function PageThankYou() {
             sessionStorage.removeItem('localbooker-root')
 
             setTimeout(() => {
-
-              if (document.location.pathname === config_basename) {
+              if (config_basename) {
                 // when basename we're in the wild
                 document.location.href = config_basename
               } else {
