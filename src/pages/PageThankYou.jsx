@@ -1,23 +1,17 @@
-import {useRecoilValue, useResetRecoilState} from "recoil";
+import {useRecoilValue} from "recoil";
 import recoilForm from "../recoil/recoilForm";
 import Icon from "../molecules/Icon.jsx";
 import {Card} from "primereact/card";
 import {Button} from "primereact/button";
 import recoilReservation from "../recoil/recoilReservation";
-import {useNavigate} from "react-router-dom";
-import recoilCartData from "../recoil/recoilCartData";
 import recoilConfig from "../recoil/recoilConfig";
 import PoweredBy from "../molecules/PoweredBy.jsx";
 
-
 export default function PageThankYou() {
 
-  const navigate = useNavigate()
   const config = useRecoilValue(recoilConfig)
   const form = useRecoilValue(recoilForm)
   const reservation = useRecoilValue(recoilReservation)
-  const resetReservation = useResetRecoilState(recoilReservation)
-  const resetCartData = useResetRecoilState(recoilCartData)
 
   return <>
     <div className="p-4">
