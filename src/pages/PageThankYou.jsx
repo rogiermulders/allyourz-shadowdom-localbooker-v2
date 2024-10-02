@@ -1,23 +1,17 @@
-import {useRecoilValue, useResetRecoilState} from "recoil";
+import {useRecoilValue} from "recoil";
 import recoilForm from "../recoil/recoilForm";
 import Icon from "../molecules/Icon.jsx";
 import {Card} from "primereact/card";
 import {Button} from "primereact/button";
 import recoilReservation from "../recoil/recoilReservation";
-import {useNavigate} from "react-router-dom";
-import recoilCartData from "../recoil/recoilCartData";
 import recoilConfig from "../recoil/recoilConfig";
 import PoweredBy from "../molecules/PoweredBy.jsx";
 
-
 export default function PageThankYou() {
 
-  const navigate = useNavigate()
   const config = useRecoilValue(recoilConfig)
   const form = useRecoilValue(recoilForm)
   const reservation = useRecoilValue(recoilReservation)
-  const resetReservation = useResetRecoilState(recoilReservation)
-  const resetCartData = useResetRecoilState(recoilCartData)
 
   return <>
     <div className="p-4">
@@ -34,16 +28,20 @@ export default function PageThankYou() {
         </div>
         <div className="mt-8">
           <Button label="Afsluiten" onClick={() => {
-            resetReservation()
-            resetCartData()
-            // YUK YUK YUK
-            // When our route === '/' were after a payment redirect here
-            // Have to make a real redirect again to get back in routing
+            // Keep the basename in memory
+            const config_basename = config.basename
+
+            // Just clear ALL after a booking and a hard redirect
+            sessionStorage.removeItem('localbooker-persist')
+            sessionStorage.removeItem('localbooker-root')
+
             setTimeout(() => {
-              if (document.location.pathname === config.basename) {
-                document.location.href = config.basename
+              if (config_basename) {
+                // when basename we're in the wild
+                document.location.href = config_basename
               } else {
-                navigate('/')
+                // Were dev or *.localbooker.nl
+                document.location.href = '/'
               }
             }, 0)
           }}/>

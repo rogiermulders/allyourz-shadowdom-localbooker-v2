@@ -1,6 +1,6 @@
 const loadfonts = async () => {
 
-  const path = import.meta.env.VITE_APP_URL + '/fonts'
+  const path = (window.localbooker.domain || document.location.origin ) + '/fonts'
 
   // PRIMEICONS
   let primeicons = [

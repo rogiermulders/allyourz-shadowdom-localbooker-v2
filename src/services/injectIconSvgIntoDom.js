@@ -3,7 +3,7 @@ import axios from "axios";
 export const injectIconSvgIntoDom = (parent) => {
   axios({
     url: 'assets/images/icon-selection.svg',
-    baseURL: import.meta.env.VITE_APP_URL
+    baseURL: (window.localbooker.domain || document.location.origin )
   }).then(res => {
     const div = document.createElement("div")
     div.dataset.info = 'localbooker icons'
