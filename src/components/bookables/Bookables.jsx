@@ -133,7 +133,7 @@ export default function Bookables({administration}) {
       case 'sm':
         return 640
       default:
-        return 256
+        return 384
     }
   }
 
