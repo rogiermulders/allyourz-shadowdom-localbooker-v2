@@ -42,7 +42,11 @@ const data = JSON.parse(JSON.stringify(window.localbooker_container.dataset))
 // !! Most of the time it's already set but chrome might have a bug
 // !! where it's not set when the page loads too fast.
 // !! I set it also in an attribute in the localbooker div
-sessionStorage.setItem('localbooker-root', data.sess)
+// !! But not in dev mode, it's not there.
+if(data.sess){
+  sessionStorage.setItem('localbooker-root', data.sess)
+}
+
 
 /**
  * Hack so we can change some stuff with url parameter
