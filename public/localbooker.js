@@ -31,6 +31,12 @@ var localbooker = {
     document.head.appendChild(script);
 
     /**
+     * Also store as attribute cuz Chrome seems to be a bit slow with reading the sessionStorage
+     * PS It's already JSON.stringified.
+     */
+    localbooker.root.dataset.sess = sessionStorage.getItem('localbooker-root')
+
+    /**
      * Add the custom style link (have to wait for the shadowRoot)
      */
     if (localbooker.root.dataset.hostcss) {
@@ -44,26 +50,26 @@ var localbooker = {
   },
 
 
-  handlePageNotFound: () => {
-
-    const storage = JSON.parse(sessionStorage.getItem('localbooker-root'))
-    if (!storage) return
-
-    if(storage.hasBaseName) return
-    const {nl, de, en} = storage
-    const {location} = document
-    const {pathname} = location
-
-    const locales = [nl?.spa, nl?.pdp, de?.spa, de?.pdp, en?.spa, en?.pdp]
-
-    // Do nothing when you land on the basename
-    if (!locales.includes(pathname)) {
-      // Fancy code... if the current location starts with the basename redirect to the basename
-      locales.every(l => {
-        return pathname.startsWith(l) ? !!location.replace(l) : true
-      })
-    }
-  },
+  // handlePageNotFound: () => {
+  //
+  //   const storage = JSON.parse(sessionStorage.getItem('localbooker-root'))
+  //   if (!storage) return
+  //
+  //   if(storage.hasBaseName) return
+  //   const {nl, de, en} = storage
+  //   const {location} = document
+  //   const {pathname} = location
+  //
+  //   const locales = [nl?.spa, nl?.pdp, de?.spa, de?.pdp, en?.spa, en?.pdp]
+  //
+  //   // Do nothing when you land on the basename
+  //   if (!locales.includes(pathname)) {
+  //     // Fancy code... if the current location starts with the basename redirect to the basename
+  //     locales.every(l => {
+  //       return pathname.startsWith(l) ? !!location.replace(l) : true
+  //     })
+  //   }
+  // },
 
   preInit: () => {
     /**
@@ -122,6 +128,11 @@ var localbooker = {
 
     storage.basenameSwitched = basenameSwitched
     storage.givenBaseName = givenBaseName
+
+    // OK, we store it in the session here
+    // in init() it ALSO gets stored as an attribute in the localbooker div
+    // Some strange Chrome behaviour does not read the session when the page
+    // loads to fast,
     sessionStorage.setItem('localbooker-root', JSON.stringify(storage))
 
   },
@@ -138,10 +149,10 @@ var localbooker = {
  */
 localbooker.domain = new URL(document.currentScript.src).origin
 
-/**
- * For 404's in the localbooker path
- */
-localbooker.handlePageNotFound()
+// /**
+//  * For 404's in the localbooker path
+//  */
+// localbooker.handlePageNotFound()
 
 /**
  * Try to launch localbooker
