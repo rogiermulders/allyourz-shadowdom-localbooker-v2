@@ -34,7 +34,7 @@ export default function Pdp({administration_slug}) {
   useEffect(() => {
     const slug = administration_slug || params.administration_slug
     axios.post('/v1/administration/get', {
-      locale: context.hostLocale === 'tp' ? 'nl' : context.hostLocale,
+      locale: context.hostLocale,
       slug,
       preview: window.localbooker_preview // You can set this one in your console
     }).then(res => {
