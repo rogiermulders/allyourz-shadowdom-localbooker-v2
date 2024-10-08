@@ -49,28 +49,6 @@ var localbooker = {
     }
   },
 
-
-  // handlePageNotFound: () => {
-  //
-  //   const storage = JSON.parse(sessionStorage.getItem('localbooker-root'))
-  //   if (!storage) return
-  //
-  //   if(storage.hasBaseName) return
-  //   const {nl, de, en} = storage
-  //   const {location} = document
-  //   const {pathname} = location
-  //
-  //   const locales = [nl?.spa, nl?.pdp, de?.spa, de?.pdp, en?.spa, en?.pdp]
-  //
-  //   // Do nothing when you land on the basename
-  //   if (!locales.includes(pathname)) {
-  //     // Fancy code... if the current location starts with the basename redirect to the basename
-  //     locales.every(l => {
-  //       return pathname.startsWith(l) ? !!location.replace(l) : true
-  //     })
-  //   }
-  // },
-
   preInit: () => {
     /**
      * This one runs only when we have #localbooker
@@ -148,11 +126,6 @@ var localbooker = {
  * Have to set this one outside the localbooker object (dunno why)
  */
 localbooker.domain = new URL(document.currentScript.src).origin
-
-// /**
-//  * For 404's in the localbooker path
-//  */
-// localbooker.handlePageNotFound()
 
 /**
  * Try to launch localbooker

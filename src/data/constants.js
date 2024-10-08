@@ -32,112 +32,132 @@ export const ACCOMMODATION_TYPES = [
     icon: 'home',
     label: {
       nl: 'Appartementen',
-      de: 'Ferienwohnungen'
+      de: 'Ferienwohnungen',
+      en: 'Apartments'
     },
     slug: {
       nl: 'appartementen',
-      de: 'ferienwohnungen'
+      de: 'ferienwohnungen',
+      en: 'apartments'
     },
     value: 'apartment',
     accommodationType: {
-      nl: 'appartementen',
-      de: 'Ferienwohnungen'
+      nl: 'Appartementen',
+      de: 'Ferienwohnungen',
+      en: 'Apartments'
     }
   },
   {
     icon: 'home-alt',
     label: {
       nl: 'B&B\'s',
-      de: 'B&B'
+      de: 'B&B',
+      en: 'B&B\'s'
     },
     slug: {
       nl: 'bed-and-breakfast',
-      de: 'bed-and-breakfast'
+      de: 'bed-and-breakfast',
+      en: 'bed-and-breakfast'
     },
     value: 'b-b',
     accommodationType: {
       nl: 'kamers',
-      de: 'Zimmer'
+      de: 'Zimmer',
+      en: 'Rooms'
     },
     providerType: {
       nl: 'B&B\'s',
-      de: 'B&B'
+      de: 'B&B',
+      en: 'B&B\'s'
     }
   },
   {
     icon: 'luggage-cart',
     label: {
       nl: 'Campings',
-      de: 'Campingplätze'
+      de: 'Campingplätze',
+      en: 'Campings'
     },
     slug: {
       nl: 'campings',
-      de: 'campingplaetze'
+      de: 'campingplaetze',
+      en: 'campings'
     },
     value: 'camping',
     providerType: {
       nl: 'campings',
-      de: 'Campingplätze'
+      de: 'Campingplätze',
+      en: 'Campings'
     }
   },
   {
     icon: 'building',
     label: {
       nl: 'Hotels',
-      de: 'Hotels'
+      de: 'Hotels',
+      en: 'Hotels'
     },
     slug: {
       nl: 'hotels',
-      de: 'hotels'
+      de: 'hotels',
+      en: 'hotels'
     },
     value: 'hotel',
     accommodationType: {
       nl: 'hotelkamers',
-      de: 'Hotelzimmer'
+      de: 'Hotelzimmer',
+      en: 'Hotelrooms'
     },
     providerType: {
       nl: 'hotels',
-      de: 'Hotels'
+      de: 'Hotels',
+      en: 'Hotels'
     }
   },
   {
     icon: 'store',
     label: {
       nl: 'Vakantiehuizen',
-      de: 'Ferienhäuser'
+      de: 'Ferienhäuser',
+      en: 'Vacation homes'
     },
     slug: {
       nl: 'vakantiehuizen',
-      de: 'ferienhaeuser'
+      de: 'ferienhaeuser',
+      en: 'vacation-homes'
     },
     value: 'vacation-home',
     accommodationType: {
       nl: 'vakantiehuizen',
-      de: 'Ferienhäuser'
+      de: 'Ferienhäuser',
+      en: 'Vacation homes'
     }
   },
   {
     icon: 'store-alt',
     label: {
       nl: 'Vakantieparken',
-      de: 'Ferienparks'
+      de: 'Ferienparks',
+      en: 'Holiday resorts'
     },
     slug: {
       nl: 'vakantieparken',
-      de: 'ferienparks'
+      de: 'ferienparks',
+      en: 'holiday-resorts'
     },
     value: 'holiday-resort',
     accommodationType: {
       nl: 'vakantiehuizen',
-      de: 'Ferienhäuser'
+      de: 'Ferienhäuser',
+      en: 'Vacation homes'
     },
     providerType: {
       nl: 'vakantieparken',
-      de: 'Ferienparks'
+      de: 'Ferienparks',
+      en: 'Holiday resorts'
     }
   }
 ]
-
 
 export const REGION_DESTINATION_MAPPING = [
   {
@@ -462,9 +482,6 @@ export const DESTINATIONS = getDestinations()
 
 
 export const accomodationMap = (slug, locale) => {
-
-  // euh... when managing locales on the server there is a locale tp (template) but here we don't know that one,
-  locale = (locale === 'tp' ? 'nl' : locale)
 
   const map = {}
   ACCOMMODATION_TYPES.forEach(e => map[e.value] = e.label[locale])
