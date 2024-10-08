@@ -29,7 +29,12 @@ export default function TypeContent() {
 
         {/*Yuk.. tp (template) is the template used when managing locales from the backend.*/}
         {/*Here we have the locales hard coded so no tp*/}
-        <label className="ml-2" htmlFor={data.value}>{data.label[context.hostLocale === 'tp' ? 'nl' : context.hostLocale]}</label>
+        <label
+          className="ml-2"
+          htmlFor={data.value}>
+
+          {data.label[context.hostLocale]}
+        </label>
       </li>})}
   </ul>
 
