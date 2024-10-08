@@ -62,7 +62,7 @@ export default function Spa() {
       },
       subFilters: subFilters.map(e => e.slug),
       // This one is about the acco's and book etc. locales, and we don't have a template (tp) language there.
-      lang: context.hostLocale === 'tp' ? 'nl' : context.hostLocale,
+      lang: context.hostLocale,
       sort,
       offset,
       limit: rowsPerPage,

@@ -232,7 +232,7 @@ function MapStays({width, height, request}) {
 
     axios.post('/v1/availability/get-hints', {
       administration_ids: adminIds,
-      lang: context.hostLocale === 'tp' ? 'nl' : context.hostLocale,
+      lang: context.hostLocale,
       limitMedia: 10,
       mainFilters: {adults, pets}
     }).then(res => {
