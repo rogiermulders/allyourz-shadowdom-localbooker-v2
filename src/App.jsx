@@ -134,11 +134,11 @@ function App({
      */
     if (window.localbooker && !window.localbooker.setLocale) {
       window.localbooker.setLocale = (locale) => {
-        if (['nl', 'de', 'en', 'tp'].includes(locale)) {
+        if (['nl', 'de', 'en'].includes(locale)) {
           context.setHostLocale(locale)
           return true
         } else {
-          return 'Enkel \'nl\',\'de\',\'en\',\'tp\' toegestaan'
+          return 'Enkel \'nl\',\'de\',\'en\' toegestaan'
         }
       }
     }

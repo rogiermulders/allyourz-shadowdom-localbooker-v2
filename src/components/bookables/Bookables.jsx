@@ -39,7 +39,7 @@ export default function Bookables({administration}) {
   useEffect(() => {
     /** create payload */
     const postData = {
-      locale: context.hostLocale === 'tp' ? 'nl' : context.hostLocale,
+      locale: context.hostLocale,
       administration_id: administration.id,
       guests: (adults + children),
       pets

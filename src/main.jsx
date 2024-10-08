@@ -43,18 +43,9 @@ const data = JSON.parse(JSON.stringify(window.localbooker_container.dataset))
 // !! where it's not set when the page loads too fast.
 // !! I set it also in an attribute in the localbooker div
 // !! But not in dev mode, it's not there.
-if(data.sess){
+if (data.sess) {
   sessionStorage.setItem('localbooker-root', data.sess)
 }
-
-
-/**
- * Hack so we can change some stuff with url parameter
- * This is debugging stuff. Would like to remove
- */
-const searchParams = new URLSearchParams(document.location.search)
-const locale = searchParams.get('localbooker-locale')
-const offset = searchParams.get('localbooker-offset')
 
 /**
  * When no data-theme attribute is set
@@ -79,25 +70,23 @@ if (import.meta.env.PROD) {
 }
 
 
-// First get the locale data
-axios.get('/localbooker/locales').then(res => {
-  for (const [locale, json] of Object.entries(res.data)) {
-    if (json) {
-      addLocale(locale, JSON.parse(json))
-    }
-  }
+// First get the locale data @todo get config too
+axios.get(`/localbooker/locale?locale=${data.locale}`).then(res => {
+
+  addLocale(data.locale, res.data)
+
   ReactDOM.createRoot(window.localbooker_shadowRoot).render(
     <PrimeReactProvider value={options}>
-      <MainContextProvider locale={locale || data.locale}>
+      <MainContextProvider locale={data.locale}>
         <ThemeLoader theme={data.theme}>
           <App
             theme={data.theme}
             page={data.page}
             pid={data.pid}
             slug={data.slug}
-            offset={offset || data.offset}
+            offset={data.offset}
             mainfilter={data.mainfilter}
-            hostlocale={locale || data.locale}
+            hostlocale={data.locale}
             content={data.content !== 'false'}
             scroll={data.scroll !== 'false'}
             scrollto={window.localbooker_container.getBoundingClientRect().y}
