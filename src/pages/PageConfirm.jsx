@@ -60,14 +60,13 @@ export default function PageConfirm() {
 
   } = useRecoilValue(selectorMainFilter)
 
-  const monthNames = localeOptions('nl').monthNames
+  const monthNames = localeOptions(context.hostLocale).monthNames
   const [accordionStatus, setAccordionStatus] = useState(0)
-  const locale = localeOptions('nl').localbooker.page_confirm
+  const locale = localeOptions(context.hostLocale).localbooker.page_confirm
   const [dialog, setDialog] = useState(false)
 
   const cartData = useRecoilValue(recoilCartData)
   const { totals } = cartData
-
 
   useEffect(() => {
     if (reservation.paymentStarted) {
