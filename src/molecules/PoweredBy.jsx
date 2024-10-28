@@ -27,7 +27,7 @@ export default function PoweredBy() {
         </span>}
     </div>
     <div className="col-6 pr-8 pb-8 text-right">
-      {config.pid !== 'zeeland.com' ?
+      {config.pid === 'zeeland.com' ?
         <a href="https://localbooker.nl" target="_blank" rel="noreferrer">powered by Localbooker</a>
         :
         <a href="https://allyourz.nl" target="_blank" rel="noreferrer">powered by allyourz</a>
