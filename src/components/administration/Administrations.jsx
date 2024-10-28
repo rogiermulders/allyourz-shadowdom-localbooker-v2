@@ -39,7 +39,7 @@ export default function Administrations() {
   const PricePart = ({accomodation}) => <>
     <div className={classNames('grid', {'mt-4': lte('xs')})}>
       <div className={col({xs: 6, def: 12})}>
-        <span className="h02">Vanaf /nacht</span>
+        <span className="h02">{_t.labels.from_night}</span>
         <div className="mt-2 font-bold h5">
           € {toEuro(accomodation.minPrice / accomodation.days)}
         </div>
@@ -94,7 +94,7 @@ export default function Administrations() {
                   <LiContent icon="users" label={accomodation.properties.maxPersons + ' pers.'}/>
                 }
                 {accomodation.properties.bedrooms &&
-                  <LiContent icon="bed" label={accomodation.properties.bedrooms + ' slaapk.'}/>
+                  <LiContent icon="bed" label={accomodation.properties.bedrooms + ' ' + _t.labels.bedroom }/>
                 }
                 {accomodation.properties.surfaceArea &&
                   <LiContent icon="arrows-h" label={accomodation.properties.surfaceArea + ' m2'}/>
