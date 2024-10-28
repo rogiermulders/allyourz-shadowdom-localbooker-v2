@@ -65,7 +65,7 @@ export default function MapPopup({administration}) {
     </div>
     <div className="flex align-center pl-4">
       <div className="w50 pl-4">
-        <span className="h02">Vanaf /nacht</span>
+        <span className="h02">{_t.labels.from_night}</span>
         <div className="mt-2 font-bold h5">
           € {toEuro(administration.minPrice / administration.days)}
         </div>
