@@ -23,7 +23,7 @@ export default function PoweredBy() {
       {/*Test Hotel Allyourz Middelburg*/}
       {pv &&
         <span style={{ cursor: 'pointer' }} onClick={() => navigate('/hotel-allyourz-middelburg')}>
-          Hotel Allyourz Middelburg (Testing)
+          Hotel Allyourz Middelburg (Testing only!)
         </span>}
     </div>
     <div className="col-6 pr-8 pb-8 text-right">
