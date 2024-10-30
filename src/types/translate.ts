@@ -18,16 +18,17 @@ export interface Translate {
 }
 
 export interface Localbooker {
-    labels:       LocalbookerLabels;
-    countries:    Country[];
-    mainFilter:   MainFilter;
-    subFilter:    SubFilter;
-    cart:         Cart;
-    stripe:       Stripe;
-    page_pdp:     PagePDP;
-    page_spa:     PageSPA;
-    page_confirm: PageConfirm;
-    page_form:    PageForm;
+    labels:        LocalbookerLabels;
+    countries:     Country[];
+    mainFilter:    MainFilter;
+    subFilter:     SubFilter;
+    cart:          Cart;
+    stripe:        Stripe;
+    page_pdp:      PagePDP;
+    page_spa:      PageSPA;
+    page_thankyou: PageThankyou;
+    page_confirm:  PageConfirm;
+    page_form:     PageForm;
 }
 
 export interface Cart {
@@ -44,6 +45,8 @@ export interface Country {
 }
 
 export interface LocalbookerLabels {
+    choose:           string;
+    none:             string;
     go_to:            string;
     go_back:          string;
     more_info:        string;
@@ -63,6 +66,7 @@ export interface LocalbookerLabels {
     baby:             string;
     pet:              string;
     pets:             string;
+    bedroom:          string;
     confirm_booking:  string;
     confirm_and_pay:  string;
 }
@@ -162,6 +166,15 @@ export interface PageSPA {
     list:          string;
     accos_found:   string;
     filterOptions: Country[];
+}
+
+export interface PageThankyou {
+    you_go:       string;
+    thank_you:    string;
+    receive_mail: string;
+    start_fun:    string;
+    contact:      string;
+    need_help:    string;
 }
 
 export interface Stripe {
@@ -301,9 +314,9 @@ function transform(val: any, typ: any, getProps: any, key: any = '', parent: any
     if (Array.isArray(typ)) return transformEnum(typ, val);
     if (typeof typ === "object") {
         return typ.hasOwnProperty("unionMembers") ? transformUnion(typ.unionMembers, val)
-            : typ.hasOwnProperty("arrayItems")    ? transformArray(typ.arrayItems, val)
+          : typ.hasOwnProperty("arrayItems")    ? transformArray(typ.arrayItems, val)
             : typ.hasOwnProperty("props")         ? transformObject(getProps(typ), typ.additional, val)
-            : invalidValue(typ, val, key, parent);
+              : invalidValue(typ, val, key, parent);
     }
     // Numbers can be parsed by Date but shouldn't be.
     if (typ === Date && typeof val !== "number") return transformDate(val);
@@ -361,6 +374,7 @@ const typeMap: any = {
         { json: "stripe", js: "stripe", typ: r("Stripe") },
         { json: "page_pdp", js: "page_pdp", typ: r("PagePDP") },
         { json: "page_spa", js: "page_spa", typ: r("PageSPA") },
+        { json: "page_thankyou", js: "page_thankyou", typ: r("PageThankyou") },
         { json: "page_confirm", js: "page_confirm", typ: r("PageConfirm") },
         { json: "page_form", js: "page_form", typ: r("PageForm") },
     ], false),
@@ -376,6 +390,8 @@ const typeMap: any = {
         { json: "value", js: "value", typ: "" },
     ], false),
     "LocalbookerLabels": o([
+        { json: "choose", js: "choose", typ: "" },
+        { json: "none", js: "none", typ: "" },
         { json: "go_to", js: "go_to", typ: "" },
         { json: "go_back", js: "go_back", typ: "" },
         { json: "more_info", js: "more_info", typ: "" },
@@ -395,6 +411,7 @@ const typeMap: any = {
         { json: "baby", js: "baby", typ: "" },
         { json: "pet", js: "pet", typ: "" },
         { json: "pets", js: "pets", typ: "" },
+        { json: "bedroom", js: "bedroom", typ: "" },
         { json: "confirm_booking", js: "confirm_booking", typ: "" },
         { json: "confirm_and_pay", js: "confirm_and_pay", typ: "" },
     ], false),
@@ -486,6 +503,13 @@ const typeMap: any = {
         { json: "list", js: "list", typ: "" },
         { json: "accos_found", js: "accos_found", typ: "" },
         { json: "filterOptions", js: "filterOptions", typ: a(r("Country")) },
+    ], false),
+    "PageThankyou": o([
+        { json: "you_go", js: "you_go", typ: "" },
+        { json: "thank_you", js: "thank_you", typ: "" },
+        { json: "receive_mail", js: "receive_mail", typ: "" },
+        { json: "start_fun", js: "start_fun", typ: "" },
+        { json: "contact", js: "contact", typ: "" },
     ], false),
     "Stripe": o([
         { json: "pay", js: "pay", typ: "" },
