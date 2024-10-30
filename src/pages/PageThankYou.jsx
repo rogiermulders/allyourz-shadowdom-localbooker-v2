@@ -6,9 +6,11 @@ import {Button} from "primereact/button";
 import recoilReservation from "../recoil/recoilReservation";
 import recoilConfig from "../recoil/recoilConfig";
 import PoweredBy from "../molecules/PoweredBy.jsx";
+import { useContext } from 'react'
+import { MainContext } from '../contexts/MainContext'
 
 export default function PageThankYou() {
-
+  const _t = useContext(MainContext)._t().page_thankyou
   const config = useRecoilValue(recoilConfig)
   const form = useRecoilValue(recoilForm)
   const reservation = useRecoilValue(recoilReservation)
@@ -16,15 +18,23 @@ export default function PageThankYou() {
   return <>
     <div className="p-4">
       <Card>
-        <div className="h3">Je gaat op reis!</div>
-        <div className="pt-6">Bedankt voor je boeking met boekingsnummer{' '}
-          <span className="font-bold">{reservation.reservationNumber}</span>.
-          Je ontvangt zo een bevestigingsmail van je boeking op{' '}
-          <span className="font-bold">{form.email}</span>.
+        <div className="h3">{_t.you_go}</div>
+
+        <div className="pt-6">{_t.thank_you}
+          <span className="font-bold ml-2">{reservation.reservationNumber}</span>.
+          <span className="ml-2">{_t.receive_mail}</span>
+          <span className="font-bold ml-2">{form.email}</span>.
         </div>
-        <div className="h5 pt-4">Laat de voorpret maar beginnen!</div>
-        <div className="font-bold mt-4 w10"><Icon name="help-circle"/> Hulp nodig?</div>
-        <div className="mt-4">Neem dan contact op via <a href="mailto:helpdesk@allyourz.nl">helpdesk@allyourz.nl</a>
+        <div className="h5 pt-4">{_t.start_fun}</div>
+        <div className="font-bold mt-4 w10">
+          <Icon name="help-circle"/>
+          <span className="ml-2">{_t.need_help}</span>
+        </div>
+        <div className="mt-4">
+          {_t.contact}
+          <a className="ml-2" href="mailto:helpdesk@allyourz.nl">
+            helpdesk@allyourz.nl
+          </a>
         </div>
         <div className="mt-8">
           <Button label="Afsluiten" onClick={() => {
