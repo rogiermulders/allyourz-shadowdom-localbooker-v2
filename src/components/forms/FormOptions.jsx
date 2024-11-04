@@ -25,7 +25,7 @@ export default function FormOptions({optionalFees, setOptions, options}) {
 
 
   return <>
-    <div className="h3 pt-4 pb-2 pl-2">Toevoegingen</div>
+    <div className="h3 pt-4 pb-2 pl-2">{_t.page_form.labels.add_ons}</div>
     <div className="grid">
       <div className={col({xl: 6, lg: 8, md: 10, sm: 12})}>
         <ul className="m-0 p-0 ul-none">
