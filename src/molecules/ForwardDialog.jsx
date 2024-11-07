@@ -1,24 +1,31 @@
 import { forwardRef, useEffect, useImperativeHandle } from 'react'
 import { Dialog } from 'primereact/dialog'
-import { wh } from '../services/buttstrip'
+import { w } from '../services/buttstrip'
 import { useContext, useState } from 'react'
 import { MainContext } from '../contexts/MainContext'
 import { freeze, unFreeze } from '../services/hostscroll'
 import zIndex from '../services/zIndex'
 
-const ForwardDialog = forwardRef(({ size, closable }, ref) => {
+const ForwardDialog = forwardRef((props, ref) => {
 
   const context = useContext(MainContext)
-  const [content, setContent] = useState(null)
+  const [content, setContent] = useState('')
   const [header, setHeader] = useState('')
   const [visible, setVisible] = useState(false)
-  closable = closable === undefined ? true : closable
+  const [size, setSize] = useState(undefined)
+  const [closable, setClosable] = useState(true)
+  const [position, setPosition] = useState('center')
 
   useImperativeHandle(ref, () => ({
-    open(header, content) {
+    open({ header, content, size, closable, position }) {
+
+
       freeze()
       setHeader(header)
       setContent(content)
+      if(size) setSize(size)
+      if(typeof closable !== 'undefined') setClosable(closable)
+      if(position) setPosition(position)
       setVisible(true)
     }
   }))
@@ -26,10 +33,14 @@ const ForwardDialog = forwardRef(({ size, closable }, ref) => {
   useEffect(() => {
     return () => {
       if (visible){
+        setHeader('')
+        setContent(null)
+        setSize(undefined)
+        setClosable(true)
+        setPosition('center')
         unFreeze()
         zIndex.removeTempFix()
       }
-
     }
   }, [visible])
 
@@ -39,25 +50,20 @@ const ForwardDialog = forwardRef(({ size, closable }, ref) => {
   const wtop = (perc) => {
     return ((perc / 100) * context.breakpoint.sw) + 'px'
   }
-  const htop = (perc) => {
-    return (((perc / 100) * context.breakpoint.ih)) + 'px'
-  }
 
 
+  let style
   switch (size) {
     case 'small':
-      size = wh(
-        { def: wtop(30), md: wtop(40), sm: wtop(50), xs: wtop(100) },
-        { def: htop(30), md: htop(40), sm: htop(50), xs: htop(100) }
+      style = w(
+        { def: wtop(30), md: wtop(40), sm: wtop(50), xs: wtop(100) }
       )
       break
     default:
-      size = wh(
+      style = w(
         { def: wtop(50), md: wtop(70), sm: wtop(80), xs: wtop(100) },
-        { def: htop(50), md: htop(70), sm: htop(80), xs: htop(100) }
       )
   }
-
 
   if (!visible) return null
   return <>
@@ -70,10 +76,12 @@ const ForwardDialog = forwardRef(({ size, closable }, ref) => {
       closable={closable}
       visible={visible}
       onHide={() => {
+        setContent(null)
         setVisible(false)
       }}
+      position={position}
       contentStyle={{ padding: 0 }}
-      style={size}>
+      style={style}>
       <div className="m-0 text-color">
         {content}
       </div>
