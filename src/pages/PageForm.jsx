@@ -74,27 +74,26 @@ export default function PageForm() {
 
   const handleDialog = (slug) => {
     dialogRef.current.open(
-      (_t.page_form.not_available_header || 'Helaas niet beschikbaar...'),
-      <div className="p-8">
-        <div>
-          {_t.page_form.not_available_body ||
-            'De accommodatie die je wilt boeken is helaas niet meer beschikbaar. ' +
-            'Het kan zijn dat iemand je net voor is. ' +
-            'Probeer een andere datum of boek een andere accommodatie.'}
-        </div>
-        <div className="mt-8 grid">
+      {
+        size:'small',
+        closable: false,
+        header: _t.page_form.labels.not_available_header,
+        content: <div className="p-8">
+          <div>{_t.page_form.labels.not_available_body}</div>
+          <div className="mt-8 grid">
             <Button
-              label={_t.page_form.not_available_other_date || 'Pas datum aan'}
+              label={_t.page_form.labels.not_available_other_date}
               onClick={() => navigate('/' + slug)}
             />
             <Button
               className="ml-8"
-              label={_t.page_form.not_available_other_stay || 'Kies een ander verblijf'}
+              label={_t.page_form.labels.not_available_other_stay}
               onClick={() => navigate('/')}
             />
+          </div>
         </div>
-      </div>
-    )
+      })
+
   }
 
   /**
@@ -152,11 +151,7 @@ export default function PageForm() {
   return <>
     <Loading />
     {/*error message*/}
-    <ForwardDialog
-      ref={dialogRef}
-      size="small"
-      closable={false}
-    />
+    <ForwardDialog ref={dialogRef} />
 
     <div ref={srollInViewRef} className="grid padding text-color">
       <div className={col({ md: 8, sm: 12 })}>

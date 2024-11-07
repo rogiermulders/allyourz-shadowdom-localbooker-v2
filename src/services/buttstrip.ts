@@ -113,6 +113,27 @@ const box = () =>{
     }
 }
 
+const w = (width: WidthHeight, style?: object): object => {
+
+    /**
+     * Get the breakpoint (low level shit, dunno this will work)
+     */
+    const bp = window.localbooker_container.breakpoint.s
+
+    // Handle width
+    let myWidth = width.def;
+
+
+    if (width[bp]) {
+        myWidth = width[bp]
+    }
+
+    if (style) {
+        return {...style, width: myWidth}
+    }
+    return {width: myWidth}
+}
+
 
 const wh = (width: WidthHeight, height: WidthHeight, style?: object): object => {
 
@@ -158,4 +179,4 @@ const ifBp = (bps: string | [string]): boolean => {
     return bps.includes(window.localbooker_container.breakpoint.s)
 }
 
-export {col, getBp, ifBp, addBp, wh, lte, gte, bpIndex, box}
+export {col, getBp, ifBp, addBp, wh, w, lte, gte, bpIndex, box}
