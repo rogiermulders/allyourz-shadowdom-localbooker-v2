@@ -15,6 +15,8 @@ export default function PageThankYou() {
   const form = useRecoilValue(recoilForm)
   const reservation = useRecoilValue(recoilReservation)
 
+  let email = config.pid === 'zeeland.com' ? 'helpdesk@localbooker.nl' : 'helpdesk@allyourz.nl'
+
   return <>
     <div className="p-4">
       <Card>
@@ -26,14 +28,14 @@ export default function PageThankYou() {
           <span className="font-bold ml-2">{form.email}</span>.
         </div>
         <div className="h5 pt-4">{_t.start_fun}</div>
-        <div className="font-bold mt-4 w10">
+        <div className="font-bold mt-4">
           <Icon name="help-circle"/>
           <span className="ml-2">{_t.need_help}</span>
         </div>
         <div className="mt-4">
           {_t.contact}
-          <a className="ml-2" href="mailto:helpdesk@allyourz.nl">
-            helpdesk@allyourz.nl
+          <a className="ml-2" href={`mailto:${email}`}>
+            {email}
           </a>
         </div>
         <div className="mt-8">
