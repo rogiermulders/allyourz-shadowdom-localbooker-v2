@@ -7,12 +7,15 @@ import { MainContext } from '../../contexts/MainContext'
 import Icon from '../../molecules/Icon.jsx'
 import ForwardDialog from '../../molecules/ForwardDialog.jsx'
 import { Button } from 'primereact/button'
-import NeedHelp from '../help/NeedHelp.jsx'
+import { useRecoilValue } from 'recoil'
+import recoilConfig from '../../recoil/recoilConfig.js'
 
 export default function Administration({ administration }) {
-  const context = useContext(MainContext)
-  const _t = context._t()
+  const _t = useContext(MainContext)._t()
   const dialogRef = useRef()
+  const config = useRecoilValue(recoilConfig)
+
+  let email = config.pid === 'zeeland.com' ? 'helpdesk@localbooker.nl' : 'helpdesk@allyourz.nl'
 
   return <>
 
@@ -32,9 +35,24 @@ export default function Administration({ administration }) {
             outlined
             onClick={() => dialogRef.current.open(
               {
-                header: 'Hulp nodig?',
-                content: <NeedHelp />,
-                size: 'small'
+                size: 'small',
+                header: _t.page_pdp.need_help || 'Hulp nodig?',
+                content: <div className="p-10">
+                  {_t.page_pdp.help_txt_1}
+                  <br />
+                  <br />
+                  {_t.page_pdp.help_txt_2}
+                  <br />
+                  <br />
+                  <a href={`mailto:${email}`}>
+                    <Button
+                      icon="pi pi-envelope"
+                      outlined
+                      label={_t.page_pdp.send_mail}
+                    />
+                  </a>
+                </div>
+
               }
             )}
           />

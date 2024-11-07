@@ -77,17 +77,17 @@ export default function PageForm() {
       {
         size:'small',
         closable: false,
-        header: _t.page_form.labels.not_available_header || 'not_available_header',
+        header: _t.page_form.labels.not_available_header,
         content: <div className="p-8">
-          <div>{_t.page_form.labels.not_available_body || 'not_available_body'}</div>
+          <div>{_t.page_form.labels.not_available_body}</div>
           <div className="mt-8 grid">
             <Button
-              label={_t.page_form.labels.not_available_other_date || 'not_available_other_date'}
+              label={_t.page_form.labels.not_available_other_date}
               onClick={() => navigate('/' + slug)}
             />
             <Button
               className="ml-8"
-              label={_t.page_form.labels.not_available_other_stay || 'not_available_other_stay'}
+              label={_t.page_form.labels.not_available_other_stay}
               onClick={() => navigate('/')}
             />
           </div>
