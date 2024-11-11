@@ -12,6 +12,9 @@ export default function ThemeLoader({ children,theme }) {
    * !! Vite needs to analyze the import statements to create chunks !!
    * !! using a variable in the import statements will not work !!
    */
+  if (!['renesseaanzee', 'nova', 'allyourz', 'provinciezeeland', 'demo'].includes(theme)) {
+    theme = 'demo'
+  }
 
   useEffect(() => {
     switch (theme) {
