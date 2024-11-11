@@ -59,13 +59,13 @@ if (import.meta.env.PROD) {
       data.theme = window.localbooker.domain.split('//')[1].split('.')[0]
     } else {
       /** Have NO window.localbooker.domain. This means we are on th lb domain itself */
-      data.theme = document.location.origin.split('//')[1].split('.')[0]
+      data.theme = 'demo'
     }
   }
 } else {
   /** DEV */
   if (!data.theme) {
-    data.theme = 'nova'
+    data.theme = 'demo'
   }
 }
 
