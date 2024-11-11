@@ -1,0 +1,9 @@
+sudo ln -s /etc/nginx/sites-available/acc.localbooker.nl.conf /etc/nginx/sites-enabled/
+
+sudo ln -s /etc/nginx/sites-available/zaza.localbooker.nl.conf /etc/nginx/sites-enabled/
+
+sudo service nginx restart
+
+sudo nginx -t
+
+sudo nano acc.localbooker.nl.conf
