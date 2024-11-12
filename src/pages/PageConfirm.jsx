@@ -216,7 +216,7 @@ export default function PageConfirm() {
         <div className="grid grid-valign mt-8 mb-4">
           <div>
             <Button
-              label={totals.payNow ? _t.labels.confirm_and_pay : _t.labels.confirm_booking}
+              label={totals.payNow ? _t.page_confirm.pay : _t.page_confirm.confirm}
               onClick={() => confirmBooking()}
             />
           </div>

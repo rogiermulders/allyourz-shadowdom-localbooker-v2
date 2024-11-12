@@ -170,7 +170,7 @@ export default function FormNaw({optionalFees, onFormSubmit, options, setOptions
             <div className='mr-4'>
               <Button type='submit'
                       disabled={!available}
-                      label={_t.labels.confirm_booking}
+                      label={_t.page_form.label.next_step}
                       icon='pi pi-arrow-right'
                       iconPos='right'/>
             </div>
