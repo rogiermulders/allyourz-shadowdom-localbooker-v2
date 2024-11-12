@@ -11,6 +11,7 @@
     "build.allyourz": "env-cmd -f .env.build.allyourz vite build",
     "build.provinciezeeland": "env-cmd -f .env.build.provinciezeeland vite build",
     "build.acc": "env-cmd -f .env.build.acc vite build",
+    "build.main": "env-cmd -f .env.build.main vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
