@@ -29,7 +29,7 @@ export const getClusterMarker = (width, type) => {
 }
 export const getColors = () => {
   // get to the style
-  const style = getComputedStyle(window.localbooker.shadowRoot.host)
+  const style = getComputedStyle(window.localbooker_container.shadowRoot.host)
   const primary_color = style.getPropertyValue('--map-bg-color')
   const font_color = style.getPropertyValue('--map-font-color')
   return {primary_color, font_color}
