@@ -7,7 +7,7 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import selectorMainFilter from '../../recoil/selectors/selectorMainFilter'
 import MapPopup from './MapPopup.jsx'
 import recoilSpa from '../../recoil/recoilSpa'
-import {getClusterMarker} from '../../data/markers.js'
+import {getClusterMarker,getColors} from '../../data/markers.js'
 
 const mapboxConfig = {
   'ScrollZoomBlocker.CtrlMessage': {
@@ -126,7 +126,7 @@ function MapStays({width, height, request}) {
           'text-offset': [-0.05, -0.60],
         },
         paint: {
-          "text-color": "#ffffff"
+          "text-color": getColors().font_color
         }
       })
 

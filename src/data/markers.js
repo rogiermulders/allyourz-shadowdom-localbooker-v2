@@ -2,10 +2,7 @@ export const getClusterMarker = (width, type) => {
 
   const h = width * (72/68)
 
-  // get to the style
-  const style = getComputedStyle(window.localbooker.shadowRoot.host)
-  const primary_color = style.getPropertyValue('--map-bg-color')
-  const font_color = style.getPropertyValue('--map-font-color')
+  const {primary_color, font_color} = getColors()
 
   let svg
   switch (type ){
@@ -28,10 +25,14 @@ export const getClusterMarker = (width, type) => {
   let image = document.createElement('img');
   image.src = url;
 
-
   return image
-
-
+}
+export const getColors = () => {
+  // get to the style
+  const style = getComputedStyle(window.localbooker.shadowRoot.host)
+  const primary_color = style.getPropertyValue('--map-bg-color')
+  const font_color = style.getPropertyValue('--map-font-color')
+  return {primary_color, font_color}
 }
 
 const cluster_marker = '<svg width="95" height="105" viewBox="0 0 95 105" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
