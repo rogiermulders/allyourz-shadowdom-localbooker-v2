@@ -4,25 +4,21 @@ export const getClusterMarker = (width, type) => {
 
   // get to the style
   const style = getComputedStyle(window.localbooker.shadowRoot.host)
-  const primary_color = style.getPropertyValue('--primary-color')
+  const primary_color = style.getPropertyValue('--map-bg-color')
   const font_color = style.getPropertyValue('--map-font-color')
 
   let svg
   switch (type ){
     case 'stay':
       svg = stay_marker
-        .replaceAll('$primary_color', primary_color)
-        .replaceAll('$font_color', font_color)
-        .replaceAll('$width', width)
-        .replaceAll('$height', h)
       break
     case 'cluster':
       svg = cluster_marker
-        .replaceAll('$primary_color', primary_color)
-        .replaceAll('$font_color', font_color)
-        .replaceAll('$width', width)
-        .replaceAll('$height', h)
   }
+  svg = svg.replaceAll('$primary_color', primary_color)
+    .replaceAll('$font_color', font_color)
+    .replaceAll('$width', width)
+    .replaceAll('$height', h)
 
   // Create the cluster from the svg
   let blob = new Blob([svg], {
