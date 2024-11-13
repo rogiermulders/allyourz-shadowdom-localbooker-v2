@@ -25,7 +25,6 @@ import { getYmd } from '../services/dates.js'
 
 // molecules
 import Icon from '../molecules/Icon.jsx'
-import Loading from '../molecules/Loading.jsx'
 import PoweredBy from '../molecules/PoweredBy.jsx'
 import DangerouslyInsertTextToBr from '../molecules/DangerouslyInsertTextToBr.jsx'
 
@@ -33,6 +32,7 @@ import DangerouslyInsertTextToBr from '../molecules/DangerouslyInsertTextToBr.js
 import Fees from '../components/cart/Fees.jsx'
 import BookCart from '../components/cart/BookCart.jsx'
 import Extras from '../components/cart/Extras.jsx'
+import scrollIntoViewWithOffset from '../services/scrollIntoViewWithOffset.js'
 
 /**
  * Little complex stuff cuz we can pay here as well
@@ -41,11 +41,17 @@ import Extras from '../components/cart/Extras.jsx'
 export default function PageConfirm() {
   const context = useContext(MainContext)
   const config = useRecoilValue(recoilConfig)
-  const navigate = useNavigate()
+  //const navigate = useNavigate()
+  const navRef = useRef(useNavigate())
   const _t = context._t()
   const scrollInViewRef = useRef(null)
   const [form] = useRecoilState(recoilForm)
-
+  const monthNames = localeOptions(context.hostLocale).monthNames
+  const [accordionStatus, setAccordionStatus] = useState(0)
+  const locale = localeOptions(context.hostLocale).localbooker.page_confirm
+  const [dialog, setDialog] = useState(false)
+  const cartData = useRecoilValue(recoilCartData)
+  const { totals } = cartData
   const [reservation, setReservation] = useRecoilState(recoilReservation)
 
   const {
@@ -57,20 +63,20 @@ export default function PageConfirm() {
     babies,
     children,
     pets
-
   } = useRecoilValue(selectorMainFilter)
 
-  const monthNames = localeOptions(context.hostLocale).monthNames
-  const [accordionStatus, setAccordionStatus] = useState(0)
-  const locale = localeOptions(context.hostLocale).localbooker.page_confirm
-  const [dialog, setDialog] = useState(false)
 
-  const cartData = useRecoilValue(recoilCartData)
-  const { totals } = cartData
+  /**
+   * Gets all the bookable optional fees
+   */
+  useEffect(() => {
+    scrollIntoViewWithOffset(scrollInViewRef.current, config.offset, config.scroll)
+  }, [config.offset, config.scroll])
+
 
   useEffect(() => {
     if (reservation.paymentStarted) {
-      navigate('/')
+      navRef.current('/')
     }
   }, [reservation.paymentStarted])
 
@@ -128,9 +134,9 @@ export default function PageConfirm() {
       // The server adds the stripeClientSecret to the response
       // when there is a need to pay
       if (res.data?.stripeClientSecret) {
-        navigate('/')
+        navRef.current('/')
       } else {
-        navigate('/thankyou')
+        navRef.current('/thankyou')
       }
     })
   }
@@ -148,7 +154,7 @@ export default function PageConfirm() {
         </div>
       </div>
     </Dialog>
-    <Loading />
+
 
     <div ref={scrollInViewRef} className="grid padding text-color">
       <div className={col({ md: 8, sm: 12 })}>
