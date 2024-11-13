@@ -7,6 +7,8 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import selectorMainFilter from '../../recoil/selectors/selectorMainFilter'
 import MapPopup from './MapPopup.jsx'
 import recoilSpa from '../../recoil/recoilSpa'
+import {getClusterMarker} from '../../data/markers.js'
+
 const mapboxConfig = {
   'ScrollZoomBlocker.CtrlMessage': {
     nl: 'Gebruik ctrl + scroll om in te zoomen op de kaart',
@@ -64,18 +66,24 @@ function MapStays({width, height, request}) {
     map.current = mc // Save the map instance
 
     // Add the markers to the map
-    const marker = (window.localbooker.domain || document.location.origin ) + '/mapbox/STAYS/marker-'
+    // const marker = (window.localbooker.domain || document.location.origin ) + '/mapbox/STAYS/marker-'
     // mc.loadImage(marker + 'default@2x.png', (error, image) => {
     //   mc.addImage('stay-marker', image);
     // });
-    mc.loadImage(marker + 'cluster@2x.png', (error, image) => {
-      mc.addImage('stay-cluster', image);
-    });
+    // mc.loadImage(marker + 'cluster@2x.png', (error, image) => {
+    //   mc.addImage('stay-cluster', image);
+    // });
 
-    // New... from SVG
-    let img = new Image(80,80)
-    img.src = (window.localbooker.domain || document.location.origin ) + '/mapbox/marker-stroked.svg'
-    img.onload = () => mc.addImage('stay-marker', img)
+    const stayImg = getClusterMarker(115, 'stay')
+    stayImg.onload = () => {
+      mc.addImage('stay-marker', stayImg)
+      URL.revokeObjectURL(stayImg.url)
+    }
+    const clusterImg = getClusterMarker(115, 'cluster')
+    clusterImg.onload = () => {
+      mc.addImage('stay-cluster', clusterImg)
+      URL.revokeObjectURL(clusterImg.url)
+    }
 
 
     // Once the map is loaded, add the layers
@@ -106,11 +114,19 @@ function MapStays({width, height, request}) {
 
       // ADDING THE CLUSTER NUMBERS (inside the clustered points)
       mc.addLayer({
-        id: 'cluster-count', type: 'symbol', source: 'places_to_stay', filter: ['has', 'point_count'], layout: {
+        id: 'cluster-count',
+        type: 'symbol',
+        source: 'places_to_stay',
+        filter: ['has', 'point_count'],
+        layout: {
           'text-field': ['get', 'point_count_abbreviated'],
           'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
           'text-size': ['step', ['get', 'point_count'], 14, 50, 16, 300, 17],
-          'text-offset': [-0.00, -0.15]
+          'text-color': 'white',
+          'text-offset': [-0.05, -0.60],
+        },
+        paint: {
+          "text-color": "#ffffff"
         }
       })
 
