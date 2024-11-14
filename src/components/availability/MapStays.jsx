@@ -1,12 +1,13 @@
-import {useEffect, useRef, useContext} from 'react'
-import 'mapbox-gl/dist/mapbox-gl.css';
-import mapboxgl from 'mapbox-gl';
-import {MainContext} from "../../contexts/MainContext";
-import axios from "axios";
-import {useRecoilState, useRecoilValue} from "recoil";
-import selectorMainFilter from "../../recoil/selectors/selectorMainFilter";
-import MapPopup from "./MapPopup.jsx";
-import recoilSpa from "../../recoil/recoilSpa";
+import { useEffect, useRef, useContext } from 'react'
+import 'mapbox-gl/dist/mapbox-gl.css'
+import mapboxgl from 'mapbox-gl'
+import { MainContext } from '../../contexts/MainContext'
+import axios from 'axios'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import selectorMainFilter from '../../recoil/selectors/selectorMainFilter'
+import MapPopup from './MapPopup.jsx'
+import recoilSpa from '../../recoil/recoilSpa'
+import {getClusterMarker,getColors} from '../../data/markers.js'
 
 const mapboxConfig = {
   'ScrollZoomBlocker.CtrlMessage': {
@@ -65,13 +66,25 @@ function MapStays({width, height, request}) {
     map.current = mc // Save the map instance
 
     // Add the markers to the map
-    const marker = (window.localbooker.domain || document.location.origin ) + '/mapbox/STAYS/marker-'
-    mc.loadImage(marker + 'default@2x.png', (error, image) => {
-      mc.addImage('stay-marker', image);
-    });
-    mc.loadImage(marker + 'cluster@2x.png', (error, image) => {
-      mc.addImage('stay-cluster', image);
-    });
+    // const marker = (window.localbooker.domain || document.location.origin ) + '/mapbox/STAYS/marker-'
+    // mc.loadImage(marker + 'default@2x.png', (error, image) => {
+    //   mc.addImage('stay-marker', image);
+    // });
+    // mc.loadImage(marker + 'cluster@2x.png', (error, image) => {
+    //   mc.addImage('stay-cluster', image);
+    // });
+
+    const stayImg = getClusterMarker(115, 'stay')
+    stayImg.onload = () => {
+      mc.addImage('stay-marker', stayImg)
+      URL.revokeObjectURL(stayImg.url)
+    }
+    const clusterImg = getClusterMarker(115, 'cluster')
+    clusterImg.onload = () => {
+      mc.addImage('stay-cluster', clusterImg)
+      URL.revokeObjectURL(clusterImg.url)
+    }
+
 
     // Once the map is loaded, add the layers
     mc.on('load', () => {
@@ -85,7 +98,7 @@ function MapStays({width, height, request}) {
         cluster: true,
         clusterMaxZoom: 14, // Max zoom to cluster points on
         clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
-      });
+      })
 
       // ADDING THE CLUSTERS (clustered points)
       mc.addLayer({
@@ -96,18 +109,26 @@ function MapStays({width, height, request}) {
           'text-allow-overlap': true,
           'icon-ignore-placement': true,
           'text-ignore-placement': true
-        },
-      });
+        }
+      })
 
       // ADDING THE CLUSTER NUMBERS (inside the clustered points)
       mc.addLayer({
-        id: 'cluster-count', type: 'symbol', source: 'places_to_stay', filter: ['has', 'point_count'], layout: {
+        id: 'cluster-count',
+        type: 'symbol',
+        source: 'places_to_stay',
+        filter: ['has', 'point_count'],
+        layout: {
           'text-field': ['get', 'point_count_abbreviated'],
           'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
           'text-size': ['step', ['get', 'point_count'], 14, 50, 16, 300, 17],
-          'text-offset': [-0.00, -0.15]
+          'text-color': 'white',
+          'text-offset': [-0.05, -0.60],
+        },
+        paint: {
+          "text-color": getColors().font_color
         }
-      });
+      })
 
       // ADDING THE STAYS (unclustered points, the BED icons)
       mc.addLayer({
@@ -122,8 +143,8 @@ function MapStays({width, height, request}) {
           'text-allow-overlap': true,
           'icon-ignore-placement': true,
           'text-ignore-placement': true
-        },
-      });
+        }
+      })
 
       // SETTING THE MOUSE CURSOR TO POINTER PER LAYER
       mc.on('mouseenter', 'clusters', () => {
@@ -142,19 +163,31 @@ function MapStays({width, height, request}) {
       // STORE ZOOM AND CENTER ON ZOOM OR MOVE
       mc.on('zoom', () => {
           const center = mc.getCenter()
-          setSpa({...spaRef.current, zoom: mc.getZoom(), center: [center.lng, center.lat], adminIds: null, administrations: []})
+          setSpa({
+            ...spaRef.current,
+            zoom: mc.getZoom(),
+            center: [center.lng, center.lat],
+            adminIds: null,
+            administrations: []
+          })
         }
       )
       mc.on('move', () => {
           const center = mc.getCenter()
-          setSpa({...spaRef.current, zoom: mc.getZoom(), center: [center.lng, center.lat], adminIds: null, administrations: []})
+          setSpa({
+            ...spaRef.current,
+            zoom: mc.getZoom(),
+            center: [center.lng, center.lat],
+            adminIds: null,
+            administrations: []
+          })
         }
       )
 
       // When cursor is renesseaanzee ('') we're clicking on the map (and not on something else)
       mc.on('click', () => {
         if (mc.getCanvas().style.cursor === '') {
-          setSpa({...spaRef.current, adminIds: null, administrations: []})
+          setSpa({ ...spaRef.current, adminIds: null, administrations: [] })
         }
       })
 
@@ -163,31 +196,31 @@ function MapStays({width, height, request}) {
 
         const features = mc.queryRenderedFeatures(e.point, {
           layers: ['clusters']
-        });
-        const clusterId = features[0].properties.cluster_id;
+        })
+        const clusterId = features[0].properties.cluster_id
         mc.getSource('places_to_stay').getClusterExpansionZoom(clusterId, (err, zoom) => {
-          if (err) return;
+          if (err) return
           mc.easeTo({
             center: features[0].geometry.coordinates, zoom: zoom
-          });
-        });
+          })
+        })
         // hide the popup
-        setSpa({...spaRef.current, adminIds: null, administrations: []})
-      });
+        setSpa({ ...spaRef.current, adminIds: null, administrations: [] })
+      })
 
       // INSPECT A STAY ON CLICK
       mc.on('click', 'unclustered-point', (e) => {
 
         const features = mc.queryRenderedFeatures(e.point, {
           layers: ['unclustered-point']
-        });
+        })
 
         setSpa({
           ...spaRef.current,
           adminIds: features.map(e => e.properties.id),
           administrations: []
         })
-      });
+      })
     })
 
     return () => {
@@ -195,7 +228,7 @@ function MapStays({width, height, request}) {
       map.current = null
     }
 
-  }, []);
+  }, [])
 
   /////////////////////////////////////////////////////////////
   //               THIS ONE HANDLES THE MAP DATA             //
@@ -215,8 +248,8 @@ function MapStays({width, height, request}) {
           const features = createFeatureArray(res.data)
           // MOVE THE DATA IN
           map.current.getSource('places_to_stay').setData({
-            "type": "FeatureCollection",
-            "features": features
+            'type': 'FeatureCollection',
+            'features': features
           })
 
           // FIT THE BOUNDS (but only when no popup is open)
@@ -239,9 +272,9 @@ function MapStays({width, height, request}) {
       administration_ids: adminIds,
       lang: context.hostLocale,
       limitMedia: 10,
-      mainFilters: {adults, pets}
+      mainFilters: { adults, pets }
     }).then(res => {
-      setSpa({...spa, administrations: res.data.accomodations})
+      setSpa({ ...spa, administrations: res.data.accomodations })
     })
   }, [adminIds])
 
@@ -259,10 +292,10 @@ function MapStays({width, height, request}) {
     }}>
 
     {/*MAP*/}
-    <div style={{width: '100%', height: '100%'}} ref={mbRef}></div>
+    <div style={{ width: '100%', height: '100%' }} ref={mbRef}></div>
 
     {/*POPUP*/}
-    {adminIds && (administrations.length > 0) && <MapPopup administration={administrations[0]}/>}
+    {adminIds && (administrations.length > 0) && <MapPopup administration={administrations[0]} />}
   </div>
 
 }
@@ -314,5 +347,5 @@ const mapFitBounds = (map, features, heelZeeland) => {
     new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
   )
 
-  map.fitBounds(bounds, {padding: 50})
+  map.fitBounds(bounds, { padding: 50 })
 }
