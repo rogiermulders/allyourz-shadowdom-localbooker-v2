@@ -1,4 +1,4 @@
-export const getClusterMarker = (width, type) => {
+export const addMarkerToTheMap = (width, type, name, mapboxInstance) => {
 
   const h = width * (72/68)
 
@@ -21,11 +21,21 @@ export const getClusterMarker = (width, type) => {
   let blob = new Blob([svg], {
     type: 'image/svg+xml',
   });
-  let url = URL.createObjectURL(blob);
-  let image = document.createElement('img');
-  image.src = url;
 
-  return image
+  /**
+   * Add the image to the map
+   */
+  let image = document.createElement('img');
+
+  const reader = new FileReader();
+  reader.readAsDataURL(blob);
+
+  reader.onloadend = function() {
+    image.src = String(reader.result)
+    image.onload = () => {
+      mapboxInstance.addImage(name, image)
+    }
+  }
 }
 export const getColors = () => {
   // get to the style

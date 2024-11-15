@@ -7,7 +7,7 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import selectorMainFilter from '../../recoil/selectors/selectorMainFilter'
 import MapPopup from './MapPopup.jsx'
 import recoilSpa from '../../recoil/recoilSpa'
-import {getClusterMarker,getColors} from '../../data/markers.js'
+import {addMarkerToTheMap,getColors} from '../../data/markers.js'
 
 const mapboxConfig = {
   'ScrollZoomBlocker.CtrlMessage': {
@@ -65,6 +65,8 @@ function MapStays({width, height, request}) {
 
     map.current = mc // Save the map instance
 
+    // *****************************************
+    // REMOVE BELOW WHEN THE MARKERS ARE READY
     // Add the markers to the map
     // const marker = (window.localbooker.domain || document.location.origin ) + '/mapbox/STAYS/marker-'
     // mc.loadImage(marker + 'default@2x.png', (error, image) => {
@@ -74,17 +76,8 @@ function MapStays({width, height, request}) {
     //   mc.addImage('stay-cluster', image);
     // });
 
-    const stayImg = getClusterMarker(115, 'stay')
-    stayImg.onload = () => {
-      mc.addImage('stay-marker', stayImg)
-      URL.revokeObjectURL(stayImg.url)
-    }
-    const clusterImg = getClusterMarker(115, 'cluster')
-    clusterImg.onload = () => {
-      mc.addImage('stay-cluster', clusterImg)
-      URL.revokeObjectURL(clusterImg.url)
-    }
-
+    addMarkerToTheMap(115, 'stay','stay-marker',mc)
+    addMarkerToTheMap(115, 'cluster','stay-cluster',mc)
 
     // Once the map is loaded, add the layers
     mc.on('load', () => {
