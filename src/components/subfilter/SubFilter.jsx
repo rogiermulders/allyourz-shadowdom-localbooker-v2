@@ -11,7 +11,7 @@ const categoryFoldAt = 5
 const facilityFoldAt = 3
 const facilityThreshold = 5
 
-export default function SubFilter() {
+export default function SubFilter({nothinFound}) {
   const context = useContext(MainContext)
   const _t = context._t()
   const avail = useRecoilValue(recoilAvailability);
@@ -140,10 +140,9 @@ export default function SubFilter() {
       </>
     }
   }
-
   return <>
     <div className="pb-2">
-      {_t.subFilter.find_the_perfect_spot}
+      {!nothinFound && _t.subFilter.find_the_perfect_spot}
       <hr className="mt-8"/>
     </div>
     {!!subfilter.length && <div>
@@ -151,8 +150,8 @@ export default function SubFilter() {
       <YourFilters/>
       <hr className="mt-8"/>
     </div>}
-    <div>
+    {!nothinFound && <div>
       <AllSubfilters/>
-    </div>
+    </div>}
   </>
 }

@@ -3,7 +3,7 @@ import { col, lte } from '../services/buttstrip'
 import SubFilter from '../components/subfilter/SubFilter.jsx'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import selectorMainFilter from '../recoil/selectors/selectorMainFilter'
-import { lazy, Suspense, useContext, useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { MainContext } from '../contexts/MainContext'
 import recoilMainFilter from '../recoil/recoilMainFilter'
 import recoilAvailability from '../recoil/recoilAvailability'
@@ -27,10 +27,15 @@ const MapStays = lazy(() => import('../components/availability/MapStays'))
 
 export default function Spa() {
   const context = useContext(MainContext)
+  const setLoading = useRef(context.setLoading)
+
   const _t = context._t()
   const [mainFilter, setMainFilter] = useRecoilState(recoilMainFilter)
   const [subFilters, setSubfilters] = useRecoilState(recoilSubfilter)
+
   const [availability, setAvailability] = useRecoilState(recoilAvailability)
+  const [nothingFound, setNothingFound] = useState(false)
+
   const [showSubFilter, setShowSubFilter] = useState(false)
   const [spa, setSpa] = useRecoilState(recoilSpa)
 
@@ -88,8 +93,7 @@ export default function Spa() {
 
     return r
   }, [context.hostLocale, regionId, destinationZip, adults, children, pets, range, checkIn, checkOut, category, offset, sort, subFilters])
-
-
+  
   useEffect(() => {
       /**
        * Default this one is true,
@@ -101,15 +105,31 @@ export default function Spa() {
        * Below some 'run once' code (only when the request changes)
        * or list/map switch
        */
-      context.setLoading(true)
+      setLoading.current(true)
 
       // always set this one because it knows the proper bookable count (guess)
       axios.post('/v1/availability/get', request).then(res => {
-        setAvailability(res.data)
-        context.setLoading(false)
+        if(res.data.total === 0) {
+          /**
+           * Nothing found
+           */
+          setNothingFound(true)
+          const clone = JSON.parse(JSON.stringify(request))
+          clone.mainFilters = {adults:request.mainFilters.adults,pets:request.mainFilters.pets}
+          axios.post('/v1/availability/get', clone).then(res => {
+            setAvailability(res.data)
+            setLoading.current(false)
+          })
+        } else {
+          /**
+           * Normal filter
+           */
+          setNothingFound(false)
+          setAvailability(res.data)
+          setLoading.current(false)
+        }
       })
-
-    }, [request, pre_init]
+    }, [request, pre_init, setAvailability, setNothingFound]
   )
 
   const MapButton = () => <Button
@@ -139,7 +159,7 @@ export default function Spa() {
             label: 'Bekijke resultaten',
             onClick: () => setShowSubFilter(false)
           }}>
-          <SubFilter />
+          <SubFilter nothinFound={nothingFound} />
         </Takeover>
         :
         // ============== ACTUAL PAGE ============
@@ -149,7 +169,10 @@ export default function Spa() {
             <div className="grid padding">
               {/* TOTALS */}
               <div className={col({ sm: 12, md: 6 }, 'pt-5')}>
-                {availability.total && _t.page_spa.accos_found.replace('{accos}', availability.totalBookable).replace('{ents}', availability.total)}
+                {nothingFound ?
+                  _t.page_spa.accos_found.replace('{accos}', 0).replace('{ents}', 0) :
+                  availability.total && _t.page_spa.accos_found.replace('{accos}', availability.totalBookable).replace('{ents}', availability.total)
+                }
               </div>
               <div className={col({ def: 0, md: 0, lg: 2, xl: 2 }, 'pt-5')}>
               </div>
@@ -192,7 +215,7 @@ export default function Spa() {
 
               {spa.mapListMode === 'list' &&
                 <Suspense fallback={<Loading />}>
-                  <SpaList />
+                  <SpaList nothingFound={nothingFound} />
                 </Suspense>
               }
 
