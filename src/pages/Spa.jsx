@@ -28,7 +28,6 @@ const MapStays = lazy(() => import('../components/availability/MapStays'))
 export default function Spa() {
   const context = useContext(MainContext)
   const setLoading = useRef(context.setLoading)
-
   const _t = context._t()
   const [mainFilter, setMainFilter] = useRecoilState(recoilMainFilter)
   const [subFilters, setSubfilters] = useRecoilState(recoilSubfilter)
@@ -93,7 +92,7 @@ export default function Spa() {
 
     return r
   }, [context.hostLocale, regionId, destinationZip, adults, children, pets, range, checkIn, checkOut, category, offset, sort, subFilters])
-  
+
   useEffect(() => {
       /**
        * Default this one is true,
@@ -109,13 +108,13 @@ export default function Spa() {
 
       // always set this one because it knows the proper bookable count (guess)
       axios.post('/v1/availability/get', request).then(res => {
-        if(res.data.total === 0) {
+        if (res.data.total === 0) {
           /**
-           * Nothing found
+           * Nothing found, fiddle with the request
            */
           setNothingFound(true)
           const clone = JSON.parse(JSON.stringify(request))
-          clone.mainFilters = {adults:request.mainFilters.adults,pets:request.mainFilters.pets}
+          clone.mainFilters = { adults: request.mainFilters.adults, pets: request.mainFilters.pets }
           axios.post('/v1/availability/get', clone).then(res => {
             setAvailability(res.data)
             setLoading.current(false)
@@ -131,6 +130,31 @@ export default function Spa() {
       })
     }, [request, pre_init, setAvailability, setNothingFound]
   )
+
+  const resetMainFilters = () => {
+
+    setMainFilter(old => {
+      return {
+        ...old,
+        where: {
+          disabled: false,
+          regionId: '0',
+          destinationZip: null,
+          range: 2
+        },
+        when: {
+          disabled: false,
+          checkIn: null,
+          checkOut: null
+        },
+        type: {
+          disabled: false,
+          category: []
+        },
+      }
+    })
+    setNothingFound(false)
+  }
 
   const MapButton = () => <Button
     icon={<Icon name={spa.mapListMode === 'map' ? 'list' : 'map'} size="1.5em"
@@ -215,7 +239,7 @@ export default function Spa() {
 
               {spa.mapListMode === 'list' &&
                 <Suspense fallback={<Loading />}>
-                  <SpaList nothingFound={nothingFound} />
+                  <SpaList nothingFound={nothingFound} resetMainFilters={resetMainFilters} />
                 </Suspense>
               }
 
