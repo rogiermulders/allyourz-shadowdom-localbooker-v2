@@ -1,24 +1,51 @@
-import {col, gte, lte} from "../../services/buttstrip";
-import SubFilter from "../subfilter/SubFilter.jsx";
-import {Paginator} from "primereact/paginator";
-import {rowsPerPage} from "../../data/constants";
-import Administrations from "../administration/Administrations.jsx";
-import {useRecoilState, useRecoilValue} from "recoil";
-import recoilMainFilter from "../../recoil/recoilMainFilter";
-import recoilAvailability from "../../recoil/recoilAvailability";
+import { col, gte, lte } from '../../services/buttstrip'
+import SubFilter from '../subfilter/SubFilter.jsx'
+import { Paginator } from 'primereact/paginator'
+import { rowsPerPage } from '../../data/constants'
+import Administrations from '../administration/Administrations.jsx'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import recoilMainFilter from '../../recoil/recoilMainFilter'
+import recoilAvailability from '../../recoil/recoilAvailability'
+import { MainContext } from '../../contexts/MainContext'
+import { useContext } from 'react'
 
-export default function SpaList() {
 
+export default function SpaList({ nothingFound, resetMainFilters }) {
+  const context = useContext(MainContext)
+  const _t = context._t().page_pdp
   const [mainFilter, setMainFilter] = useRecoilState(recoilMainFilter)
-  const avail = useRecoilValue(recoilAvailability);
+  const avail = useRecoilValue(recoilAvailability)
 
   return <>
     <div className={lte('xs') ? 'grid' : 'grid padding'}>
-      {gte('md') && <div className={col({def: 3, sm: 12})}>
-        <SubFilter/>
+      {gte('md') && <div className={col({ def: 3, sm: 12 })}>
+        <SubFilter nothinFound={nothingFound} />
       </div>}
 
-      <div className={col({def: 9, xs: 12, sm: 12})}>
+      <div className={col({ def: 9, xs: 12, sm: 12 })}>
+
+
+        {nothingFound &&
+          <div className="text-center">
+            <div>
+              <svg style={{ width: '2em', height: '2em' }}>
+                <use xlinkHref={`#icon-sign-alt`} />
+              </svg>
+            </div>
+            <div className="text-center text-bold p-2">Verleg je grenzen</div>
+            <div className="p-2 pb-4">
+              {_t.Nothing_found_1} <a
+              href="."
+              onClick={e=> {
+                e.preventDefault()
+                resetMainFilters()
+              }}
+            >{_t.Nothing_found_2}</a> {_t.Nothing_found_3}
+            </div>
+          </div>
+        }
+
+
         <Paginator className="mt-4"
                    first={mainFilter.offset}
                    rows={rowsPerPage}
@@ -26,11 +53,12 @@ export default function SpaList() {
                    totalRecords={avail.total}
                    onPageChange={(e) => {
                      setMainFilter(old => {
-                       return {...old, offset: e.first}
+                       return { ...old, offset: e.first }
                      })
-                   }}/>
+                   }} />
 
-        <Administrations/>
+
+        <Administrations />
 
         <Paginator className="mt-4"
                    first={mainFilter.offset}
@@ -39,10 +67,10 @@ export default function SpaList() {
                    totalRecords={avail.total}
                    onPageChange={(e) => {
                      setMainFilter(old => {
-                       return {...old, offset: e.first}
+                       return { ...old, offset: e.first }
                      })
-                   }}/>
+                   }} />
       </div>
     </div>
   </>
-    }
+}
