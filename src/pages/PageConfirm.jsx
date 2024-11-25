@@ -33,6 +33,7 @@ import Fees from '../components/cart/Fees.jsx'
 import BookCart from '../components/cart/BookCart.jsx'
 import Extras from '../components/cart/Extras.jsx'
 import scrollIntoViewWithOffset from '../services/scrollIntoViewWithOffset.js'
+import Loading from '../molecules/Loading.jsx'
 
 /**
  * Little complex stuff cuz we can pay here as well
@@ -41,7 +42,6 @@ import scrollIntoViewWithOffset from '../services/scrollIntoViewWithOffset.js'
 export default function PageConfirm() {
   const context = useContext(MainContext)
   const config = useRecoilValue(recoilConfig)
-  //const navigate = useNavigate()
   const navRef = useRef(useNavigate())
   const _t = context._t()
   const scrollInViewRef = useRef(null)
@@ -65,7 +65,6 @@ export default function PageConfirm() {
     pets
   } = useRecoilValue(selectorMainFilter)
 
-
   /**
    * Gets all the bookable optional fees
    */
@@ -84,6 +83,9 @@ export default function PageConfirm() {
    * BOOK!
    */
   const confirmBooking = () => {
+
+    context.setLoading(true) // Overlay and disable button
+
     const personalDetails = {
       valid: true,
       firstName: form.first_name,
@@ -121,7 +123,7 @@ export default function PageConfirm() {
         }
       ]
     }
-    context.setLoading(true)
+
     axios.post('/v1/booking/create', payload).then(res => {
 
       // Store
@@ -142,6 +144,7 @@ export default function PageConfirm() {
   }
 
   return <>
+    <Loading/>
     <Dialog
       header={locale.error_header}
       onHide={() => setDialog(false)} visible={dialog}>
@@ -154,7 +157,6 @@ export default function PageConfirm() {
         </div>
       </div>
     </Dialog>
-
 
     <div ref={scrollInViewRef} className="grid padding text-color">
       <div className={col({ md: 8, sm: 12 })}>
@@ -222,6 +224,7 @@ export default function PageConfirm() {
         <div className="grid grid-valign mt-8 mb-4">
           <div>
             <Button
+              disabled={context.loading}
               label={totals.payNow ? _t.page_confirm.pay : _t.page_confirm.confirm}
               onClick={() => confirmBooking()}
             />
