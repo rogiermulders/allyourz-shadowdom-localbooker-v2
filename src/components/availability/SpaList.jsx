@@ -6,10 +6,13 @@ import Administrations from '../administration/Administrations.jsx'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import recoilMainFilter from '../../recoil/recoilMainFilter'
 import recoilAvailability from '../../recoil/recoilAvailability'
+import { MainContext } from '../../contexts/MainContext'
+import { useContext } from 'react'
 
 
 export default function SpaList({ nothingFound, resetMainFilters }) {
-
+  const context = useContext(MainContext)
+  const _t = context._t().page_pdp
   const [mainFilter, setMainFilter] = useRecoilState(recoilMainFilter)
   const avail = useRecoilValue(recoilAvailability)
 
@@ -31,13 +34,13 @@ export default function SpaList({ nothingFound, resetMainFilters }) {
             </div>
             <div className="text-center text-bold p-2">Verleg je grenzen</div>
             <div className="p-2 pb-4">
-              Er zijn geen resultaten gevonden, probeer het via <a
+              {_t.Nothing_found_1} <a
               href="."
               onClick={e=> {
                 e.preventDefault()
                 resetMainFilters()
               }}
-            >ons totaaloverzicht</a> of bekijk onze beste keuzes hieronder.
+            >{_t.Nothing_found_2}</a> {_t.Nothing_found_3}
             </div>
           </div>
         }
