@@ -9,10 +9,9 @@ import recoilAvailability from '../../recoil/recoilAvailability'
 import { MainContext } from '../../contexts/MainContext'
 import { useContext } from 'react'
 
-
 export default function SpaList({ nothingFound, resetMainFilters }) {
   const context = useContext(MainContext)
-  const _t = context._t().page_pdp
+  const _t = context._t().page_spa
   const [mainFilter, setMainFilter] = useRecoilState(recoilMainFilter)
   const avail = useRecoilValue(recoilAvailability)
 
@@ -26,26 +25,26 @@ export default function SpaList({ nothingFound, resetMainFilters }) {
 
 
         {nothingFound &&
-          <div className="text-center">
+          <div className="text-center" style={{marginTop:'3em'}}>
             <div>
-              <svg style={{ width: '2em', height: '2em' }}>
+              <svg style={{ width: '2em', height: '2em', fill:'var(--primary-color)' }}>
                 <use xlinkHref={`#icon-sign-alt`} />
               </svg>
             </div>
-            <div className="text-center text-bold p-2">Verleg je grenzen</div>
-            <div className="p-2 pb-4">
-              {_t.Nothing_found_1} <a
+            <div className="text-center text-bold p-2 mt-10" style={{color:'var(--primary-color)'}}>
+              {_t.nothing_found_2}
+            </div>
+            <div className="p-2 pb-4 mt-20">
+              {_t.nothing_found_3} <a
               href="."
               onClick={e=> {
                 e.preventDefault()
                 resetMainFilters()
               }}
-            >{_t.Nothing_found_2}</a> {_t.Nothing_found_3}
+            >{_t.nothing_found_4}</a> {_t.nothing_found_5}
             </div>
           </div>
         }
-
-
         <Paginator className="mt-4"
                    first={mainFilter.offset}
                    rows={rowsPerPage}

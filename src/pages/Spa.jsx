@@ -194,7 +194,8 @@ export default function Spa() {
               {/* TOTALS */}
               <div className={col({ sm: 12, md: 6 }, 'pt-5')}>
                 {nothingFound ?
-                  _t.page_spa.accos_found.replace('{accos}', 0).replace('{ents}', 0) :
+                  _t.page_spa.nothing_found_1 :
+                  // _t.page_spa.nothing_found_1.replace('{accos}', 0) :
                   availability.total && _t.page_spa.accos_found.replace('{accos}', availability.totalBookable).replace('{ents}', availability.total)
                 }
               </div>
