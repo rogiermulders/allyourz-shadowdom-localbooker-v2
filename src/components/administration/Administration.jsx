@@ -14,7 +14,7 @@ export default function Administration({ administration }) {
   const _t = useContext(MainContext)._t()
   const dialogRef = useRef()
   const config = useRecoilValue(recoilConfig)
-
+console.log(_t.page_pdp.need_help)
   let email = config.pid === 'zeeland.com' ? 'helpdesk@localbooker.nl' : 'helpdesk@allyourz.nl'
 
   return <>
@@ -30,7 +30,7 @@ export default function Administration({ administration }) {
 
           <Button
             className="float-r"
-            label="Hulp nodig?"
+            label={_t.page_pdp.need_help || 'Hulp nodig?'}
             size="small"
             outlined
             onClick={() => dialogRef.current.open(
