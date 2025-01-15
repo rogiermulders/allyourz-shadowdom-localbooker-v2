@@ -1,0 +1,8 @@
+================= ACC =================================================
+acc: root /home/allyourz/acc.localbooker.nl;                -- acc  ---
+demo: root /home/allyourz/acc.localbooker.nl;               -- acc  ---
+
+================= MAIN ================================================
+allyourz: root /home/allyourz/main.localbooker.nl;          -- main ---
+provinciezeeland: root /home/allyourz/main.localbooker.nl;  -- main ---
+renesseaanzee: root /home/allyourz/main.localbooker.nl;     -- main ---
