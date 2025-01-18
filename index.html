@@ -46,9 +46,9 @@
       }
 
       #header {
-          border: solid 1px gainsboro;
-          background-color: black;
-          opacity: 0.33;
+          /*border: solid 1px gainsboro;*/
+          background-color: darkslategrey;
+          opacity: 1.00;
           height: 136px;
           position: fixed;
           z-index: 200;
@@ -66,17 +66,15 @@
 <body data-deep="0" style="background-color: #666; padding: 0; margin: 0;">
 
 <div data-deep="1" style="display: flex;">
-  <div id="header"></div>
+  <div id="header">Some header here</div>
   <main data-deep="2" id="main" style="z-index: 1; font-size: 16px; position:relative">
     <div data-deep="3" class="my-container" style="margin-top:136px">
-      <!--      "where":{"destinationZip":"4461AJ","range":2}-->
-      <!-- data-mainfilter='{"where":{"range":2,"disabled":true,"destinationZip":"4325AA"}}' -->
-      <!--      data-theme="renesseaanzee"-->
       <div data-deep="4" style="">
+        <div style="height: 200px; background-color: #2cacd5">Some content here</div>
         <div id="localbooker"
              data-page="spa"
              data-pid="demo"
-             data-theme="provinciezeeland"
+             data-theme="demo"
              data-locale="nl"
              data-offset="#header"></div>
       </div>

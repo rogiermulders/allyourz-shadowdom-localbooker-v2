@@ -1,6 +1,6 @@
 import { forwardRef, useImperativeHandle } from "react";
 import {Dialog} from "primereact/dialog";
-import {lte, wh, box} from "../../services/buttstrip";
+import {lte, box} from "../../services/buttstrip";
 import {useContext, useState} from "react";
 import {MainContext} from "../../contexts/MainContext";
 import {freeze,unFreeze} from "../../services/hostscroll";
