@@ -21,7 +21,7 @@ export default function Administration({ administration }) {
 
     <ForwardDialog ref={dialogRef} />
 
-    <div className="text-color p-8">
+    <div className="text-color pl-8 pr-8">
       <div className="grid">
         <div className={col({ def: 10, xs: 9 })}>
           <span className="h3"> {administration.name}</span>
