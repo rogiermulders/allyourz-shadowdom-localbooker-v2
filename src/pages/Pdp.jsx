@@ -49,7 +49,7 @@ export default function Pdp({ administration_slug }) {
 
   return <>
 
-    <div ref={srollInViewRef} style={{ position: 'relative' }} className={lte('sm') ? 'grid' : 'grid padding'}>
+    <div ref={srollInViewRef} className={lte('sm') ? 'grid' : 'grid padding'}>
 
       <div className={col({ def: 8, xs: 12, sm: 12 })}>
         {administration && <>
