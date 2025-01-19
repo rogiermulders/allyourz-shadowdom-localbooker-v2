@@ -10,6 +10,8 @@ const scrollIntoViewWithOffset =  (nodeOrRef, offset, enabled) => {
   const fontSize = parseFloat(getComputedStyle(document.getElementById(import.meta.env.VITE_APP_ROOT)).fontSize);
 
   setTimeout(() => {
+    console.log('Scroll',nodeOrRef,offset,fontSize)
+
     window.scrollTo({
       behavior: 'smooth',
       top:
