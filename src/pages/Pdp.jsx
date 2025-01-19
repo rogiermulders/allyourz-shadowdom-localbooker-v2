@@ -53,8 +53,9 @@ export default function Pdp({ administration_slug }) {
 
       <div className={col({ def: 8, xs: 12, sm: 12 })}>
         {administration && <>
-          <div className="ml-10 mt-4">
 
+          {/*Link Back to search and book when were a SPA (and not a single page)*/}
+          {config.page === 'spa' && <div className="ml-10 mt-4">
             <span
               onClick={() => navigate('/')}
               style={{
@@ -65,7 +66,7 @@ export default function Pdp({ administration_slug }) {
               <i className="pi pi-angle-double-left mr-4" />
               {_t.labels.search_and_book || 'Terug naar ZOEK & BOEK'}
             </span>
-          </div>
+          </div>}
 
           {/*THE ADMIN WHEN HOST ASKS FOR CONTENT*/}
           {config.content && <Administration administration={administration} />}

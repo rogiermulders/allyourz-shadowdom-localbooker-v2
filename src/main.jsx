@@ -36,8 +36,13 @@ const options = {
   styleContainer: window.localbooker_shadowRoot
 }
 
-// Cloneto to prevent updating the #localbooker <div>
+// Clone to prevent updating the #localbooker <div>
 const data = JSON.parse(JSON.stringify(window.localbooker_container.dataset))
+
+// all data props to lower case just in case
+Object.keys(data).forEach((key) => {
+  data[key] = data[key].toLowerCase()
+})
 
 // !! Most of the time it's already set but chrome might have a bug
 // !! where it's not set when the page loads too fast.
