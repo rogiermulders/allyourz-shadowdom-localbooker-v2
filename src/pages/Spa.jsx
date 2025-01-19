@@ -20,13 +20,20 @@ import axios from 'axios'
 import MainFilter from '../components/mainfilter/MainFilter.jsx'
 import Takeover from '../molecules/Takeover.jsx'
 import PoweredBy from '../molecules/PoweredBy.jsx'
+import scrollIntoViewWithOffset from '../services/scrollIntoViewWithOffset.js'
+import recoilConfig from '../recoil/recoilConfig.js'
+
+
+
 
 const SpaList = lazy(() => import('../components/availability/SpaList.jsx'))
 const MapStays = lazy(() => import('../components/availability/MapStays'))
 
 
 export default function Spa() {
+
   const context = useContext(MainContext)
+  const refContext = useRef(context)
   const setLoading = useRef(context.setLoading)
   const _t = context._t()
   const [mainFilter, setMainFilter] = useRecoilState(recoilMainFilter)
@@ -37,6 +44,8 @@ export default function Spa() {
 
   const [showSubFilter, setShowSubFilter] = useState(false)
   const [spa, setSpa] = useRecoilState(recoilSpa)
+  const config = useRecoilValue(recoilConfig)
+  const ref = useRef()
 
   const {
     pre_init,
@@ -126,9 +135,14 @@ export default function Spa() {
           setNothingFound(false)
           setAvailability(res.data)
           setLoading.current(false)
+
+          if(refContext.current.forceScroll) {
+            refContext.current.setForceScroll(false)
+            scrollIntoViewWithOffset(ref.current, config.offset, config.scroll)
+          }
         }
       })
-    }, [request, pre_init, setAvailability, setNothingFound]
+    }, [request, pre_init, setAvailability, setNothingFound, config.offset, config.scroll]
   )
 
   const resetMainFilters = () => {
@@ -168,7 +182,7 @@ export default function Spa() {
     rounded />
 
 
-  return <div>
+  return <div ref={ref}>
     <Loading />
     {
       showSubFilter ?

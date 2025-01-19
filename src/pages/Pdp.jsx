@@ -12,10 +12,10 @@ import PoweredBy from '../molecules/PoweredBy.jsx'
 import scrollIntoViewWithOffset from '../services/scrollIntoViewWithOffset'
 import { Accordion, AccordionTab } from 'primereact/accordion'
 import Icon from '../molecules/Icon.jsx'
-import { Button } from 'primereact/button'
+
 
 export default function Pdp({ administration_slug }) {
-  const navigate = useNavigate()
+
   const params = useParams()
   const context = useContext(MainContext)
   const refContext = useRef(context)
@@ -23,6 +23,7 @@ export default function Pdp({ administration_slug }) {
   const srollInViewRef = useRef()
   const bookablesRef = useRef()
   const config = useRecoilValue(recoilConfig)
+  const navigate = useNavigate()
 
   const [administration, setAdministration] = useState(null)
   const [accordionStatus, setAccordionStatus] = useState(null)
@@ -51,24 +52,24 @@ export default function Pdp({ administration_slug }) {
     <div ref={srollInViewRef} style={{ position: 'relative' }} className={lte('sm') ? 'grid' : 'grid padding'}>
 
       <div className={col({ def: 8, xs: 12, sm: 12 })}>
-        {/*Naar Zoek & Boek*/}
-        {(gte('md')) && false &&
-          <div style={{ position: 'absolute', marginTop: '-1.5em', width: '300px', left: '1em' }}>
-          {/*<div style={{ position: 'absolute', marginTop: '-1.5em', width: '200px', textAlign:'right', right: '1em' }}>*/}
-            <Button
-              outlined
-              style={{ backgroundColor: 'var(--surface-a)' }}
-              icon="pi pi-angle-double-left"
-              iconPos="left"
-              label={
-                _t.labels.search_and_book || 'Terug naar ZOEK & BOEK'
-              }
-              // This one should work (navigate('/') cuz of the router basename
-              onClick={() => navigate('/')}
-            />
-          </div>}
-
         {administration && <>
+
+          {/*Link Back to search and book when were a SPA (and not a single page)*/}
+          {config.page === 'spa' && <div className="ml-10 mt-4">
+            <span
+              onClick={() => {
+                context.setForceScroll(true)
+                navigate('/')
+              }}
+              style={{
+              cursor: 'pointer',
+              textDecoration: 'none',
+              color: 'var(--primary-color)'
+            }}>
+              <i className="pi pi-angle-double-left mr-4" />
+              {_t.labels.search_and_book || 'Terug naar ZOEK & BOEK'}
+            </span>
+          </div>}
 
           {/*THE ADMIN WHEN HOST ASKS FOR CONTENT*/}
           {config.content && <Administration administration={administration} />}

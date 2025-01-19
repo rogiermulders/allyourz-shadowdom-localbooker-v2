@@ -1,4 +1,4 @@
-import {atom,persistAtom} from "./persistAtom";
+import { atom, persistAtom } from './persistAtom'
 
 export default atom({
   key: 'config',
@@ -10,8 +10,8 @@ export default atom({
     basename: null,
     slug: null,
     content: null,
-    locale:null,
-    scroll:true
+    locale: null,
+    scroll: true
   },
-  effects_UNSTABLE: [persistAtom],
+  effects_UNSTABLE: [persistAtom]
 })

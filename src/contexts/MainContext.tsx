@@ -28,7 +28,7 @@ const MainContextProvider = ({children, locale}) => {
     const [maxPets, setMaxPets] = useState(0)
     const [cheapest, setCheapest] = useState(0)
     const [themeCss,setThemeCss] = useState(null)
-
+    const [forceScroll, setForceScroll] = useState(false)
     const _t = () => {
         const locale = localeOptions(hostLocale) as Translate
         return locale.localbooker
@@ -75,6 +75,7 @@ const MainContextProvider = ({children, locale}) => {
         maxPets,
         cheapest,
         themeCss,
+        forceScroll,
         setLoading,
         setMaxGuests,
         setMaxPets,
@@ -82,6 +83,7 @@ const MainContextProvider = ({children, locale}) => {
         setHostLocale,
         setThemeCss,
         setAllCssLoaded,
+        setForceScroll,
         _t
     }}>
         {children}

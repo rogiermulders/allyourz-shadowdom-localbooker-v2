@@ -11,11 +11,13 @@ import { Button } from 'primereact/button'
 import CalendarDialog from '../calendar/CalendarDialog.jsx'
 import { gte, lte } from '../../services/buttstrip'
 import { useNavigate } from 'react-router-dom'
+import recoilConfig from '../../recoil/recoilConfig.js'
 
 
 export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
   const calendarDialogRef = useRef(null)
   const context = useContext(MainContext)
+  const config = useRecoilValue(recoilConfig)
   const navigate = useNavigate()
   const _t = context._t()
   const refWhen = useRef(null)
@@ -43,7 +45,10 @@ export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
     label={
       _t.labels.search_and_book || 'Terug naar ZOEK & BOEK'
     }
-    onClick={() => navigate('/')}
+    onClick={() => {
+      context.setForceScroll(true)
+      navigate('/')
+    }}
   />
   /**
    * Return
@@ -54,12 +59,13 @@ export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
 
     <div className="text-color p-8" style={{position:'relative'}}>
 
-      {gte('md') && <div style={{position:'absolute', top:'-1.6em', right:'1em', width:'18em'}}>
+      {/*Back to home only when SPA*/}
+      {gte('md') && config.page === 'spa' && <div style={{position:'absolute', top:'-1.6em', right:'1em', width:'18em'}}>
         {butt()}
       </div>}
 
-      {/*Back to home*/}
-      {lte('sm') && <div className="mt-3 mb-8">
+      {/*Back to home only when SPA*/}
+      {lte('sm') && config.page === 'spa' && <div className="mt-3 mb-8">
         {butt()}
       </div>}
 
