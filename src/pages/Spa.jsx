@@ -136,7 +136,6 @@ export default function Spa() {
           setAvailability(res.data)
           setLoading.current(false)
 
-          // @todo scrollIntoViewWithOffset(ref.current)
           if(refContext.current.forceScroll) {
             refContext.current.setForceScroll(false)
             scrollIntoViewWithOffset(ref.current, config.offset, config.scroll)

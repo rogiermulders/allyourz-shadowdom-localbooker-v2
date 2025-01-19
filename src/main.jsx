@@ -39,10 +39,8 @@ const options = {
 // Clone to prevent updating the #localbooker <div>
 const data = JSON.parse(JSON.stringify(window.localbooker_container.dataset))
 
-// all data props to lower case just in case
-Object.keys(data).forEach((key) => {
-  data[key] = data[key].toLowerCase()
-})
+// Lowercase the page just in case
+data.page = data.page.toLowerCase()
 
 // !! Most of the time it's already set but chrome might have a bug
 // !! where it's not set when the page loads too fast.
@@ -55,7 +53,6 @@ if (data.sess) {
 /**
  * When no data-theme attribute is set
  */
-
 if (import.meta.env.PROD) {
   /** PROD */
   if (!data.theme) {
