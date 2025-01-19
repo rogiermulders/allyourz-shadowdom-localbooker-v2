@@ -33,6 +33,7 @@ const MapStays = lazy(() => import('../components/availability/MapStays'))
 export default function Spa() {
 
   const context = useContext(MainContext)
+  const refContext = useRef(context)
   const setLoading = useRef(context.setLoading)
   const _t = context._t()
   const [mainFilter, setMainFilter] = useRecoilState(recoilMainFilter)
@@ -134,8 +135,12 @@ export default function Spa() {
           setNothingFound(false)
           setAvailability(res.data)
           setLoading.current(false)
+
           // @todo scrollIntoViewWithOffset(ref.current)
-          scrollIntoViewWithOffset(ref.current, config.offset, config.scroll)
+          if(refContext.current.forceScroll) {
+            refContext.current.setForceScroll(false)
+            scrollIntoViewWithOffset(ref.current, config.offset, config.scroll)
+          }
         }
       })
     }, [request, pre_init, setAvailability, setNothingFound, config.offset, config.scroll]

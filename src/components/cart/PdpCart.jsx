@@ -45,7 +45,10 @@ export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
     label={
       _t.labels.search_and_book || 'Terug naar ZOEK & BOEK'
     }
-    onClick={() => navigate('/')}
+    onClick={() => {
+      context.setForceScroll(true)
+      navigate('/')
+    }}
   />
   /**
    * Return

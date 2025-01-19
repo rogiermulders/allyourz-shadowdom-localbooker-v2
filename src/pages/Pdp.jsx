@@ -57,7 +57,10 @@ export default function Pdp({ administration_slug }) {
           {/*Link Back to search and book when were a SPA (and not a single page)*/}
           {config.page === 'spa' && <div className="ml-10 mt-4">
             <span
-              onClick={() => navigate('/')}
+              onClick={() => {
+                context.setForceScroll(true)
+                navigate('/')
+              }}
               style={{
               cursor: 'pointer',
               textDecoration: 'none',
