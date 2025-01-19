@@ -18,7 +18,7 @@ const scrollIntoViewWithOffset =  (nodeOrRef, offset, enabled) => {
         document.body.getBoundingClientRect().top -
         (offset + (1.5 * fontSize)),
     })
-  }, 500) // Dunno.. without this one things are *not* working
+  }, 250) // Dunno.. without this one things are *not* working
 
 }
 export default scrollIntoViewWithOffset
