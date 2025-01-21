@@ -24,7 +24,7 @@ import scrollIntoViewWithOffset from '../services/scrollIntoViewWithOffset.js'
 import recoilConfig from '../recoil/recoilConfig.js'
 
 const SpaList = lazy(() => import('../components/availability/SpaList.jsx'))
-const MapStays = lazy(() => import('../components/availability/MapStays'))
+const MapStays = lazy(() => import('../components/maps/MapStays.jsx'))
 
 export default function Spa() {
 

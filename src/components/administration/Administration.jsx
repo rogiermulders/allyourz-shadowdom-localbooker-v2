@@ -12,8 +12,8 @@ import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import RecoilConfig from '../../recoil/recoilConfig.js'
 import { classNames } from 'primereact/utils'
-// import MapAdminLocationLoader from '../maps/MapAdminLocationLoader.jsx'
 import Loading from '../../molecules/Loading.jsx'
+
 const MapAdminLocation = lazy(() => import('../maps/MapAdminLocation.jsx'))
 
 export default function Administration({ administration }) {
@@ -53,6 +53,7 @@ export default function Administration({ administration }) {
         </div>
       </div>
 
+      {/*The name of the administration*/}
       <div className="grid">
         <div className={classNames('col-12',{'-mt-9':gte('md')})}>
           <span className="h3">{administration.name}</span>
@@ -79,8 +80,6 @@ export default function Administration({ administration }) {
           </li>
         </div>
       </div>
-
-      <div className="location"></div>
 
       <div className="carousel">
         <Carousel images={administration.images} aspectRadio={{ xs: '2-1', sm: '5-2' }[getBp()] || '2-1'} />
