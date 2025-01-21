@@ -23,12 +23,8 @@ import PoweredBy from '../molecules/PoweredBy.jsx'
 import scrollIntoViewWithOffset from '../services/scrollIntoViewWithOffset.js'
 import recoilConfig from '../recoil/recoilConfig.js'
 
-
-
-
 const SpaList = lazy(() => import('../components/availability/SpaList.jsx'))
 const MapStays = lazy(() => import('../components/availability/MapStays'))
-
 
 export default function Spa() {
 

@@ -2,7 +2,7 @@ import { col, getBp, lte, gte } from '../../services/buttstrip'
 import Carousel from '../carousel/Carousel'
 import Usps from './Usps.jsx'
 import SpecialFacilities from './SpecialFacilities.jsx'
-import { useContext, useRef } from 'react'
+import { lazy, useContext, useRef, Suspense } from 'react'
 import { MainContext } from '../../contexts/MainContext'
 import Icon from '../../molecules/Icon.jsx'
 import ForwardDialog from '../../molecules/ForwardDialog.jsx'
@@ -12,6 +12,9 @@ import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import RecoilConfig from '../../recoil/recoilConfig.js'
 import { classNames } from 'primereact/utils'
+// import MapAdminLocationLoader from '../maps/MapAdminLocationLoader.jsx'
+import Loading from '../../molecules/Loading.jsx'
+const MapAdminLocation = lazy(() => import('../maps/MapAdminLocation.jsx'))
 
 export default function Administration({ administration }) {
   const _t = useContext(MainContext)._t()
@@ -50,19 +53,30 @@ export default function Administration({ administration }) {
         </div>
       </div>
 
-
       <div className="grid">
         <div className={classNames('col-12',{'-mt-9':gte('md')})}>
           <span className="h3">{administration.name}</span>
         </div>
       </div>
-      <div className="grid">
 
+      {/*The location*/}
+      <div className="grid">
         <div className={classNames('col-12 pt-0 pb-4',{'mt-2':lte('sm')})} style={{marginTop:'-8px'}}>
           <li className="mt-4 flex-wrap">
-            <LiContent icon="map-pin" label={`${address.city}, ${address.region}`} />
+            <LiContent
+              style={{textDecoration: 'underline', cursor: 'pointer'}}
+              icon="map-pin"
+              label={`${address.city}, ${address.region}`}
+              onClick={() => { dialogRef.current.open(
+                {
+                  header: administration.name,
+                  content: <Suspense fallback={<Loading />}>
+                    <MapAdminLocation admin_id={administration.id}/>
+                  </Suspense>
+                })}
+            }
+            />
           </li>
-
         </div>
       </div>
 
