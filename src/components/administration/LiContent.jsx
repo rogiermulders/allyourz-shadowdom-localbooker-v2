@@ -1,11 +1,12 @@
 import Icon from '../../molecules/Icon.jsx'
 
-export default function LiContent({icon, label, onClick, style}) {
+export default function LiContent({icon, label, onClick, style, className}) {
 
   onClick = onClick || (() => {})
   style = style || {}
+  className = 'flex ' + className || 'flex'
 
-  return <div className="flex" onClick={onClick} style={style}>
+  return <div className={className} onClick={onClick} style={style}>
     <div>
       <Icon name={icon} size="1.25em" color="text-color-secondary"/>
     </div>

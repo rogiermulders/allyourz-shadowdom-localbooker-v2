@@ -19,7 +19,7 @@ const MapAdminLocation = lazy(() => import('../maps/MapAdminLocation.jsx'))
 export default function Administration({ administration }) {
   const _t = useContext(MainContext)._t()
   const dialogRef = useRef()
-  const { address } = administration
+  const { address, properties } = administration
   const navigate = useNavigate()
   const context = useContext(MainContext)
   const config = useRecoilValue(RecoilConfig)
@@ -28,7 +28,7 @@ export default function Administration({ administration }) {
     <ForwardDialog ref={dialogRef} />
 
     <div className="text-color pl-8 pr-8">
-      <div className={classNames('grid', {'mt-6': lte('sm')})}>
+      <div className={classNames('grid', { 'mt-6': lte('sm') })}>
         {/*Back to search and book  */}
         <div className="col-8">
           {config.page === 'spa' && <>
@@ -55,32 +55,39 @@ export default function Administration({ administration }) {
 
       {/*The name of the administration*/}
       <div className="grid">
-        <div className={classNames('col-12',{'-mt-9':gte('md')})}>
+        <div className={classNames('col-12', { '-mt-9': gte('md') })}>
           <span className="h3">{administration.name}</span>
         </div>
       </div>
 
       {/* The location, opens the map! */}
       <div className="grid">
-        <div className={classNames('col-12 pt-0 pb-4',{'mt-2':lte('sm')})} style={{marginTop:'-8px'}}>
-          <li className="mt-4 flex-wrap">
+        <div className={classNames('col-12 pt-0 pb-4', { 'mt-2': lte('sm') })} style={{ marginTop: '-8px' }}>
+          <ul className="ul-none flex m-0 p-0 mt-4 nowrap">
+            {!!properties.length &&
+              <LiContent
+                className="mr-6"
+                icon={properties[0].icon}
+                label={properties[0].label}
+              />}
             <LiContent
-              style={{textDecoration: 'underline', cursor: 'pointer'}}
+              className="pointer text-underline"
               icon="map-pin"
               label={`${address.city}, ${address.region}`}
-              onClick={() => { dialogRef.current.open(
-                {
-                  header: administration.name,
-                  content: <Suspense fallback={<Loading />}>
-                    <MapAdminLocation
-                      lat={address.latitude}
-                      long={address.longitude}
-                      admin_id={administration.id}/>
-                  </Suspense>
-                })}
-            }
-            />
-          </li>
+              onClick={() => {
+                dialogRef.current.open(
+                  {
+                    header: administration.name,
+                    content: <Suspense fallback={<Loading />}>
+                      <MapAdminLocation
+                        lat={address.latitude}
+                        long={address.longitude}
+                        admin_id={administration.id} />
+                    </Suspense>
+                  })
+              }} />
+          </ul>
+
         </div>
       </div>
 
