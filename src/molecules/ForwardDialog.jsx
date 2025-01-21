@@ -68,10 +68,6 @@ const ForwardDialog = forwardRef((props, ref) => {
   if (!visible) return null
   return <>
     <Dialog
-      onMaskClick={() => {
-        setContent(null)
-        setVisible(false)
-      }}
       header={header}
       onShow={() => {
         zIndex.tempFix()
