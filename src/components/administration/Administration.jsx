@@ -1,4 +1,4 @@
-import { col, getBp, lte, gte } from '../../services/buttstrip'
+import { getBp, lte, gte } from '../../services/buttstrip'
 import Carousel from '../carousel/Carousel'
 import Usps from './Usps.jsx'
 import SpecialFacilities from './SpecialFacilities.jsx'
@@ -30,7 +30,7 @@ export default function Administration({ administration }) {
     <div className="text-color pl-8 pr-8">
       <div className={classNames('grid', {'mt-6': lte('sm')})}>
         {/*Back to search and book  */}
-        <div className={col({ def: 10, xs: 8 })}>
+        <div className="col-8">
           {config.page === 'spa' && <>
             <span
               onClick={() => {
@@ -47,7 +47,7 @@ export default function Administration({ administration }) {
             </span>
           </>}
         </div>
-        <div className={col({ def: 2, xs: 4 })}>
+        <div className="col-4">
           {/*Help button*/}
           <HelpButton />
         </div>
