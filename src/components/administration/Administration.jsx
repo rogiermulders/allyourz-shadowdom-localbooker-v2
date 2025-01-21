@@ -72,7 +72,10 @@ export default function Administration({ administration }) {
                 {
                   header: administration.name,
                   content: <Suspense fallback={<Loading />}>
-                    <MapAdminLocation admin_id={administration.id}/>
+                    <MapAdminLocation
+                      lat={address.latitude}
+                      long={address.longitude}
+                      admin_id={administration.id}/>
                   </Suspense>
                 })}
             }
