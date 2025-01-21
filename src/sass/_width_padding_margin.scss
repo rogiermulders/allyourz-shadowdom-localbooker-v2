@@ -37,6 +37,22 @@
   .mr-#{$i} {
     margin-right: 0.125em * $i;
   }
+  .-m-#{$i} {
+    margin: 0.125em * $i * -1 !important;
+  }
+  .-mt-#{$i} {
+    margin-top: 0.125em * $i * -1 !important;
+  }
+  .-mb-#{$i} {
+    margin-bottom: 0.125em * $i * -1 !important;
+  }
+  .-ml-#{$i} {
+    margin-left: 0.125em * $i * -1 !important;
+  }
+  .-mr-#{$i} {
+    margin-right: 0.125em * $i * -1;
+  }
+
 }
 
 // PADDING
@@ -56,5 +72,21 @@
   .pr-#{$i} {
     padding-right: 0.125em * $i !important;
   }
+  .-p-#{$i} {
+    padding: 0.125em * $i * -1 !important;
+  }
+  .-pt-#{$i} {
+    padding-top: 0.125em * $i * -1 !important;
+  }
+  .-pb-#{$i} {
+    padding-bottom: 0.125em * $i * -1 !important;
+  }
+  .-pl-#{$i} {
+    padding-left: 0.125em * $i * -1 !important;
+  }
+  .-pr-#{$i} {
+    padding-right: 0.125em * $i * -1 !important;
+  }
+
 }
 

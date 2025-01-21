@@ -165,6 +165,7 @@ export interface PageSPA {
     map:           string;
     list:          string;
     accos_found:   string;
+    nothing_found_1: string;
     filterOptions: Country[];
 }
 
@@ -502,6 +503,7 @@ const typeMap: any = {
         { json: "map", js: "map", typ: "" },
         { json: "list", js: "list", typ: "" },
         { json: "accos_found", js: "accos_found", typ: "" },
+        { json: "nothing_found_1", js: "nothing_found_1", typ: "" },
         { json: "filterOptions", js: "filterOptions", typ: a(r("Country")) },
     ], false),
     "PageThankyou": o([
