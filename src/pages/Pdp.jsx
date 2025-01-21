@@ -23,7 +23,6 @@ export default function Pdp({ administration_slug }) {
   const srollInViewRef = useRef()
   const bookablesRef = useRef()
   const config = useRecoilValue(recoilConfig)
-  const navigate = useNavigate()
 
   const [administration, setAdministration] = useState(null)
   const [accordionStatus, setAccordionStatus] = useState(null)
@@ -53,24 +52,6 @@ export default function Pdp({ administration_slug }) {
 
       <div className={col({ def: 8, xs: 12, sm: 12 })}>
         {administration && <>
-
-          {/*Link Back to search and book when were a SPA (and not a single page)*/}
-          {config.page === 'spa' && <div className="ml-10 mt-4">
-            <span
-              onClick={() => {
-                context.setForceScroll(true)
-                navigate('/')
-              }}
-              style={{
-              cursor: 'pointer',
-              textDecoration: 'none',
-              color: 'var(--primary-color)'
-            }}>
-              <i className="pi pi-angle-double-left mr-4" />
-              {_t.labels.search_and_book || 'Terug naar ZOEK & BOEK'}
-            </span>
-          </div>}
-
           {/*THE ADMIN WHEN HOST ASKS FOR CONTENT*/}
           {config.content && <Administration administration={administration} />}
 

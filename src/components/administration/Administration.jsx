@@ -1,4 +1,4 @@
-import { col, getBp } from '../../services/buttstrip'
+import { col, getBp, lte, gte } from '../../services/buttstrip'
 import Carousel from '../carousel/Carousel'
 import Usps from './Usps.jsx'
 import SpecialFacilities from './SpecialFacilities.jsx'
@@ -6,56 +6,63 @@ import { useContext, useRef } from 'react'
 import { MainContext } from '../../contexts/MainContext'
 import Icon from '../../molecules/Icon.jsx'
 import ForwardDialog from '../../molecules/ForwardDialog.jsx'
-import { Button } from 'primereact/button'
+import HelpButton from './HelpButton.jsx'
+import LiContent from './LiContent.jsx'
+import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
-import recoilConfig from '../../recoil/recoilConfig.js'
+import RecoilConfig from '../../recoil/recoilConfig.js'
+import { classNames } from 'primereact/utils'
 
 export default function Administration({ administration }) {
   const _t = useContext(MainContext)._t()
   const dialogRef = useRef()
-  const config = useRecoilValue(recoilConfig)
-
-  let email = config.pid === 'zeeland.com' ? 'helpdesk@localbooker.nl' : 'helpdesk@allyourz.nl'
-
+  const { address } = administration
+  const navigate = useNavigate()
+  const context = useContext(MainContext)
+  const config = useRecoilValue(RecoilConfig)
   return <>
 
     <ForwardDialog ref={dialogRef} />
 
     <div className="text-color pl-8 pr-8">
-      <div className="grid">
+      <div className={classNames('grid', {'mt-6': lte('sm')})}>
+        {/*Back to search and book  */}
         <div className={col({ def: 10, xs: 9 })}>
-          <span className="h3"> {administration.name}</span>
+          {config.page === 'spa' && <>
+            <span
+              onClick={() => {
+                context.setForceScroll(true)
+                navigate('/')
+              }}
+              style={{
+                cursor: 'pointer',
+                textDecoration: 'none',
+                color: 'var(--primary-color)'
+              }}>
+              <i className="pi pi-angle-double-left mr-4" />
+              {_t.labels.search_and_book || 'Terug naar ZOEK & BOEK'}
+            </span>
+          </>}
         </div>
         <div className={col({ def: 2, xs: 3 })}>
+          {/*Help button*/}
+          <HelpButton />
+        </div>
+      </div>
 
-          <Button
-            className="float-r"
-            label={_t.page_pdp.need_help || 'Hulp nodig?'}
-            size="small"
-            outlined
-            onClick={() => dialogRef.current.open(
-              {
-                size: 'small',
-                header: _t.page_pdp.need_help || 'Hulp nodig?',
-                content: <div className="p-10">
-                  {_t.page_pdp.help_txt_1}
-                  <br />
-                  <br />
-                  {_t.page_pdp.help_txt_2}
-                  <br />
-                  <br />
-                  <a href={`mailto:${email}`}>
-                    <Button
-                      icon="pi pi-envelope"
-                      outlined
-                      label={_t.page_pdp.send_mail}
-                    />
-                  </a>
-                </div>
 
-              }
-            )}
-          />
+      <div className="grid">
+        <div className={classNames('col-12',{'-mt-9':gte('md')})}>
+          <span className="h3">{administration.name}</span>
+        </div>
+      </div>
+      <div className="grid">
+
+        <div className={classNames('col-12 pt-0 pb-4',{'mt-2':lte('sm')})} style={{marginTop:'-8px'}}>
+          <li className="mt-4 flex-wrap">
+            <LiContent icon="map-pin" label={`${address.city}, ${address.region}`} />
+          </li>
+
         </div>
       </div>
 
