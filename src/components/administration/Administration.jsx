@@ -30,7 +30,7 @@ export default function Administration({ administration }) {
     <div className="text-color pl-8 pr-8">
       <div className={classNames('grid', {'mt-6': lte('sm')})}>
         {/*Back to search and book  */}
-        <div className={col({ def: 10, xs: 9 })}>
+        <div className={col({ def: 10, xs: 8 })}>
           {config.page === 'spa' && <>
             <span
               onClick={() => {
@@ -47,7 +47,7 @@ export default function Administration({ administration }) {
             </span>
           </>}
         </div>
-        <div className={col({ def: 2, xs: 3 })}>
+        <div className={col({ def: 2, xs: 4 })}>
           {/*Help button*/}
           <HelpButton />
         </div>
@@ -60,7 +60,7 @@ export default function Administration({ administration }) {
         </div>
       </div>
 
-      {/*The location*/}
+      {/* The location, opens the map! */}
       <div className="grid">
         <div className={classNames('col-12 pt-0 pb-4',{'mt-2':lte('sm')})} style={{marginTop:'-8px'}}>
           <li className="mt-4 flex-wrap">
