@@ -63,7 +63,7 @@ export default function Administration({ administration }) {
       {/* The location, opens the map! */}
       <div className="grid">
         <div className={classNames('col-12 pt-0 pb-4', { 'mt-2': lte('sm') })} style={{ marginTop: '-8px' }}>
-          <ul className="ul-none flex m-0 p-0 mt-4 nowrap">
+          <ul className="ul-none flex-wrap m-0 p-0 mt-4 nowrap">
             {!!properties.length &&
               <LiContent
                 className="mr-6"
