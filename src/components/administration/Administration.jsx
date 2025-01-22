@@ -1,65 +1,95 @@
-import { col, getBp } from '../../services/buttstrip'
+import { getBp, lte, gte } from '../../services/buttstrip'
 import Carousel from '../carousel/Carousel'
 import Usps from './Usps.jsx'
 import SpecialFacilities from './SpecialFacilities.jsx'
-import { useContext, useRef } from 'react'
+import { lazy, useContext, useRef, Suspense } from 'react'
 import { MainContext } from '../../contexts/MainContext'
 import Icon from '../../molecules/Icon.jsx'
 import ForwardDialog from '../../molecules/ForwardDialog.jsx'
-import { Button } from 'primereact/button'
+import HelpButton from './HelpButton.jsx'
+import LiContent from './LiContent.jsx'
+import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
-import recoilConfig from '../../recoil/recoilConfig.js'
+import RecoilConfig from '../../recoil/recoilConfig.js'
+import { classNames } from 'primereact/utils'
+import Loading from '../../molecules/Loading.jsx'
+
+const MapAdminLocation = lazy(() => import('../maps/MapAdminLocation.jsx'))
 
 export default function Administration({ administration }) {
   const _t = useContext(MainContext)._t()
   const dialogRef = useRef()
-  const config = useRecoilValue(recoilConfig)
-
-  let email = config.pid === 'zeeland.com' ? 'helpdesk@localbooker.nl' : 'helpdesk@allyourz.nl'
-
+  const { address, properties } = administration
+  const navigate = useNavigate()
+  const context = useContext(MainContext)
+  const config = useRecoilValue(RecoilConfig)
   return <>
 
     <ForwardDialog ref={dialogRef} />
 
     <div className="text-color pl-8 pr-8">
-      <div className="grid">
-        <div className={col({ def: 10, xs: 9 })}>
-          <span className="h3"> {administration.name}</span>
+      <div className={classNames('grid', { 'mt-6': lte('sm') })}>
+        {/*Back to search and book  */}
+        <div className="col-8">
+          {config.page === 'spa' && <>
+            <span
+              onClick={() => {
+                context.setForceScroll(true)
+                navigate('/')
+              }}
+              style={{
+                cursor: 'pointer',
+                textDecoration: 'none',
+                color: 'var(--primary-color)'
+              }}>
+              <i className="pi pi-angle-double-left mr-4" />
+              {_t.labels.search_and_book || 'Terug naar ZOEK & BOEK'}
+            </span>
+          </>}
         </div>
-        <div className={col({ def: 2, xs: 3 })}>
-
-          <Button
-            className="float-r"
-            label={_t.page_pdp.need_help || 'Hulp nodig?'}
-            size="small"
-            outlined
-            onClick={() => dialogRef.current.open(
-              {
-                size: 'small',
-                header: _t.page_pdp.need_help || 'Hulp nodig?',
-                content: <div className="p-10">
-                  {_t.page_pdp.help_txt_1}
-                  <br />
-                  <br />
-                  {_t.page_pdp.help_txt_2}
-                  <br />
-                  <br />
-                  <a href={`mailto:${email}`}>
-                    <Button
-                      icon="pi pi-envelope"
-                      outlined
-                      label={_t.page_pdp.send_mail}
-                    />
-                  </a>
-                </div>
-
-              }
-            )}
-          />
+        <div className="col-4">
+          {/*Help button*/}
+          <HelpButton />
         </div>
       </div>
 
-      <div className="location"></div>
+      {/*The name of the administration*/}
+      <div className="grid">
+        <div className={classNames('col-12', { '-mt-9': gte('md') })}>
+          <span className="h3">{administration.name}</span>
+        </div>
+      </div>
+
+      {/* The location, opens the map! */}
+      <div className="grid">
+        <div className={classNames('col-12 pt-0 pb-4', { 'mt-2': lte('sm') })} style={{ marginTop: '-8px' }}>
+          <ul className="ul-none flex-wrap m-0 p-0 mt-4 nowrap">
+            {!!properties.length &&
+              <LiContent
+                className="mr-6"
+                icon={properties[0].icon}
+                label={properties[0].label}
+              />}
+            <LiContent
+              className="pointer text-underline"
+              icon="map-pin"
+              label={`${address.city}, ${address.region}`}
+              onClick={() => {
+                dialogRef.current.open(
+                  {
+                    header: administration.name,
+                    content: <Suspense fallback={<Loading />}>
+                      <MapAdminLocation
+                        lat={address.latitude}
+                        long={address.longitude}
+                        admin_id={administration.id} />
+                    </Suspense>
+                  })
+              }} />
+          </ul>
+
+        </div>
+      </div>
 
       <div className="carousel">
         <Carousel images={administration.images} aspectRadio={{ xs: '2-1', sm: '5-2' }[getBp()] || '2-1'} />

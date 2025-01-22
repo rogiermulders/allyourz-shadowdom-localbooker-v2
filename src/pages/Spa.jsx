@@ -23,12 +23,8 @@ import PoweredBy from '../molecules/PoweredBy.jsx'
 import scrollIntoViewWithOffset from '../services/scrollIntoViewWithOffset.js'
 import recoilConfig from '../recoil/recoilConfig.js'
 
-
-
-
 const SpaList = lazy(() => import('../components/availability/SpaList.jsx'))
-const MapStays = lazy(() => import('../components/availability/MapStays'))
-
+const MapStays = lazy(() => import('../components/maps/MapStays.jsx'))
 
 export default function Spa() {
 
@@ -209,7 +205,6 @@ export default function Spa() {
               <div className={col({ sm: 12, md: 6 }, 'pt-5')}>
                 {nothingFound ?
                   _t.page_spa.nothing_found_1 :
-                  // _t.page_spa.nothing_found_1.replace('{accos}', 0) :
                   availability.total && _t.page_spa.accos_found.replace('{accos}', availability.totalBookable).replace('{ents}', availability.total)
                 }
               </div>

@@ -6,12 +6,11 @@ import {imageResize} from "../../services/imageResize";
 import {toEuro} from "../../services/money";
 import {useRecoilValue} from "recoil";
 import recoilAvailability from "../../recoil/recoilAvailability";
-import Icon from "../../molecules/Icon.jsx";
 import {imageNotFound} from "../../data/constants";
 import {useContext} from "react";
 import {MainContext} from "../../contexts/MainContext";
 import {useNavigate} from "react-router-dom";
-
+import LiContent from './LiContent.jsx'
 
 export default function Administrations() {
   const navigate = useNavigate()
@@ -19,18 +18,6 @@ export default function Administrations() {
   const avail = useRecoilValue(recoilAvailability);
   const _t = context._t()
   if (!avail.accomodations) return null
-
-
-  const LiContent = ({icon, label}) => {
-    return <>
-      <div>
-        <Icon name={icon} size="1.25em" color="text-color-secondary"/>
-      </div>
-      <div className="ml-4 mr-3 text-color-secondary">
-        {label}
-      </div>
-    </>
-  }
 
   const doNavigate = (accomodation) => {
     navigate('/' + accomodation.slug)
