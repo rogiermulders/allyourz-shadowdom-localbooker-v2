@@ -112,7 +112,7 @@ export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
                 style={{ width: '60%' }} />
       </div>
       <div className="mt-12 text-center">
-        <div className="text-left inline-block -ml-16">
+        <div className="text-left inline-block -ml-6">
           <TermsAndConditions
             tacs={[
               { name: 'Annuleringsvoorwaarden', description: 'Voor deze accommodatie' },
