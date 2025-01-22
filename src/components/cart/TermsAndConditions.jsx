@@ -1,12 +1,12 @@
 import Icon from "../../molecules/Icon.jsx";
 
-export default function Usps({usps}) {
-  return usps.map((usp, i) => {
+export default function TermsAndConditions({tacs}) {
+  return tacs.map((usp, i) => {
     return <div key={i} className="flex mb-4">
       <div>
-        <Icon name={usp.icon} size={'1.50em'} color="#8ccbc8"/>
+        <Icon name="check-circle" size="1.25em" color="#8ccbc8"/>
       </div>
-      <div style={{margin:'0.25em 0 0 0.5em'}}>
+      <div className="pl-4">
         <div className="font-bold">{usp.name}</div>
         <div className="mt-1">{usp.description}</div>
       </div>

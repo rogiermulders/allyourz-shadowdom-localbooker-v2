@@ -12,6 +12,8 @@ import CalendarDialog from '../calendar/CalendarDialog.jsx'
 import { gte, lte } from '../../services/buttstrip'
 import { useNavigate } from 'react-router-dom'
 import recoilConfig from '../../recoil/recoilConfig.js'
+import TermsAndConditions from './TermsAndConditions.jsx'
+import Usps from './Usps.jsx'
 
 
 export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
@@ -36,7 +38,7 @@ export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
   const whoTitle = tot + ' ' + _t.labels[tot > 1 ? 'guests' : 'guest'] +
     (pets ? `, ${pets} ${_t.labels[pets > 1 ? 'pets' : 'pet']}` : '')
 
-  const butt= () => <Button
+  const butt = () => <Button
     icon="pi pi-angle-double-left"
     style={{ backgroundColor: 'var(--surface-a)' }}
     iconPos="lef"
@@ -57,12 +59,13 @@ export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
 
     <CalendarDialog ref={calendarDialogRef} />
 
-    <div className="text-color p-8" style={{position:'relative'}}>
+    <div className="text-color p-8" style={{ position: 'relative' }}>
 
       {/*Back to home only when SPA*/}
-      {gte('md') && config.page === 'spa' && <div style={{position:'absolute', top:'-1.6em', right:'1em', width:'18em'}}>
-        {butt()}
-      </div>}
+      {gte('md') && config.page === 'spa' &&
+        <div style={{ position: 'absolute', top: '-1.6em', right: '1em', width: '18em' }}>
+          {butt()}
+        </div>}
 
       {/*Back to home only when SPA*/}
       {lte('sm') && config.page === 'spa' && <div className="mt-3 mb-8">
@@ -107,6 +110,24 @@ export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
                   }
                 }}
                 style={{ width: '60%' }} />
+      </div>
+      <div className="mt-12 text-center">
+        <div className="text-left inline-block -ml-16">
+          <TermsAndConditions
+            tacs={[
+              { name: 'Annuleringsvoorwaarden', description: 'Voor deze accommodatie' },
+              { name: 'Betaal later', description: 'Bekijk voorwaarden' }
+            ]} />
+        </div>
+      </div>
+      <div className="mt-12">
+        <Usps usps={[
+          { usp: 'Directe boekingsbevestiging' },
+          { usp: '100% lokaal en eerlijk' },
+          { usp: 'Unieke verblijfstips' },
+          { usp: 'Betaal later' }
+        ]} />
+
       </div>
     </div>
   </>
