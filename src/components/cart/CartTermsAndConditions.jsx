@@ -19,6 +19,20 @@ export default function CartTermsAndConditions({ admin }) {
     return `pdp_cancellation_default_text_${admin.type}`
   }
 
+  const payInAdvance = () => {
+    if(admin.depositPercentage) {
+      return 'pay_in_advance_situation_percentage'?.replace('{{percentage}}', admin.depositPercentage.toString())
+    }
+    if(admin.payInAdvanceSituation)
+    {
+      return 'pay_in_advance_situation_email'
+    }
+    if(admin.payInAdvanceSituation === 'arrival') {
+      return 'pay_in_advance_situation_arrival'
+    }
+    return 'pay_in_advance_situation_default_text'
+  }
+
 
   const tc = [
     {
@@ -27,8 +41,8 @@ export default function CartTermsAndConditions({ admin }) {
       content: admin.cancellation
     },
     {
-      head: 'Betaal later',
-      name: 'Bekijk voorwaarden',
+      head: 'no_deposit',
+      name: payInAdvance(),
       content: admin.payInAdvance
     }
   ]
