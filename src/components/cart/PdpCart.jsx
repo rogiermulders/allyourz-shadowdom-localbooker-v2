@@ -115,12 +115,13 @@ export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
           <CartTermsAndConditions admin={administration} />
         </div>
       </div>
-      <div className="mt-12">
+      <div className="mt-8">
+        <div className="text-bold mb-4">{_t.page_pdp.usp_0}</div>
         <Usps usps={[
-          { usp: 'Directe boekingsbevestiging' },
-          { usp: '100% lokaal en eerlijk' },
-          { usp: 'Unieke verblijfstips' },
-          { usp: 'Betaal later' }
+          { usp: _t.page_pdp.usp_1 },
+          { usp: _t.page_pdp.usp_2 },
+          { usp: _t.page_pdp.usp_3 },
+          { usp: _t.page_pdp.usp_4 }
         ]} />
 
       </div>
