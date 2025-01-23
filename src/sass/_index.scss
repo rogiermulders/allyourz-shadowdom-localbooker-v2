@@ -11,6 +11,7 @@
 @import "calendar";
 @import "molecules/fake_dropdown";
 @import "mapbox";
+
 /**
  Same as font-size in the html tag but that does not work (we have no control)
  Had to search and replace primereact rem -> em... bit risky but for now but
@@ -39,13 +40,16 @@
 
 .flex {
   display: flex;
+
   &.align-center {
     align-items: center;
   }
 }
+
 .flex-wrap {
   display: flex;
   flex-wrap: wrap;
+
   &.align-center {
     align-items: center;
   }
@@ -74,6 +78,7 @@
 .li-vert {
   display: inline-block;
 }
+
 .inline-block {
   display: inline-block;
 }
@@ -86,6 +91,16 @@
 
 .float-r {
   float: right;
+}
+
+button.no-style {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0.2em 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 
 

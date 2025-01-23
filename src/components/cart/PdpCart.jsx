@@ -12,11 +12,11 @@ import CalendarDialog from '../calendar/CalendarDialog.jsx'
 import { gte, lte } from '../../services/buttstrip'
 import { useNavigate } from 'react-router-dom'
 import recoilConfig from '../../recoil/recoilConfig.js'
-import TermsAndConditions from './TermsAndConditions.jsx'
+import CartTermsAndConditions from './CartTermsAndConditions.jsx'
 import Usps from './Usps.jsx'
 
-
 export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
+
   const calendarDialogRef = useRef(null)
   const context = useContext(MainContext)
   const config = useRecoilValue(recoilConfig)
@@ -113,11 +113,7 @@ export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
       </div>
       <div className="mt-12 text-center">
         <div className="text-left inline-block -ml-6">
-          <TermsAndConditions
-            tacs={[
-              { name: 'Annuleringsvoorwaarden', description: 'Voor deze accommodatie' },
-              { name: 'Betaal later', description: 'Bekijk voorwaarden' }
-            ]} />
+          <CartTermsAndConditions admin={administration} />
         </div>
       </div>
       <div className="mt-12">
