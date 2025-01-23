@@ -1,7 +1,7 @@
 // @ts-ignore
 import React, {useEffect, useRef, useState} from 'react'
 import {localeOptions} from "primereact/api";
-import {Translate} from "../types/translate"
+import {Root} from "../types/translate"
 import { breakpoints } from '../data/constants';
 
 const MainContext = React.createContext({});
@@ -30,7 +30,7 @@ const MainContextProvider = ({children, locale}) => {
     const [themeCss,setThemeCss] = useState(null)
     const [forceScroll, setForceScroll] = useState(false)
     const _t = () => {
-        const locale = localeOptions(hostLocale) as Translate
+        const locale = localeOptions(hostLocale) as Root
         return locale.localbooker
     }
 

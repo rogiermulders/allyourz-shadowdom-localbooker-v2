@@ -1,36 +1,39 @@
 import Icon from '../../molecules/Icon.jsx'
 import ForwardDialog from '../../molecules/ForwardDialog.jsx'
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
+import { MainContext } from '../../contexts/MainContext'
 
 export default function CartTermsAndConditions({ admin }) {
 
   const ref = useRef()
+  const context = useContext(MainContext)
+  const _t = context._t().page_pdp
 
+  const cancelHead = admin.cancellationThreshold === '0_document' ? _t.cancelation_rules : _t.free_cancelation
 
-  const cancelHead = admin.cancellationThreshold === '0_document' ? 'pdp_cancelation_rules' : 'pdp_free_cancelation'
+  console.log(admin.type)
 
   const cancelText = () => {
-    if(admin.cancellationThreshold.includes('hours')) {
-      return 'cancellation_threshold_hours'?.replace('{{hours}}', parseInt(admin.cancellationThreshold).toString())
+    if (admin.cancellationThreshold.includes('hours')) {
+      return _t.cancellation_threshold_hours?.replace('{{hours}}', parseInt(admin.cancellationThreshold).toString())
     }
-    if(admin.cancellationThreshold.includes('days')){
-      return 'cancellation_threshold_days'?.replace('{{days}}', parseInt(admin.cancellationThreshold).toString())
+    if (admin.cancellationThreshold.includes('days')) {
+      return _t.cancellation_threshold_days?.replace('{{days}}', parseInt(admin.cancellationThreshold).toString())
     }
-    return `pdp_cancellation_default_text_${admin.type}`
+    return _t[`cancellation_default_text_STAYS`]
   }
 
   const payInAdvance = () => {
-    if(admin.depositPercentage) {
-      return 'pay_in_advance_situation_percentage'?.replace('{{percentage}}', admin.depositPercentage.toString())
+    if (admin.depositPercentage) {
+      return _t.pay_in_advance_situation_percentage?.replace('{{percentage}}', admin.depositPercentage.toString())
     }
-    if(admin.payInAdvanceSituation)
-    {
-      return 'pay_in_advance_situation_email'
+    if (admin.payInAdvanceSituation) {
+      return _t.pay_in_advance_situation_email
     }
-    if(admin.payInAdvanceSituation === 'arrival') {
-      return 'pay_in_advance_situation_arrival'
+    if (admin.payInAdvanceSituation === 'arrival') {
+      return _t.pay_in_advance_situation_arrival
     }
-    return 'pay_in_advance_situation_default_text'
+    return _t.pay_in_advance_situation_default_text
   }
 
 
@@ -41,7 +44,7 @@ export default function CartTermsAndConditions({ admin }) {
       content: admin.cancellation
     },
     {
-      head: 'no_deposit',
+      head: _t.pdp_no_deposit,
       name: payInAdvance(),
       content: admin.payInAdvance
     }
@@ -56,10 +59,12 @@ export default function CartTermsAndConditions({ admin }) {
     {text}
   </div>
 
-  return tc.map((item, i) => {
-    return <>
-      <ForwardDialog ref={ref} />
-      <div key={i} className="flex mb-4">
+  return <>
+    <ForwardDialog ref={ref} />
+    {tc.map((item, i) => {
+
+
+      return <div key={i} className="flex mb-4">
         <div>
           <Icon name="check-circle" size="1.25em" color="#8ccbc8" />
         </div>
@@ -78,6 +83,7 @@ export default function CartTermsAndConditions({ admin }) {
           </button>
         </div>
       </div>
-    </>
-  })
+    })}
+  </>
+
 }
