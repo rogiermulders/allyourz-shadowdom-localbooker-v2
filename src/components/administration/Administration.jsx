@@ -42,7 +42,6 @@ export default function Administration({ administration }) {
                 textDecoration: 'none',
                 color: 'var(--primary-color)'
               }}>
-              <i className="pi pi-angle-double-left mr-4" />
               {_t.labels.search_and_book || 'Terug naar ZOEK & BOEK'}
             </span>
           </>}

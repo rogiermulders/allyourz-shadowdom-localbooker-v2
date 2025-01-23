@@ -39,7 +39,6 @@ export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
     (pets ? `, ${pets} ${_t.labels[pets > 1 ? 'pets' : 'pet']}` : '')
 
   const butt = () => <Button
-    icon="pi pi-angle-double-left"
     style={{ backgroundColor: 'var(--surface-a)' }}
     iconPos="lef"
     className="w100"
