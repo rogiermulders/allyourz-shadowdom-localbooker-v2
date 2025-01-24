@@ -9,11 +9,12 @@ import { MainContext } from '../../contexts/MainContext'
 import { toEuro } from '../../services/money'
 import { Button } from 'primereact/button'
 import CalendarDialog from '../calendar/CalendarDialog.jsx'
-import { gte, lte } from '../../services/buttstrip'
+import { lte } from '../../services/buttstrip'
 import { useNavigate } from 'react-router-dom'
 import recoilConfig from '../../recoil/recoilConfig.js'
 import CartTermsAndConditions from './CartTermsAndConditions.jsx'
 import Usps from './Usps.jsx'
+import HelpButton from '../administration/HelpButton.jsx'
 
 export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
 
@@ -58,25 +59,21 @@ export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
 
     <CalendarDialog ref={calendarDialogRef} />
 
-    <div className="text-color p-8" style={{ position: 'relative' }}>
-
-      {/*Back to home only when SPA*/}
-      {gte('md') && config.page === 'spa' &&
-        <div style={{ position: 'absolute', top: '-1.6em', right: '1em', width: '18em' }}>
-          {butt()}
-        </div>}
-
-      {/*Back to home only when SPA*/}
-      {lte('sm') && config.page === 'spa' && <div className="mt-3 mb-8">
-        {butt()}
-      </div>}
-
+    <div className="text-color pl-8 pr-8 pb-2" style={{ position: 'relative' }}>
 
       {/*Selecteer Datums*/}
-      {gte('md') && <div className="h3">{_t.page_pdp.select_dates}</div>}
+      {lte('sm') && <div className="p-4"></div>}
+      <div className="grid">
+        <div className="col-6 pl-0">
+          <div className="h5">{_t.page_pdp.select_dates}</div>
+        </div>
+        <div className="col-6 pr-0">
+          <HelpButton />
+        </div>
+      </div>
 
       {/*Aankomst & vertrek*/}
-      <div className="h5 mt-4 mb-2">{_t.page_pdp.checkin_checkout}</div>
+      <div className="font-bold h01 mt-4 mb-1">{_t.page_pdp.checkin_checkout}</div>
       <FakeDropdown ref={refWhen} placeholder={whenTitle} onOpen={() => refWho.current.close()}>
         <div style={{ margin: 'auto', width: 'max-content', marginTop: '0.2em' }}>
           <AdministrationCalendar
@@ -87,7 +84,7 @@ export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
       </FakeDropdown>
 
       {/*Hoeveel personen*/}
-      <div className="h5 mt-4 mb-2">{_t.page_pdp.how_many}</div>
+      <div className="font-bold h01 mt-6 mb-1">{_t.page_pdp.how_many}</div>
       <FakeDropdown ref={refWho} placeholder={whoTitle} onOpen={() => refWhen.current.close()}>
         <WhoContent administration={administration} usedIn={'PdpCart'} />
       </FakeDropdown>
@@ -123,8 +120,13 @@ export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
           { usp: _t.page_pdp.usp_3 },
           { usp: _t.page_pdp.usp_4 }
         ]} />
-
       </div>
+
+      {/*Back to home only when SPA*/}
+      {config.page === 'spa' && <div className="mt-12 mb-8">
+        {butt()}
+      </div>}
+
     </div>
   </>
 }

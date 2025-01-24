@@ -117,7 +117,7 @@ export default function Pdp({ administration_slug }) {
         {/*THE STICKY PART OF IT ALL*/}
         {administration &&
           // + 8 cuz we have a padding 8
-          <div style={{ position: 'sticky', top: (config.offset + 8 + 32) }}>
+          <div style={{ position: 'sticky', top: (config.offset + 8) }}>
 
             <PdpCart
               administration={administration}

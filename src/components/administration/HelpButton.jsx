@@ -38,7 +38,6 @@ export default function HelpButton() {
               />
             </a>
           </div>
-
         }
       )}
     />

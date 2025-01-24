@@ -6,7 +6,6 @@ import { lazy, useContext, useRef, Suspense } from 'react'
 import { MainContext } from '../../contexts/MainContext'
 import Icon from '../../molecules/Icon.jsx'
 import ForwardDialog from '../../molecules/ForwardDialog.jsx'
-import HelpButton from './HelpButton.jsx'
 import LiContent from './LiContent.jsx'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
@@ -30,7 +29,7 @@ export default function Administration({ administration }) {
     <div className="text-color pl-8 pr-8">
       <div className={classNames('grid', { 'mt-6': lte('sm') })}>
         {/*Back to search and book  */}
-        <div className="col-8">
+        <div className="col-8 mb-3">
           {config.page === 'spa' && <>
             <span
               onClick={() => {
@@ -45,10 +44,6 @@ export default function Administration({ administration }) {
               {_t.labels.search_and_book || 'Terug naar ZOEK & BOEK'}
             </span>
           </>}
-        </div>
-        <div className="col-4">
-          {/*Help button*/}
-          <HelpButton />
         </div>
       </div>
 
