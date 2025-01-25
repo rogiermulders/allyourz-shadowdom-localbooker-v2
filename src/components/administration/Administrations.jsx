@@ -91,7 +91,7 @@ export default function Administrations() {
                     <div className="h01 ml-4 mr-2  mt-2 text-color-secondary">
                       {getReviewsLabel(accomodation.rating, _t.reviews)}
                     </div>
-                    <Icon className="mt-1 mr-2" name="info-circle" size="1.2em" color="primary-color" />
+                    <Icon className="mt-1 mr-2" name="info-circle" size="1.2em" color="#8ccbc8" />
                   </div>
                   }
 

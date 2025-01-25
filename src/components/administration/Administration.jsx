@@ -50,7 +50,7 @@ export default function Administration({ administration }) {
 
         {/*REVIEWS (you need the relative here) */}
         <div className="col-4 pr-8 relative text-right">
-          <PdpTopreview administration={administration} />
+          {administration.rating && <PdpTopreview administration={administration} />}
         </div>
       </div>
 
