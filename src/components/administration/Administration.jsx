@@ -12,7 +12,7 @@ import { useRecoilValue } from 'recoil'
 import RecoilConfig from '../../recoil/recoilConfig.js'
 import { classNames } from 'primereact/utils'
 import Loading from '../../molecules/Loading.jsx'
-import { getReviewsLabel } from '../../services/reviewLabels.js'
+import PdpTopreview from './PdpTopReview.jsx'
 
 const MapAdminLocation = lazy(() => import('../maps/MapAdminLocation.jsx'))
 
@@ -23,6 +23,7 @@ export default function Administration({ administration }) {
   const navigate = useNavigate()
   const context = useContext(MainContext)
   const config = useRecoilValue(RecoilConfig)
+
   return <>
 
     <ForwardDialog ref={dialogRef} />
@@ -47,26 +48,9 @@ export default function Administration({ administration }) {
           </>}
         </div>
 
-        {/*REVIEWS*/}
+        {/*REVIEWS (you need the relative here) */}
         <div className="col-4 pr-8 relative text-right">
-          <div className="absolute" style={{ right: 0 }}>
-            <div className="flex justify-end">
-              <div className="ml-4 mr-3 pt-1 text-bold">
-                <div>{administration.rating}</div>
-              </div>
-              <Icon name="star-full" size="1.2em" color="primary-color" />
-
-            </div>
-            <div className="h02 mt-1 text-bold">
-              {getReviewsLabel(administration.rating, _t.reviews)}
-            </div>
-            <div className="h02 mt-2 flex justify-end pointer">
-              <div className="pr-2">
-                {administration.userRatingsTotal} reviews
-              </div>
-                <Icon name="info-circle" size="1.2em" color="primary-color" />
-            </div>
-          </div>
+          <PdpTopreview administration={administration} />
         </div>
       </div>
 

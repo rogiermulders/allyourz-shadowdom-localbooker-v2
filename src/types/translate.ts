@@ -55,6 +55,7 @@ export interface Reviews {
     label_7: string
     label_8: string
     label_9: string
+    i_google: string
 }
 
 export interface Country {
