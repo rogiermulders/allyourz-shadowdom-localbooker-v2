@@ -1,3 +1,13 @@
+/**
+ * 
+ * @param name
+ * @param size
+ * @param color
+ * @param light
+ * @param style
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function Icon({name, size, color, light, style}) {
 
   size = size || '1em'

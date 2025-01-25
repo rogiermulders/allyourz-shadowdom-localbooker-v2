@@ -12,6 +12,7 @@ import { useRecoilValue } from 'recoil'
 import RecoilConfig from '../../recoil/recoilConfig.js'
 import { classNames } from 'primereact/utils'
 import Loading from '../../molecules/Loading.jsx'
+import { getReviewsLabel } from '../../services/reviewLabels.js'
 
 const MapAdminLocation = lazy(() => import('../maps/MapAdminLocation.jsx'))
 
@@ -44,6 +45,28 @@ export default function Administration({ administration }) {
               {_t.labels.search_and_book || 'Terug naar ZOEK & BOEK'}
             </span>
           </>}
+        </div>
+
+        {/*REVIEWS*/}
+        <div className="col-4 pr-8 relative text-right">
+          <div className="absolute" style={{ right: 0 }}>
+            <div className="flex justify-end">
+              <div className="ml-4 mr-3 pt-1 text-bold">
+                <div>{administration.rating}</div>
+              </div>
+              <Icon name="star-full" size="1.2em" color="primary-color" />
+
+            </div>
+            <div className="h02 mt-1 text-bold">
+              {getReviewsLabel(administration.rating, _t.reviews)}
+            </div>
+            <div className="h02 mt-2 flex justify-end pointer">
+              <div className="pr-2">
+                {administration.userRatingsTotal} reviews
+              </div>
+                <Icon name="info-circle" size="1.2em" color="primary-color" />
+            </div>
+          </div>
         </div>
       </div>
 
