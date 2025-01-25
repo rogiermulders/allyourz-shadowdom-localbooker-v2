@@ -13,6 +13,8 @@ export default function Icon({name, size, color, light, style}) {
     style = {}
   }
 
+
+
   return <svg style={{...style,width: size, height: size, fill: color}}>
     <use xlinkHref={`#icon-${name}`}/>
   </svg>
