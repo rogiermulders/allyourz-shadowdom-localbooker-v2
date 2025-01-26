@@ -7,16 +7,13 @@ import { toEuro } from '../../services/money'
 import { useRecoilValue } from 'recoil'
 import recoilAvailability from '../../recoil/recoilAvailability'
 import { imageNotFound } from '../../data/constants'
-import { useContext, useRef } from 'react'
+import { useContext } from 'react'
 import { MainContext } from '../../contexts/MainContext'
 import { useNavigate } from 'react-router-dom'
 import LiContent from './LiContent.jsx'
-import { getReviewsLabel, ratingToString } from '../../services/reviewLabels.js'
-import Icon from '../../molecules/Icon.jsx'
-import { OverlayPanel } from 'primereact/overlaypanel'
+import AdministrationsReview from './AdministrationsReview.jsx'
 
 export default function Administrations() {
-  const op = useRef(null)
   const navigate = useNavigate()
   const context = useContext(MainContext)
   const avail = useRecoilValue(recoilAvailability)
@@ -34,7 +31,6 @@ export default function Administrations() {
         <div className="mt-2 font-bold h5">
           € {toEuro(accomodation.minPrice / accomodation.days)}
         </div>
-
       </div>
       <div className={col({ xs: 6, def: 12 }, 'text-right', 'mt-4')}>
         <Button label={_t.labels.go_to} onClick={() => doNavigate(accomodation)} />
@@ -43,9 +39,6 @@ export default function Administrations() {
   </>
 
   return <>
-    <OverlayPanel ref={op} className="h01">
-      {_t.reviews.i_google}
-    </OverlayPanel>
 
     <div className="administrations">
 
@@ -78,28 +71,12 @@ export default function Administrations() {
               {/*LINE WITH NICE ICONS*/}
               <div className="ul-none m-0 p-0 nowrap">
                 <div className="flex-wrap">
-                  {/*Rating*/}
-                  {accomodation.rating && <div className="mt-2 mr-2 flex pointer" onClick={(e) => op.current.toggle(e)}>
-                    <div className="text-center" style={{
-                      width: '1.4em',
-                      height: '1.4em',
-                      borderRadius: '0.7em',
-                      backgroundColor: '#8ccbc8'
-                    }}>
-                      <span className="h03">{ratingToString(accomodation.rating)}</span>
-                    </div>
-                    <div className="h01 ml-4 mr-2  mt-2 text-color-secondary">
-                      {getReviewsLabel(accomodation.rating, _t.reviews)}
-                    </div>
-                    <Icon className="mt-1 mr-2" name="info-circle" size="1.2em" color="#8ccbc8" />
-                  </div>
-                  }
-
-                  {/*Hotel, Camping etc*/}
-                  {accomodation.categories.map((e, i) => <LiContent className="mt-2" key={i} icon={e.icon} label={e.label} />)}
-
-                  {/*Location*/}
-                  <LiContent className="mt-2" icon="map-pin" label={accomodation.city} />
+                {/*Reviews*/}
+                {accomodation.rating && <AdministrationsReview accomodation={accomodation} />}
+                {/*Hotel, Camping etc*/}
+                {accomodation.categories.map((e, i) => <LiContent className="mt-2" key={i} icon={e.icon} label={e.label} />)}
+                {/*Location*/}
+                <LiContent className="mt-2" icon="map-pin" label={accomodation.city} />
                 </div>
               </div>
 

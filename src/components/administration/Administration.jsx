@@ -13,6 +13,7 @@ import RecoilConfig from '../../recoil/recoilConfig.js'
 import { classNames } from 'primereact/utils'
 import Loading from '../../molecules/Loading.jsx'
 import AdministrationTopReview from './AdministrationTopReview.jsx'
+import CharacteristicItems from './CharacteristicItems.jsx'
 
 const MapAdminLocation = lazy(() => import('../maps/MapAdminLocation.jsx'))
 
@@ -130,7 +131,9 @@ export default function Administration({ administration }) {
       <div className="mt-8 m-4">
         <Usps usps={administration.usps} />
       </div>
-
+      <div className="mt-8 m-4">
+        <CharacteristicItems facilityGroups={administration.facilityGroups} />
+      </div>
     </div>
   </>
 
