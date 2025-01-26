@@ -158,8 +158,6 @@ export default function Administration({ administration }) {
             })
         }} />
       </div>
-
-
     </div>
   </>
 
