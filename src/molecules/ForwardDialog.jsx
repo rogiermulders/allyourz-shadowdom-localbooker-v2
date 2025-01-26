@@ -59,6 +59,11 @@ const ForwardDialog = forwardRef((props, ref) => {
         { def: wtop(30), md: wtop(40), sm: wtop(50), xs: wtop(100) }
       )
       break
+    case 'medium':
+      style = w(
+        { def: wtop(40), md: wtop(55), sm: wtop(65), xs: wtop(100) }
+      )
+      break;
     default:
       style = w(
         { def: wtop(50), md: wtop(70), sm: wtop(80), xs: wtop(100) },
@@ -71,6 +76,11 @@ const ForwardDialog = forwardRef((props, ref) => {
       header={header}
       onShow={() => {
         zIndex.tempFix()
+      }}
+      onMaskClick={(e) => {
+        if(e.target.classList.contains('p-dialog-mask')) {
+          setVisible(false)
+        }
       }}
       draggable={true}
       closable={closable}

@@ -67,7 +67,6 @@ const BookableDialog = forwardRef((props, ref) => {
 
             {/* Facilities */}
             <div className="col p-10 facilities">
-
               {/*GROUP*/}
               {bookable.facilityGroups.map((fg, i) => {
                 return <div key={i}>
@@ -75,7 +74,6 @@ const BookableDialog = forwardRef((props, ref) => {
                     <Icon name={fg.icon} size={'1.4em'}/>
                     <div className="ml-6">{fg.name}</div>
                   </div>
-
                   {/*FACILITY*/}
                   <div className="grid padding mt-8 h6" >
                     {fg.facilities.map((f, j) => {

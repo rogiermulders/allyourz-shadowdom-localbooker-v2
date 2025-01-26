@@ -18,6 +18,7 @@ import recoilMainFilter from "../../recoil/recoilMainFilter";
 
 export default function Bookables({administration}) {
   const context = useContext(MainContext)
+  const refContext = useRef(context)
   const navigate = useNavigate()
   const bookableDialogRef = useRef()
   const calendarDialogRef = useRef()
@@ -37,6 +38,9 @@ export default function Bookables({administration}) {
    * Get all bookables
    */
   useEffect(() => {
+
+    const { current } = refContext
+
     /** create payload */
     const postData = {
       locale: context.hostLocale,
@@ -64,12 +68,12 @@ export default function Bookables({administration}) {
         }
         maxGuests = b.maxGuests > maxGuests ? b.maxGuests : maxGuests
       })
-      context.setCheapest(cheapest)
-      context.setMaxGuests(maxGuests)
+      current.setCheapest(cheapest)
+      current.setMaxGuests(maxGuests)
       setBookables(res.data)
     })
     return () => {
-      context.setMaxGuests(0)
+      current.setMaxGuests(0)
     }
   }, [administration.id, checkIn, checkOut, adults, children, pets, context.hostLocale])
 
@@ -146,7 +150,7 @@ export default function Bookables({administration}) {
     <BookableDialog ref={bookableDialogRef}/>
     <CalendarDialog ref={calendarDialogRef}/>
 
-    <div className="grid text-color">
+    <div className="grid text-color mt-8">
       <div className={col({def: 12}, 'font-bold', 'ml-4')}>
         {_t.labels.choose_your_room}
       </div>
