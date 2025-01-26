@@ -92,12 +92,17 @@ const col = (...args: (Col | string | object)[]): string => {
 }
 const bpIndex = () => sizes.indexOf(window.localbooker_container.breakpoint.s)
 
+const lt = (bp: 'xl' | 'lg' | 'md' | 'sm' | 'xs') => {
+    return sizes.indexOf(bp) < bpIndex()
+}
+const gt = (bp: 'xl' | 'lg' | 'md' | 'sm' | 'xs') => {
+    return sizes.indexOf(bp) > bpIndex()
+}
 const lte = (bp: 'xl' | 'lg' | 'md' | 'sm' | 'xs') => {
     const queryIndex = sizes.indexOf(bp);
     return queryIndex <= bpIndex()
 }
 const gte = (bp: 'xl' | 'lg' | 'md' | 'sm' | 'xs') => {
-    //const currentBp = sizes.indexOf(window.localbooker.breakpoint.s)
     const queryIndex = sizes.indexOf(bp);
     return queryIndex >= bpIndex()
 }
@@ -179,4 +184,4 @@ const ifBp = (bps: string | [string]): boolean => {
     return bps.includes(window.localbooker_container.breakpoint.s)
 }
 
-export {col, getBp, ifBp, addBp, wh, w, lte, gte, bpIndex, box}
+export {col, getBp, ifBp, addBp, wh, w, lte, gte, bpIndex, box, lt, gt}

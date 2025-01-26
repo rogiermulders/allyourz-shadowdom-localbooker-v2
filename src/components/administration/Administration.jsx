@@ -1,4 +1,4 @@
-import { getBp, lte, gte } from '../../services/buttstrip'
+import { getBp, lte, gte, gt } from '../../services/buttstrip'
 import Carousel from '../carousel/Carousel'
 import Usps from './Usps.jsx'
 import SpecialFacilities from './SpecialFacilities.jsx'
@@ -16,6 +16,7 @@ import AdministrationTopReview from './AdministrationTopReview.jsx'
 import CharacteristicItems from './CharacteristicItems.jsx'
 import { Button } from 'primereact/button'
 import AdministrationFacilities from './AdministrationFacilities.jsx'
+import AdministrationsReview from './AdministrationsReview.jsx'
 
 const MapAdminLocation = lazy(() => import('../maps/MapAdminLocation.jsx'))
 
@@ -51,10 +52,10 @@ export default function Administration({ administration }) {
           </>}
         </div>
 
-        {/*REVIEWS (you need the relative here) */}
-        <div className="col-4 pr-8 relative text-right">
+        {/*REVIEWS greater XS (you need the relative here) */}
+        {gt('xs') && <div className="col-4 pr-8 relative text-right">
           {administration.rating && <AdministrationTopReview administration={administration} />}
-        </div>
+        </div>}
       </div>
 
       {/*The name of the administration*/}
@@ -94,6 +95,11 @@ export default function Administration({ administration }) {
 
         </div>
       </div>
+
+      {/*REVIEWS*/}
+      {getBp() === 'xs' && <div className="flex-wrap -mt-4 pb-6">
+        {administration.rating && <AdministrationsReview accomodation={administration} />}
+      </div>}
 
       <div className="carousel">
         <Carousel images={administration.images} aspectRadio={{ xs: '2-1', sm: '5-2' }[getBp()] || '2-1'} />
@@ -136,7 +142,7 @@ export default function Administration({ administration }) {
 
       {/*Speciale kenmerken*/}
       {!lte('xs') && <div className="mt-8 ml-4 mr-4">
-        <hr/>
+        <hr />
         <h4 className="mb-4 mt-8">{_t.page_pdp.characteristics}</h4>
         <CharacteristicItems facilityGroups={administration.facilityGroups} />
       </div>}
@@ -146,13 +152,12 @@ export default function Administration({ administration }) {
             {
               size: 'medium',
               header: administration.name,
-              content: <div className="p-10" style={{height:'60vh'}}>
+              content: <div className="p-10" style={{ height: '60vh' }}>
                 <AdministrationFacilities administration={administration} />
               </div>
             })
-        }}/>
+        }} />
       </div>
-
 
 
     </div>
