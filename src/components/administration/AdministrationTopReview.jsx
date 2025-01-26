@@ -1,10 +1,10 @@
 import Icon from '../../molecules/Icon.jsx'
-import { getReviewsLabel } from '../../services/reviewLabels.js'
+import { getReviewsLabel,ratingToString } from '../../services/reviewLabels.js'
 import { useContext, useRef } from 'react'
 import { MainContext } from '../../contexts/MainContext'
 import { OverlayPanel } from 'primereact/overlaypanel'
 
-export default function PdpTopreview({ administration }) {
+export default function AdministrationTopReview({ administration }) {
   const op = useRef(null)
   const _t = useContext(MainContext)._t()
 
@@ -16,7 +16,7 @@ export default function PdpTopreview({ administration }) {
     <div className="absolute" style={{ right: 0 }}>
       <div className="flex justify-end">
         <div className="ml-4 mr-3 pt-1 text-bold">
-          <div>{administration.rating}</div>
+          <div>{ratingToString(administration.rating)}</div>
         </div>
         <Icon name="star-full" size="1.2em" color="primary-color" />
 

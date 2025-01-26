@@ -12,7 +12,7 @@ import { useRecoilValue } from 'recoil'
 import RecoilConfig from '../../recoil/recoilConfig.js'
 import { classNames } from 'primereact/utils'
 import Loading from '../../molecules/Loading.jsx'
-import PdpTopreview from './PdpTopReview.jsx'
+import AdministrationTopReview from './AdministrationTopReview.jsx'
 
 const MapAdminLocation = lazy(() => import('../maps/MapAdminLocation.jsx'))
 
@@ -50,7 +50,7 @@ export default function Administration({ administration }) {
 
         {/*REVIEWS (you need the relative here) */}
         <div className="col-4 pr-8 relative text-right">
-          {administration.rating && <PdpTopreview administration={administration} />}
+          {administration.rating && <AdministrationTopReview administration={administration} />}
         </div>
       </div>
 

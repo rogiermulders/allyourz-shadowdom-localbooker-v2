@@ -4,7 +4,7 @@
  * @param labels are coming from the BE translate module
  * @returns {*}
  */
-export const getReviewsLabel = (rating, labels) => {
+const getReviewsLabel = (rating, labels) => {
   let labelKey = 'label_'
 
   if (rating >= 9) {
@@ -20,3 +20,11 @@ export const getReviewsLabel = (rating, labels) => {
   }
   return labels[labelKey]
 }
+
+const ratingToString = (rating) => {
+  // 8 => 8,0 7.3 => 7,3 and 10 => 10
+  const s = (rating+ '').replace('.', ',')
+  return s + (s.length === 1 ? ',0' : '')
+}
+
+export {getReviewsLabel,ratingToString}

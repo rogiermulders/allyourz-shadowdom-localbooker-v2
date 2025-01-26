@@ -11,7 +11,7 @@ import { useContext, useRef } from 'react'
 import { MainContext } from '../../contexts/MainContext'
 import { useNavigate } from 'react-router-dom'
 import LiContent from './LiContent.jsx'
-import { getReviewsLabel } from '../../services/reviewLabels.js'
+import { getReviewsLabel, ratingToString } from '../../services/reviewLabels.js'
 import Icon from '../../molecules/Icon.jsx'
 import { OverlayPanel } from 'primereact/overlaypanel'
 
@@ -86,7 +86,7 @@ export default function Administrations() {
                       borderRadius: '0.7em',
                       backgroundColor: '#8ccbc8'
                     }}>
-                      <span className="h03">{(accomodation.rating + '').replace('.', ',')}</span>
+                      <span className="h03">{ratingToString(accomodation.rating)}</span>
                     </div>
                     <div className="h01 ml-4 mr-2  mt-2 text-color-secondary">
                       {getReviewsLabel(accomodation.rating, _t.reviews)}
