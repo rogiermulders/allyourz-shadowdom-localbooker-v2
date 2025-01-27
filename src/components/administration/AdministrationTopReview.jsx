@@ -18,7 +18,7 @@ export default function AdministrationTopReview({ administration }) {
         <div className="ml-4 mr-3 pt-1 text-bold">
           <div>{ratingToString(administration.rating)}</div>
         </div>
-        <Icon name="star-full" size="1.2em" color="primary-color" />
+        <Icon name="star-full" size="1.2em" color="#8ccbc8" />
 
       </div>
       <div className="h02 mt-1 text-bold">
@@ -28,7 +28,7 @@ export default function AdministrationTopReview({ administration }) {
         <div className="pr-2">
           {administration.userRatingsTotal} reviews
         </div>
-        <Icon name="info-circle" size="1.2em" color="primary-color" />
+        <Icon name="info-circle" size="1.2em" color="#8ccbc8" />
       </div>
     </div>
   </>
