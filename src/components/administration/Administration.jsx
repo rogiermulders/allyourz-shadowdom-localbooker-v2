@@ -141,12 +141,12 @@ export default function Administration({ administration }) {
       </div>
 
       {/*Speciale kenmerken*/}
-      {false && !lte('xs') && <div className="mt-8 ml-4 mr-4">
+      {!lte('xs') && <div className="mt-8 ml-4 mr-4">
         <Divider className="pb-8"/>
         <h4 className="mb-4 mt-8">{_t.page_pdp.characteristics}</h4>
         <CharacteristicItems facilityGroups={administration.facilityGroups} />
       </div>}
-      {false && <div className="mt-8 m-4">
+      <div className="mt-8 m-4">
         <Button outlined label={_t.page_pdp.show_all_facilities} onClick={() => {
           dialogRef.current.open(
             {
@@ -157,7 +157,9 @@ export default function Administration({ administration }) {
               </div>
             })
         }} />
-      </div>}
+      </div>
+
+
     </div>
   </>
 

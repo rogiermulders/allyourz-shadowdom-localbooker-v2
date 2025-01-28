@@ -20,9 +20,9 @@ export default function LiContent({icon, label, onClick, style, className, color
 
   return <div className={className} onClick={onClick} style={style}>
     <div>
-      <Icon name={icon} size="1.25em" color={color}/>
+      <Icon className="font-normal" name={icon} size="1.25em" color={color}/>
     </div>
-    <div className="ml-4 mr-3 mt-1" style={{color:`var(--${color}`}}>
+    <div className="ml-3 mr-3 mt-1" style={{color:`var(--${color}`}}>
       {label}
     </div>
   </div>
