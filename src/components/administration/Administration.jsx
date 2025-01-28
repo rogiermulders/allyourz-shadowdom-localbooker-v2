@@ -17,7 +17,7 @@ import CharacteristicItems from './CharacteristicItems.jsx'
 import { Button } from 'primereact/button'
 import AdministrationFacilities from './AdministrationFacilities.jsx'
 import AdministrationsReview from './AdministrationsReview.jsx'
-
+import { Divider } from 'primereact/divider';
 const MapAdminLocation = lazy(() => import('../maps/MapAdminLocation.jsx'))
 
 export default function Administration({ administration }) {
@@ -142,7 +142,7 @@ export default function Administration({ administration }) {
 
       {/*Speciale kenmerken*/}
       {false && !lte('xs') && <div className="mt-8 ml-4 mr-4">
-        <hr />
+        <Divider className="pb-8"/>
         <h4 className="mb-4 mt-8">{_t.page_pdp.characteristics}</h4>
         <CharacteristicItems facilityGroups={administration.facilityGroups} />
       </div>}
