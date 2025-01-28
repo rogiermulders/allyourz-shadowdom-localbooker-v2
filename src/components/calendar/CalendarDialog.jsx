@@ -33,6 +33,11 @@ const CalendarDialog = forwardRef( (props, ref) => {
           style: {overflow: 'hidden'}
         }
       }}
+      onMaskClick={(e) => {
+        if(e.target.classList.contains('p-dialog-mask')) {
+          setVisible(false)
+        }
+      }}
       contentStyle={{padding: 0}}
       onShow={() => {zIndex.tempFix()}}
       visible={visible}

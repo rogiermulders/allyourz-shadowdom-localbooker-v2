@@ -10,6 +10,7 @@ export interface Root {
 
 export interface Localbooker {
     labels: Labels
+    reviews: Reviews
     countries: Country[]
     mainFilter: MainFilter
     subFilter: SubFilter
@@ -23,6 +24,7 @@ export interface Localbooker {
 }
 
 export interface Labels {
+    search_and_book: string
     choose: string
     none: string
     go_to: string
@@ -45,6 +47,15 @@ export interface Labels {
     pet: string
     pets: string
     bedroom: string
+}
+
+export interface Reviews {
+    label_1: string
+    label_6: string
+    label_7: string
+    label_8: string
+    label_9: string
+    i_google: string
 }
 
 export interface Country {
@@ -90,6 +101,11 @@ export interface Stripe {
 }
 
 export interface PagePdp {
+    usp_0: string
+    usp_1: string
+    usp_2: string
+    usp_3: string
+    usp_4: string
     cancelation_rules: string
     free_cancelation: string
     cancellation_threshold_hours: string

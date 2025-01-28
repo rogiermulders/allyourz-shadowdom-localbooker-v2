@@ -38,6 +38,13 @@
   overflow: visible;
 }
 
+.relative {
+    position: relative;
+}
+.absolute {
+    position: absolute;
+}
+
 .flex {
   display: flex;
 
@@ -53,6 +60,11 @@
   &.align-center {
     align-items: center;
   }
+}
+
+
+.justify-end {
+  justify-content: flex-end;
 }
 
 .hidden {
