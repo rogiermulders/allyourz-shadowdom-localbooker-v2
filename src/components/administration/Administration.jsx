@@ -15,7 +15,7 @@ import Loading from '../../molecules/Loading.jsx'
 import AdministrationTopReview from './AdministrationTopReview.jsx'
 import CharacteristicItems from './CharacteristicItems.jsx'
 import { Button } from 'primereact/button'
-import AdministrationFacilities from './AdministrationFacilities.jsx'
+import Facilities from '../facilities/Facilities.jsx'
 import AdministrationsReview from './AdministrationsReview.jsx'
 import { Divider } from 'primereact/divider';
 const MapAdminLocation = lazy(() => import('../maps/MapAdminLocation.jsx'))
@@ -146,20 +146,18 @@ export default function Administration({ administration }) {
         <h4 className="mb-4 mt-8">{_t.page_pdp.characteristics}</h4>
         <CharacteristicItems facilityGroups={administration.facilityGroups} />
       </div>}
-      <div className="mt-8 m-4">
+      {<div className="mt-8 m-4">
         <Button outlined label={_t.page_pdp.show_all_facilities} onClick={() => {
           dialogRef.current.open(
             {
               size: 'medium',
               header: administration.name,
               content: <div className="p-10" style={{ height: '60vh' }}>
-                <AdministrationFacilities administration={administration} />
+                <Facilities facilityGroups={administration.facilityGroups} />
               </div>
             })
         }} />
-      </div>
-
-
+      </div>}
     </div>
   </>
 
