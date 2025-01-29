@@ -11,8 +11,6 @@ export default function CartTermsAndConditions({ admin }) {
 
   const cancelHead = admin.cancellationThreshold === '0_document' ? _t.cancelation_rules : _t.free_cancelation
 
-  console.log(admin.type)
-
   const cancelText = () => {
     if (admin.cancellationThreshold.includes('hours')) {
       return _t.cancellation_threshold_hours?.replace('{{hours}}', parseInt(admin.cancellationThreshold).toString())
