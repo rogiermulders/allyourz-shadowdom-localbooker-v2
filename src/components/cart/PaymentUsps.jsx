@@ -1,35 +1,37 @@
 import { MainContext } from '../../contexts/MainContext.tsx'
 import { useContext } from 'react'
 
+const LBurl = (window.localbooker.domain || document.location.origin )
+
 const usps = {
   banContact: {
     alt: 'Bancontact',
     height: 30,
-    src: 'https://provinciezeeland.localbooker.nl/assets/images/payment/bancontact.svg',
+    src: `${LBurl}/assets/images/payment/bancontact.svg`,
     width: 57
   },
   giroPay: {
     alt: 'Giropay',
     height: 30,
-    src: 'https://provinciezeeland.localbooker.nl/assets/images/payment/giropay.svg',
+    src: `${LBurl}/assets/images/payment/giropay.svg`,
     width: 60
   },
   iDeal: {
     alt: 'iDeal',
     height: 35,
-    src: 'https://provinciezeeland.localbooker.nl/assets/images/payment/ideal.svg',
+    src: `${LBurl}/assets/images/payment/ideal.svg`,
     width: 40
   },
   mastercard: {
     alt: 'Mastercard',
     height: 35,
-    src: 'https://provinciezeeland.localbooker.nl/assets/images/payment/mastercard.svg',
+    src: `${LBurl}/assets/images/payment/mastercard.svg`,
     width: 46
   },
   visa: {
     alt: 'Visa',
     height: 30,
-    src: 'https://provinciezeeland.localbooker.nl/assets/images/payment/visa.svg',
+    src: `${LBurl}/assets/images/payment/visa.svg`,
     width: 70
   }
 }
