@@ -5,31 +5,31 @@ const usps = {
   banContact: {
     alt: 'Bancontact',
     height: 30,
-    src: 'public/assets/images/payment/bancontact.svg',
+    src: 'https://provinciezeeland.localbooker.nl/assets/images/payment/bancontact.svg',
     width: 57
   },
   giroPay: {
     alt: 'Giropay',
     height: 30,
-    src: 'public/assets/images/payment/giropay.svg',
+    src: 'https://provinciezeeland.localbooker.nl/assets/images/payment/giropay.svg',
     width: 60
   },
   iDeal: {
     alt: 'iDeal',
     height: 35,
-    src: 'public/assets/images/payment/ideal.svg',
+    src: 'https://provinciezeeland.localbooker.nl/assets/images/payment/ideal.svg',
     width: 40
   },
   mastercard: {
     alt: 'Mastercard',
     height: 35,
-    src: 'public/assets/images/payment/mastercard.svg',
+    src: 'https://provinciezeeland.localbooker.nl/assets/images/payment/mastercard.svg',
     width: 46
   },
   visa: {
     alt: 'Visa',
     height: 30,
-    src: 'public/assets/images/payment/visa.svg',
+    src: 'https://provinciezeeland.localbooker.nl/assets/images/payment/visa.svg',
     width: 70
   }
 }
