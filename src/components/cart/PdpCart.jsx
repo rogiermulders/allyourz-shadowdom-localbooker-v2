@@ -13,8 +13,8 @@ import { lte } from '../../services/buttstrip'
 import { useNavigate } from 'react-router-dom'
 import recoilConfig from '../../recoil/recoilConfig.js'
 import CartTermsAndConditions from './CartTermsAndConditions.jsx'
-import Usps from './Usps.jsx'
 import HelpButton from '../administration/HelpButton.jsx'
+import PaymentUsps from './PaymentUsps.jsx'
 
 export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
 
@@ -114,12 +114,7 @@ export default function PdpCart({ administration, pdpScrollToFirstBookabe }) {
       </div>
       <div className="mt-8">
         <div className="text-bold mb-4">{_t.page_pdp.usp_0}</div>
-        <Usps usps={[
-          { usp: _t.page_pdp.usp_1 },
-          { usp: _t.page_pdp.usp_2 },
-          { usp: _t.page_pdp.usp_3 },
-          { usp: _t.page_pdp.usp_4 }
-        ]} />
+        <PaymentUsps requiresDeposit={administration.depositPercentage > 0} />
       </div>
 
       {/*Back to home only when SPA*/}
