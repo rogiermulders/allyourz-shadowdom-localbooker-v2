@@ -15,6 +15,8 @@ import { useNavigate } from 'react-router-dom'
 import recoilMainFilter from '../../recoil/recoilMainFilter'
 import ForwardDialog from '../../molecules/ForwardDialog.jsx'
 import BookableDialogContent from './BookableDialogContent.jsx'
+import { Divider } from 'primereact/divider'
+import CountAvailable from './CountAvailable.jsx'
 
 
 export default function Bookables({ administration }) {
@@ -27,13 +29,13 @@ export default function Bookables({ administration }) {
   const [, setMainFilter] = useRecoilState(recoilMainFilter)
   const [bookables, setBookables] = useState([])
   const _t = context._t()
-
+  const [countActive, setCountActive] = useState(0)
   // Debby
-  useEffect(() => {
-    if (bookables.length) {
-      // bookableDialogRef.current.open(bookables[0])
-    }
-  }, [bookables])
+  // useEffect(() => {
+  //   if (bookables.length) {
+  //     bookableDialogRef.current.open(bookables[0])
+  //   }
+  // }, [bookables])
 
   /**
    * Get all bookables
@@ -58,8 +60,10 @@ export default function Bookables({ administration }) {
     axios.post('/v1/booking/objects', postData).then(res => {
 
       let maxGuests = 0, cheapest = 0
+      let count = 0
       res.data.forEach(b => {
         if (b.status === 'available') {
+          count++
           let dayPrice = b.price.cost / b.price.days
           if (!cheapest) {
             cheapest = dayPrice
@@ -72,6 +76,7 @@ export default function Bookables({ administration }) {
       current.setCheapest(cheapest)
       current.setMaxGuests(maxGuests)
       setBookables(res.data)
+      setCountActive(count)
     })
     return () => {
       current.setMaxGuests(0)
@@ -96,7 +101,7 @@ export default function Bookables({ administration }) {
                      dialogRef.current.open({
                        size: 'medium',
                        header: bookable.name,
-                       content: <div style={{height:'60vh'}}>
+                       content: <div style={{ height: '60vh' }}>
                          <BookableDialogContent bookable={bookable} />
                        </div>
                      })
@@ -115,7 +120,7 @@ export default function Bookables({ administration }) {
              dialogRef.current.open({
                size: 'medium',
                header: bookable.name,
-               content: <div style={{height:'60vh'}}>
+               content: <div style={{ height: '60vh' }}>
                  <BookableDialogContent bookable={bookable} />
                </div>
 
@@ -165,14 +170,22 @@ export default function Bookables({ administration }) {
     {/*DIALOGS*/}
     <CalendarDialog ref={calendarDialogRef} />
     <ForwardDialog ref={dialogRef} />
+
+
     <div className="grid text-color mt-8">
-      <div className={col({ def: 12 }, 'font-bold', 'ml-4')}>
-        {_t.labels.choose_your_room}
+      <Divider />
+
+      {/*Number of bookables and calendar butt*/}
+      <div className="col-12">
+        <CountAvailable
+          administration={administration}
+          countActive={countActive}
+        />
       </div>
 
+      {/*All the bookables*/}
       <div className={col({ def: 12 })}>
         {bookables.map((bookable, i) => {
-
           return <Card key={i} className="mt-8">
             <div className="grid padding">
               {/*IMAGE*/}

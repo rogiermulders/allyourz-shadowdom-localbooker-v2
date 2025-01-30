@@ -1,37 +1,37 @@
 import { MainContext } from '../../contexts/MainContext.tsx'
 import { useContext } from 'react'
 
-const LBurl = (window.localbooker.domain || document.location.origin )
+const LBurl = (window.localbooker.domain || document.location.origin ) + '/assets/images/payment'
 
 const usps = {
   banContact: {
     alt: 'Bancontact',
     height: 30,
-    src: `${LBurl}/assets/images/payment/bancontact.svg`,
+    src: `${LBurl}/bancontact.svg`,
     width: 57
   },
   giroPay: {
     alt: 'Giropay',
     height: 30,
-    src: `${LBurl}/assets/images/payment/giropay.svg`,
+    src: `${LBurl}/giropay.svg`,
     width: 60
   },
   iDeal: {
     alt: 'iDeal',
     height: 35,
-    src: `${LBurl}/assets/images/payment/ideal.svg`,
+    src: `${LBurl}/ideal.svg`,
     width: 40
   },
   mastercard: {
     alt: 'Mastercard',
     height: 35,
-    src: `${LBurl}/assets/images/payment/mastercard.svg`,
+    src: `${LBurl}/mastercard.svg`,
     width: 46
   },
   visa: {
     alt: 'Visa',
     height: 30,
-    src: `${LBurl}/assets/images/payment/visa.svg`,
+    src: `${LBurl}/visa.svg`,
     width: 70
   }
 }
@@ -66,7 +66,7 @@ const PaymentUsps = ({ requiresDeposit }) => {
     {requiresDeposit &&
       <div className="flex justify-center mt-8">
         {imageUsps.map((imageUsp, i) =>
-          <img className=""
+          <img className="mr-1 ml-1"
                key={i}
                alt={imageUsp.alt}
                src={imageUsp.src}
