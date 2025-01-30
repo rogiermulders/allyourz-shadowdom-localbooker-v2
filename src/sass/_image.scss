@@ -2,26 +2,32 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  .ar-box-inside-1-1 {
+    aspect-ratio: 1;
+  }
+
 }
 
 .ar-box-inside-3-2 {
   aspect-ratio: 3 / 2;
 }
 
-@supports not (aspect-ratio: 3 / 2) {
-  .ar-box-3-2 {
-    position: relative;
-    width: 100%;
-    padding-top: 66%;
-  }
-  .ar-box-inside-3-2 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-}
+
+
+//@supports not (aspect-ratio: 3 / 2) {
+//  .ar-box-3-2 {
+//    position: relative;
+//    width: 100%;
+//    padding-top: 66%;
+//  }
+//  .ar-box-inside-3-2 {
+//    position: absolute;
+//    top: 0;
+//    left: 0;
+//    width: 100%;
+//    height: 100%;
+//  }
+//}
 
 .ar-box-inside-2-1 {
   aspect-ratio: 2 / 1;

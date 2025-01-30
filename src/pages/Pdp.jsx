@@ -66,7 +66,7 @@ export default function Pdp({ administration_slug }) {
           </div>
 
           {(1 === 1) && <div className="p-4">
-            <Quote />
+            <Quote admin={administration}/>
           </div>}
 
 
