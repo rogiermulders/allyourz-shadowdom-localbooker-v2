@@ -66,7 +66,7 @@ const PaymentUsps = ({ requiresDeposit }) => {
     {requiresDeposit &&
       <div className="flex justify-center mt-8">
         {imageUsps.map((imageUsp, i) =>
-          <img className=""
+          <img className="mr-1 ml-1"
                key={i}
                alt={imageUsp.alt}
                src={imageUsp.src}
