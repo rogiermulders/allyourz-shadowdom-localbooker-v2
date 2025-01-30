@@ -1,9 +1,10 @@
 import Icon from '../../molecules/Icon.jsx'
 
-export default function AdministrationFacilities({ administration }) {
+export default function Facilities({ facilityGroups }) {
 
   return <div className="mt-4 pb-16">
-    {administration.facilityGroups.map((fg, i) => {
+
+    {facilityGroups.map((fg, i) => {
 
       return <div key={i}>
         <div key={i} className="flex mt-8">
