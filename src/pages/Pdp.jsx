@@ -12,6 +12,7 @@ import PoweredBy from '../molecules/PoweredBy.jsx'
 import scrollIntoViewWithOffset from '../services/scrollIntoViewWithOffset'
 import { Accordion, AccordionTab } from 'primereact/accordion'
 import Icon from '../molecules/Icon.jsx'
+import Quote from '../components/administration/Quote.jsx'
 
 
 export default function Pdp({ administration_slug }) {
@@ -63,6 +64,12 @@ export default function Pdp({ administration_slug }) {
           <div ref={bookablesRef}>
             {administration && <Bookables administration={administration} />}
           </div>
+
+          {(1 === 1) && <div className="pl-4 pr-4 pt-4" >
+            <Quote admin={administration}/>
+          </div>}
+
+
           {/*THE ACCORDION WITH THE LEGAL STUFF*/}
           <div className="mt-8 ml-4 mr-4">
             <Accordion activeIndex={accordionStatus} onTabChange={(e) => setAccordionStatus(e.index)}>

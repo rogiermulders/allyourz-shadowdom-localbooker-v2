@@ -131,7 +131,6 @@ export default function Administration({ administration }) {
               hover_highlight">
           {_t.page_pdp.full_description || 'Uitgebreide omschrijving'}
           <Icon name="chevron-right" size="1.3em" style={{ marginLeft: '0.3em' }} />
-
         </div>
       </div>
 
@@ -146,7 +145,7 @@ export default function Administration({ administration }) {
         <h4 className="mb-4 mt-8">{_t.page_pdp.characteristics}</h4>
         <CharacteristicItems facilityGroups={administration.facilityGroups} />
       </div>}
-      {<div className="mt-8 m-4">
+      <div className="mt-8 m-4">
         <Button outlined label={_t.page_pdp.show_all_facilities} onClick={() => {
           dialogRef.current.open(
             {
@@ -157,7 +156,7 @@ export default function Administration({ administration }) {
               </div>
             })
         }} />
-      </div>}
+      </div>
     </div>
   </>
 

@@ -20,7 +20,9 @@ const loadfonts = async () => {
 
     // LARA THEME FONTS
     new FontFace('Inter var', `url('${path}/Inter-roman-var.woff2?v=3.19') format('woff2')`),
-    // new FontFace('Inter var', `url('${path}/Inter-italic-var-woff2?v=3.19') format('woff2')`),
+    // CAVEAT
+    new FontFace('Caveat Regular', `url('${path}/Caveat-Regular.ttf') format('truetype')`),
+
   ];
 
   // Load all
