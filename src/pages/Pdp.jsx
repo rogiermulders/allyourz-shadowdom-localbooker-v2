@@ -65,7 +65,7 @@ export default function Pdp({ administration_slug }) {
             {administration && <Bookables administration={administration} />}
           </div>
 
-          {(1 === 1) && <div className="p-4">
+          {(1 === 1) && <div className="pl-4 pr-4 pt-4" >
             <Quote admin={administration}/>
           </div>}
 
