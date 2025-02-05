@@ -39,7 +39,8 @@ export default function MainFilter() {
     checkIn,
     checkOut,
     category,
-    whereDisabled
+    whereDisabled,
+    typeDisabled
   } = useRecoilValue(selectorMainFilter)
 
   // Debugging
@@ -129,7 +130,11 @@ export default function MainFilter() {
     const names = truncate(category.map(e => accomodationMap(e, context.hostLocale)).join(', '), 25)
 
     return <Button icon={<Icon name="bed" size="1.5em" light/>} className="w100"
-                   onClick={() => refs.type.current.open()}>
+                   onClick={() => {
+                     if(!typeDisabled) {
+                       refs.type.current.open()
+                     }
+                   }}>
       <div className="w100">
         <div className="h02 mb-2">{_t.mainFilter.type}</div>
         <div>{category.length ? names : _t.mainFilter.selecttype}</div>
