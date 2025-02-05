@@ -121,6 +121,10 @@ function App({
               regionId: mainfilter?.where?.regionId || '0',
               destinationZip: mainfilter?.where?.destinationZip || null,
               range: mainfilter?.where?.range || 2
+            },
+            type: {
+              disabled: !!mainfilter?.type?.disabled || false,
+              category: mainfilter?.type?.category || []
             }
           }
         })
