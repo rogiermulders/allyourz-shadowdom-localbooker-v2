@@ -5,6 +5,9 @@ export default function Quote({ admin }) {
 
   const { quote } = admin
 
+  // Sometimes only the name is there... thats not what we want to see
+  if(!quote.description) return null
+
   return <Card className="p-0" style={{ backgroundColor: 'var(--surface-b)' }}>
     <div style={{ lineHeight: '1.5' }}>
       {quote.description}
