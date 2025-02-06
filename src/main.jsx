@@ -88,6 +88,7 @@ axios.get(`/localbooker/locale?locale=${data.locale}`).then(res => {
             slug={data.slug}
             offset={data.offset}
             mainfilter={data.mainfilter}
+            spa={data.spa}
             hostlocale={data.locale}
             content={data.content !== 'false'}
             scroll={data.scroll !== 'false'}

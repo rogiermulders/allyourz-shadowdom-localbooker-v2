@@ -15,6 +15,7 @@ import PageForm from './pages/PageForm.jsx'
 import PageConfirm from './pages/PageConfirm.jsx'
 import PageThankYou from './pages/PageThankYou.jsx'
 import recoilReservation from './recoil/recoilReservation.js'
+import recoilSpa from './recoil/recoilSpa.js'
 
 const PageStripe = lazy(() => import('./pages/PageStripe.jsx'))
 
@@ -26,6 +27,7 @@ function App({
                content,
                hostlocale,
                mainfilter,
+               spa,
                scroll
              }) {
 
@@ -44,6 +46,15 @@ function App({
       mainfilter
     ]} />
   }
+  try {
+    spa = JSON.parse(spa || null)
+  } catch (e) {
+    return <PageError messages={[
+      'No valid JSON in the data-spa parameter',
+      mainfilter
+    ]} />
+  }
+
 
   if (typeof offset !== 'undefined') {
     if (isNaN(offset)) {
@@ -67,11 +78,12 @@ function App({
 
 
   // eslint-disable-next-line react/prop-types
-  const MyRouter = ({ content, page, slug, pid, scroll, offset, mainfilter, hostlocale }) => {
+  const MyRouter = ({ content, page, slug, pid, scroll, offset, mainfilter, spa, hostlocale }) => {
     const { stripeClientSecret } = useRecoilValue(recoilReservation)
     const context = useContext(MainContext)
     const [config, setConfig] = useRecoilState(recoilConfig)
     const [, setMainFilter] = useRecoilState(recoilMainFilter)
+    const [, setSpa] = useRecoilState(recoilSpa)
     /**
      * Routes when landing on SPA
      *
@@ -126,6 +138,13 @@ function App({
               disabled: !!mainfilter?.type?.disabled || false,
               category: mainfilter?.type?.category || []
             }
+          }
+        })
+
+        setSpa(p => {
+          return {
+            ...p,
+            mapListMode: spa?.mapListMode || 'list',
           }
         })
 
@@ -200,6 +219,7 @@ function App({
           offset={parseInt(offset || 0)}
           hostlocale={hostlocale || 'nl'}
           mainfilter={mainfilter || null}
+          spa={spa || null}
         />
       </div>
     </RecoilRoot>
