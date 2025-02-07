@@ -74,7 +74,7 @@ Het is niet zonder meer mogelijk om de css van de widget te overschrijven.
 Dit kan via de attribuut data-hostcss. Hier kan een (relatief!) pad naar een extra css bestand worden meegegeven.
 
 =================================================================================================
-== Hieronder een uitleg hoe de filters via het daya-mainfilter attribuut kan worden ingesteld:
+== Hieronder een uitleg hoe de filters via het data-mainfilter attribuut kan worden ingesteld:
 == Voorbeeld: data-mainfilter='{"where":{"regionId":"6BAB4CCF-C0E8-4B99-A5E0-02FD4B7EFD35"}}'
 =================================================================================================
 data-mainfilter: (json object|niet meegegeven)
@@ -153,5 +153,9 @@ camping
 hostel-bed
 vacation-home
 
-
-
+=================================================================================================
+== Als je de kaart als default wil laten zien voeg je het data-spa attribuut toe.
+== Voorbeeld: data-spa='{"mapListMode":"map"}'
+=================================================================================================
+-- mogelijke waarden --
+mapListMode: "map" | "list"
