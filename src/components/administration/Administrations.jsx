@@ -12,6 +12,7 @@ import { MainContext } from '../../contexts/MainContext'
 import { useNavigate } from 'react-router-dom'
 import LiContent from './LiContent.jsx'
 import AdministrationsReview from './AdministrationsReview.jsx'
+import BreakfastIncluded from './BreakfastIncluded.jsx'
 
 export default function Administrations() {
   const navigate = useNavigate()
@@ -27,7 +28,7 @@ export default function Administrations() {
   const PricePart = ({ accomodation }) => <>
     <div className={classNames('grid', { 'mt-4': lte('xs') })}>
       <div className={col({ xs: 6, def: 12 })}>
-        <span className="h02">{_t.labels.from_night}</span>
+        <div className="h02">{_t.labels.from_night}</div>
         <div className="mt-2 font-bold h5">
           € {toEuro(accomodation.minPrice / accomodation.days)}
         </div>
@@ -48,7 +49,7 @@ export default function Administrations() {
           <div className={lte('xs') ? 'grid' : 'grid padding'}>
             {/*IMAGE PART*/}
             <div className={col({ xs: 12, def: 4 })}>
-              <div className="ar-box-3-2">
+              <div className="ar-box-3-2 relative">
                 <div className="ar-box-inside-3-2">
                   <img className="ar-image pointer"
                        src={imageResize(accomodation.media[0], { xs: 828 }[getBp()] || 384)}
@@ -56,7 +57,11 @@ export default function Administrations() {
                        onError={(e) => e.target.src = imageNotFound}
                        alt="" />
                 </div>
+                {accomodation.freeBreakfast !== false && <div className="absolute" style={{ bottom: '0.6em', left: '0.3em' }}>
+                  <BreakfastIncluded/>
+                </div>}
               </div>
+
             </div>
 
             {/*DATA PART*/}
@@ -102,19 +107,17 @@ export default function Administrations() {
               </ul>
 
               {/*Oneliner*/}
-              <div className="mt-5"
-                // style={!lte('xs') ? {position: 'absolute', bottom: '0.5em'} : {}}
-              >
+              <div className="mt-5">
                 {accomodation.oneLiner}
               </div>
             </div>
 
             {/*PRICE PART*/}
-            {gte('sm') && <div className="col-2 text-right pr-4">
+            {gte('sm') && <div className="col-2 text-right pr-4 relative">
               <PricePart accomodation={accomodation} />
             </div>}
 
-            {lte('xs') && <div className="col-12">
+            {lte('xs') && <div className="col-12 debby" >
               <PricePart accomodation={accomodation} />
             </div>}
 
