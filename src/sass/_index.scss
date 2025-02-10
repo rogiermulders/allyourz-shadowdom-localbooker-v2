@@ -35,15 +35,24 @@
   text-align: left;
 }
 
+.border-05 {
+  border-radius: 0.5rem;
+}
+
 .p-button {
   overflow: visible;
 }
 
 .relative {
-    position: relative;
+  position: relative;
 }
+
 .absolute {
-    position: absolute;
+  position: absolute;
+}
+
+.inline-flex {
+  display: inline-flex;
 }
 
 .flex {
@@ -52,13 +61,16 @@
   &.align-center {
     align-items: center;
   }
+
   &.justify-center {
     justify-content: center;
   }
 }
+
 .justify-center {
-    justify-content: center;
+  justify-content: center;
 }
+
 .flex-wrap {
   display: flex;
   flex-wrap: wrap;
