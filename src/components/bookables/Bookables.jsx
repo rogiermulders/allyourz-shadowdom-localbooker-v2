@@ -17,6 +17,7 @@ import ForwardDialog from '../../molecules/ForwardDialog.jsx'
 import BookableDialogContent from './BookableDialogContent.jsx'
 import { Divider } from 'primereact/divider'
 import CountAvailable from './CountAvailable.jsx'
+import BreakfastIncluded from '../administration/BreakfastIncluded.jsx'
 
 
 export default function Bookables({ administration }) {
@@ -112,8 +113,8 @@ export default function Bookables({ administration }) {
   }
 
   const Image = ({ bookable }) => <div className="ar-box-3-2">
-    <div className="ar-box-inside-3-2">
-      <img className="ar-image border-radius"
+    <div className="ar-box-inside-3-2 relative">
+      <img className="ar-image border-radius pointer"
            alt={bookable.name}
            src={imageResize(bookable.images[0]?.url, getImageSize())}
            onClick={() => {
@@ -126,6 +127,10 @@ export default function Bookables({ administration }) {
 
              })
            }} />
+      {bookable.freeBreakfast === true && <div className="absolute" style={{ bottom: '0.5em', left: '0.3em' }}>
+        <BreakfastIncluded/>
+      </div>}
+
     </div>
   </div>
 
