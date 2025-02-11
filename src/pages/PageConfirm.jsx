@@ -34,6 +34,7 @@ import BookCart from '../components/cart/BookCart.jsx'
 import Extras from '../components/cart/Extras.jsx'
 import scrollIntoViewWithOffset from '../services/scrollIntoViewWithOffset.js'
 import Loading from '../molecules/Loading.jsx'
+import FreeStuff from '../components/cart/FreeStuff.jsx'
 
 /**
  * Little complex stuff cuz we can pay here as well
@@ -188,7 +189,15 @@ export default function PageConfirm() {
         <div>
           <Accordion activeIndex={accordionStatus} onTabChange={(e) => setAccordionStatus(e.index)}>
             <AccordionTab header={_t.page_confirm.more_details}>
+              {/* PRIJSINFORMATIE */}
               <Fees cartData={cartData} />
+              {/*FREE STUFF*/}
+              {cartData.products[0].includedOptions.length > 0 && <>
+                <div className="mt-6"/>
+                <FreeStuff cartData={cartData} />
+                </>
+              }
+
               {totals.sumDepositFees > 0 && <>
                 <div className="mt-6 mb-2 text-bold">{_t.cart.deposit_fees}</div>
                 <Extras cartData={cartData} />
