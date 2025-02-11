@@ -17,9 +17,6 @@ export default function MapPopup({administration}) {
   const context = useContext(MainContext)
   const _t = context._t()
 
-
-  console.log(administration.freeBreakfast)
-
   useEffect(() => {
     setMedia(administration.media.map(e => {
       return {url: e}
