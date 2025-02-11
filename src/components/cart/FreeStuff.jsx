@@ -17,7 +17,7 @@ export default function FreeStuff({cartData, asToolip}) {
           price={e.price.total === 0 ? '' : e.price.total}
           chargingDescription={e.chargingDescription}
           asTooltip={asToolip}
-          includedText={_t.cart.included || 'Inbegrepen'}
+          includedText={_t.cart.included}
         />
       </li>
     })}

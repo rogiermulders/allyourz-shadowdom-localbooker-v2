@@ -49,7 +49,7 @@ export default function BookCart({ administration, bookable, cartData }) {
       {/* PRIJSINFORMATIE */}
       <hr style={{ borderTop: '1px solid var(--text-secondary)' }} />
       <div className="ml-4 mr-4 mb-6">
-        <h4 className="mb-3">Prijsinformatie</h4>
+        <h4 className="mb-3">{_t.cart.price_info}</h4>
         <Fees cartData={cartData} asToolip />
       </div>
 
