@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {Button} from "primereact/button";
 import {MainContext} from "../../contexts/MainContext";
 import {toEuro} from "../../services/money";
+import BreakfastIncluded from '../administration/BreakfastIncluded.jsx'
 
 
 export default function MapPopup({administration}) {
@@ -15,6 +16,9 @@ export default function MapPopup({administration}) {
   const [media, setMedia] = useState([])
   const context = useContext(MainContext)
   const _t = context._t()
+
+
+  console.log(administration.freeBreakfast)
 
   useEffect(() => {
     setMedia(administration.media.map(e => {
@@ -28,15 +32,16 @@ export default function MapPopup({administration}) {
     top: '50%',
     transform: 'translateY(-50%)',
     left: '10px',
-    paddingTop: '10px',
-
+    paddingTop: '0px',
+    overflow:'hidden',
     position: 'absolute',
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#ffffff',
     borderRadius: '5px',
     border: '1px solid #ccc',
   }}>
     <div>
       <Carousel
+        style={{borderRadius: '5px 5px 0px 0px'}}
         images={media}
         aspectRadio={'3-2'}
         size={640}
@@ -61,7 +66,9 @@ export default function MapPopup({administration}) {
       <SpecialFacilities specialFacilities={administration.usps}/>
     </div>
     <div className="p-4 pt-2 pb-2">
-      <hr/>
+      {administration.freeBreakfast !== 0 ?
+      <hr/> :
+      <BreakfastIncluded width="100%" border="solid 1px var(--gray-100)"/>}
     </div>
     <div className="flex align-center pl-4">
       <div className="w50 pl-4">

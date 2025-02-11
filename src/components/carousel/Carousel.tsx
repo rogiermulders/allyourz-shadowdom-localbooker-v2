@@ -1,7 +1,7 @@
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Lazy} from "swiper";
 import {imageResize} from "../../services/imageResize";
-import React, {useRef, FC} from "react";
+import {useRef, FC} from "react";
 import {Button} from "primereact/button";
 
 type Image = {
@@ -26,10 +26,10 @@ const buttStyle = {
     color:'white',
     border: '0px'
 }
-const Carousel: FC<CarouselProps> = ({images, aspectRadio, size, onImageClick}) => {
+const Carousel: FC<CarouselProps> = ({images, aspectRadio, size, onImageClick, style}) => {
 
     const swiperRef = useRef(null)
-
+    style = style || {}
     size = size || 1080
 
     return <div className="w100">
@@ -53,6 +53,7 @@ const Carousel: FC<CarouselProps> = ({images, aspectRadio, size, onImageClick}) 
                     <div className={'ar-box-' + aspectRadio}>
                         <div className={'ar-box-inside-' + aspectRadio}>
                             <img className="ar-image swiper-lazy"
+                                 style={style}
                                  alt=""
                                  data-src={imageResize(e.url, size)}
                                  onClick={onImageClick}
