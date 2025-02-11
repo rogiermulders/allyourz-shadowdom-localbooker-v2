@@ -8,13 +8,13 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import selectorMainFilter from '../../recoil/selectors/selectorMainFilter.js'
 import MapPopup from '../availability/MapPopup.jsx'
 import recoilSpa from '../../recoil/recoilSpa.js'
-import {addMarkerToTheMap,getColors} from '../../data/markers.js'
+import { addMarkerToTheMap, getColors } from '../../data/markers.js'
 import { mapboxConfig } from './mapboxConfig.js'
 
 mapboxgl.accessToken = import.meta.env.VITE_APP_MAPBOX_API_KEY
 
 // request si the same that is used for the list
-function MapStays({width, height, request}) {
+function MapStays({ width, height, request }) {
   const context = useContext(MainContext)
   const mbRef = useRef(null)
   const map = useRef(null)
@@ -22,10 +22,10 @@ function MapStays({width, height, request}) {
 
   const [spa, setSpa] = useRecoilState(recoilSpa)
 
-  const {adminIds, administrations} = spa
+  const { adminIds, administrations } = spa
 
   // Do not show when not available for the amount of persons pets
-  const {adults, pets, regionId} = useRecoilValue(selectorMainFilter)
+  const { adults, pets, regionId } = useRecoilValue(selectorMainFilter)
 
   // So can use it inside the useEffect
   spaRef.current = spa
@@ -51,19 +51,8 @@ function MapStays({width, height, request}) {
 
     map.current = mc // Save the map instance
 
-    // *****************************************
-    // REMOVE BELOW WHEN THE MARKERS ARE READY
-    // Add the markers to the map
-    // const marker = (window.localbooker.domain || document.location.origin ) + '/mapbox/STAYS/marker-'
-    // mc.loadImage(marker + 'default@2x.png', (error, image) => {
-    //   mc.addImage('stay-marker', image);
-    // });
-    // mc.loadImage(marker + 'cluster@2x.png', (error, image) => {
-    //   mc.addImage('stay-cluster', image);
-    // });
-
-    addMarkerToTheMap(115, 'stay','stay-marker',mc)
-    addMarkerToTheMap(115, 'cluster','stay-cluster',mc)
+    addMarkerToTheMap(115, 'stay', 'stay-marker', mc)
+    addMarkerToTheMap(115, 'cluster', 'stay-cluster', mc)
 
     // Once the map is loaded, add the layers
     mc.on('load', () => {
@@ -71,8 +60,8 @@ function MapStays({width, height, request}) {
       mc.addSource('places_to_stay', {
         type: 'geojson',
         data: {
-          "type": "FeatureCollection",
-          "features": []
+          'type': 'FeatureCollection',
+          'features': []
         },
         cluster: true,
         clusterMaxZoom: 14, // Max zoom to cluster points on
@@ -102,10 +91,10 @@ function MapStays({width, height, request}) {
           'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
           'text-size': ['step', ['get', 'point_count'], 14, 50, 16, 300, 17],
           'text-color': 'white',
-          'text-offset': [-0.05, -0.60],
+          'text-offset': [-0.05, -0.60]
         },
         paint: {
-          "text-color": getColors().font_color
+          'text-color': getColors().font_color
         }
       })
 
