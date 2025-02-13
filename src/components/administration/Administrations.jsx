@@ -60,6 +60,14 @@ export default function Administrations() {
                 {accomodation.freeBreakfast !== false && <div className="absolute" style={{ bottom: '0.6em', left: '0.3em' }}>
                   <BreakfastIncluded/>
                 </div>}
+                {accomodation.totalBookables > 1 && <div className="absolute border-025 p-1 pl-4 pr-4 h01"
+                     style={{
+                       color: 'var(--gray-900)',
+                       backgroundColor: 'var(--gray-50)',
+                       top: '0.2em',
+                       left: '0.2em' }}>
+                  {accomodation.totalBookables} optie{accomodation.totalBookables > 1 ? 's' : ''}
+                </div>}
               </div>
 
             </div>
