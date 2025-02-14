@@ -62,7 +62,7 @@ export default function MapPopup({administration}) {
     <div className="pl-2 pt-5">
       <SpecialFacilities specialFacilities={administration.usps}/>
     </div>
-    <div className="p-4 pt-2 pb-2">
+    <div className="p-4 pt-2 pb-2 h01">
       {administration.freeBreakfast !== 0 ?
       <hr/> :
       <BreakfastIncluded width="100%" border="solid 1px var(--gray-100)"/>}

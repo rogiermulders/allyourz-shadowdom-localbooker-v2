@@ -127,7 +127,7 @@ export default function Bookables({ administration }) {
 
              })
            }} />
-      {bookable.freeBreakfast === true && <div className="absolute" style={{ bottom: '0.5em', left: '0.3em' }}>
+      {bookable.freeBreakfast === true && <div className="absolute h01" style={{ bottom: '0.5em', left: '0.3em' }}>
         <BreakfastIncluded/>
       </div>}
 

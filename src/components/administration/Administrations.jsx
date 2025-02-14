@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom'
 import LiContent from './LiContent.jsx'
 import AdministrationsReview from './AdministrationsReview.jsx'
 import BreakfastIncluded from './BreakfastIncluded.jsx'
+import CountBookables from './CountBookables.jsx'
 
 export default function Administrations() {
   const navigate = useNavigate()
@@ -57,17 +58,16 @@ export default function Administrations() {
                        onError={(e) => e.target.src = imageNotFound}
                        alt="" />
                 </div>
-                {accomodation.freeBreakfast !== false && <div className="absolute" style={{ bottom: '0.6em', left: '0.3em' }}>
-                  <BreakfastIncluded/>
-                </div>}
-                {accomodation.totalBookables > 1 && <div className="absolute border-025 p-1 pl-4 pr-4 h01"
-                     style={{
-                       color: 'var(--gray-900)',
-                       backgroundColor: 'var(--gray-50)',
-                       top: '0.2em',
-                       left: '0.2em' }}>
-                  {accomodation.totalBookables} optie{accomodation.totalBookables > 1 ? 's' : ''}
-                </div>}
+                {/*BREAKFAST*/}
+                {accomodation.freeBreakfast !== false &&
+                  <div className="absolute h01" style={{ bottom: '0.5em', left: '0.3em' }}>
+                    <BreakfastIncluded />
+                  </div>}
+                {/*COUNT*/}
+                {accomodation.totalBookables > 1 &&
+                  <div className="absolute h01" style={{ top: '0.2em', left: '0.2em' }}>
+                    <CountBookables accomodation={accomodation} />
+                  </div>}
               </div>
 
             </div>
@@ -84,12 +84,13 @@ export default function Administrations() {
               {/*LINE WITH NICE ICONS*/}
               <div className="ul-none m-0 p-0 nowrap">
                 <div className="flex-wrap">
-                {/*Reviews*/}
-                {accomodation.rating && <AdministrationsReview accomodation={accomodation} />}
-                {/*Hotel, Camping etc*/}
-                {accomodation.categories.map((e, i) => <LiContent className="mt-2" key={i} icon={e.icon} label={e.label} />)}
-                {/*Location*/}
-                <LiContent className="mt-2" icon="map-pin" label={accomodation.city} />
+                  {/*Reviews*/}
+                  {accomodation.rating && <AdministrationsReview accomodation={accomodation} />}
+                  {/*Hotel, Camping etc*/}
+                  {accomodation.categories.map((e, i) => <LiContent className="mt-2" key={i} icon={e.icon}
+                                                                    label={e.label} />)}
+                  {/*Location*/}
+                  <LiContent className="mt-2" icon="map-pin" label={accomodation.city} />
                 </div>
               </div>
 
@@ -125,7 +126,7 @@ export default function Administrations() {
               <PricePart accomodation={accomodation} />
             </div>}
 
-            {lte('xs') && <div className="col-12 debby" >
+            {lte('xs') && <div className="col-12 debby">
               <PricePart accomodation={accomodation} />
             </div>}
 
