@@ -49,6 +49,7 @@ export default function Spa() {
     destinationZip,
     adults,
     children,
+    babies,
     pets,
     range,
     checkIn,
@@ -65,6 +66,7 @@ export default function Spa() {
       groupIds: ['STAYS'],  // This is used for the map
       mainFilters: {
         adults: (adults + children),
+        babies,
         pets,
         category: [],       // This is used for the list
         stayTypes: category // This is used for the map
@@ -96,7 +98,7 @@ export default function Spa() {
     }
 
     return r
-  }, [context.hostLocale, regionId, destinationZip, adults, children, pets, range, checkIn, checkOut, category, offset, sort, subFilters])
+  }, [context.hostLocale, regionId, destinationZip, adults, babies, children, pets, range, checkIn, checkOut, category, offset, sort, subFilters])
 
   useEffect(() => {
       /**
