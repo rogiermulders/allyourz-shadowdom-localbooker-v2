@@ -26,17 +26,11 @@ export default function Bookables({ administration }) {
   const navigate = useNavigate()
   const calendarDialogRef = useRef()
   const dialogRef = useRef()
-  const { checkIn, checkOut, adults, children, pets } = useRecoilValue(selectorMainFilter)
+  const { checkIn, checkOut, adults, babies, children, pets } = useRecoilValue(selectorMainFilter)
   const [, setMainFilter] = useRecoilState(recoilMainFilter)
   const [bookables, setBookables] = useState([])
   const _t = context._t()
   const [countActive, setCountActive] = useState(0)
-  // Debby
-  // useEffect(() => {
-  //   if (bookables.length) {
-  //     bookableDialogRef.current.open(bookables[0])
-  //   }
-  // }, [bookables])
 
   /**
    * Get all bookables
@@ -50,6 +44,7 @@ export default function Bookables({ administration }) {
       locale: context.hostLocale,
       administration_id: administration.id,
       guests: (adults + children),
+      babies,
       pets
     }
 
@@ -82,7 +77,8 @@ export default function Bookables({ administration }) {
     return () => {
       current.setMaxGuests(0)
     }
-  }, [administration.id, checkIn, checkOut, adults, children, pets, context.hostLocale])
+  }, [administration.id, checkIn, checkOut, adults, babies,
+    children, pets, context.hostLocale])
 
 
   const FromNight = ({ bookable }) => {
