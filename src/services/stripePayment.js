@@ -15,7 +15,7 @@ export default function stripePayment(
   onPaymentReady,
   _t
 ) {
-  const buttonStyle = 'top:12px;position:absolute;border:solid 1px #e6e6e6;padding:8px 16px;border-radius:6px;font-size:16px;cursor:pointer;'
+  const buttonStyle = 'width:auto;top:12px;position:absolute;border:solid 1px #e6e6e6;padding:8px 16px;border-radius:6px;font-size:16px;cursor:pointer;'
   let elements, payment, handler
 
   /**
@@ -183,7 +183,7 @@ export default function stripePayment(
     // Klik hier om te betalen
     div.append(butt(
       _t.stripe.pay,
-      'background-color:#6D6E78;color:white',
+      'background-color:#6D6E78;color:white;z-index:1000',
       payClicked, 1))
     // Sluit dit venster
     div.append(butt(
