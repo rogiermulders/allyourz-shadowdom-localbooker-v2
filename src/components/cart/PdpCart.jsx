@@ -88,6 +88,7 @@ export default function PdpCart({ administration, pdpScrollToFirstBookabe, count
                             range: 2
                           } }
                       })
+                      context.setForceScroll(true)
                       navigate('/')
                     }}
             />
