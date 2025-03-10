@@ -24,6 +24,7 @@ export default function Pdp({ administration_slug }) {
   const srollInViewRef = useRef()
   const bookablesRef = useRef()
   const config = useRecoilValue(recoilConfig)
+  const [countBookables, setCountBookables] = useState(null)
 
   const [administration, setAdministration] = useState(null)
   const [accordionStatus, setAccordionStatus] = useState(null)
@@ -47,6 +48,11 @@ export default function Pdp({ administration_slug }) {
     })
   }, [administration_slug, context.hostLocale, params.administration_slug])
 
+
+  // ==============================================================================
+  // ==============================================================================
+  // ==============================================================================
+
   return <>
 
     <div ref={srollInViewRef} className={lte('sm') ? 'grid' : 'grid padding'}>
@@ -58,15 +64,19 @@ export default function Pdp({ administration_slug }) {
 
           {/*THE CART WHEN SMALL*/}
           {lte('sm') && <PdpCart
+            countBookables={countBookables}
             administration={administration}
             pdpScrollToFirstBookabe={() => scrollIntoViewWithOffset(bookablesRef, config.offset, config.scroll)} />}
           {/*THE BOOKABLES (ALWAYS)*/}
           <div ref={bookablesRef}>
-            {administration && <Bookables administration={administration} />}
+            {administration && <Bookables
+              administration={administration}
+              setCountBookables={setCountBookables}
+            />}
           </div>
 
-          {!!administration?.quote && <div className="pl-4 pr-4 pt-4" >
-            <Quote admin={administration}/>
+          {!!administration?.quote && <div className="pl-4 pr-4 pt-4">
+            <Quote admin={administration} />
           </div>}
 
 
@@ -125,8 +135,8 @@ export default function Pdp({ administration_slug }) {
         {administration &&
           // + 8 cuz we have a padding 8
           <div style={{ position: 'sticky', top: (config.offset + 8) }}>
-
             <PdpCart
+              countBookables={countBookables}
               administration={administration}
               pdpScrollToFirstBookabe={() => {
                 scrollIntoViewWithOffset(bookablesRef, config.offset, config.scroll)
