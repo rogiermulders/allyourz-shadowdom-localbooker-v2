@@ -24,6 +24,7 @@ export interface Localbooker {
 }
 
 export interface Labels {
+    breakfast_included: string
     search_and_book: string
     choose: string
     none: string
@@ -88,6 +89,10 @@ export interface SubFilter {
 }
 
 export interface Cart {
+    no_availability: string
+    nav_to_zip: string
+    price_info: string
+    included: string
     night: string
     total: string
     subtotal: string
@@ -101,11 +106,15 @@ export interface Stripe {
 }
 
 export interface PagePdp {
+    found_n_bookables: string
+    characteristics: string
+    show_all_facilities: string
     usp_0: string
     usp_1: string
     usp_2: string
     usp_3: string
     usp_4: string
+    usp_4_pay_now: string
     cancelation_rules: string
     free_cancelation: string
     cancellation_threshold_hours: string
@@ -142,6 +151,8 @@ export interface PagePdp {
 }
 
 export interface PageSpa {
+    count_bookables_hotel: string
+    count_bookables_other: string
     map: string
     list: string
     accos_found: string

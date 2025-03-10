@@ -20,7 +20,7 @@ import CountAvailable from './CountAvailable.jsx'
 import BreakfastIncluded from '../administration/BreakfastIncluded.jsx'
 
 
-export default function Bookables({ administration }) {
+export default function Bookables({ administration, setCountBookables }) {
   const context = useContext(MainContext)
   const refContext = useRef(context)
   const navigate = useNavigate()
@@ -73,12 +73,13 @@ export default function Bookables({ administration }) {
       current.setMaxGuests(maxGuests)
       setBookables(res.data)
       setCountActive(count)
+      setCountBookables(res.data.length)
     })
     return () => {
       current.setMaxGuests(0)
     }
   }, [administration.id, checkIn, checkOut, adults, babies,
-    children, pets, context.hostLocale])
+    children, pets, context.hostLocale, setCountBookables])
 
 
   const FromNight = ({ bookable }) => {
