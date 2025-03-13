@@ -1,27 +1,34 @@
-import Loading from '../molecules/Loading.jsx'
-import { col, lte } from '../services/buttstrip'
-import SubFilter from '../components/subfilter/SubFilter.jsx'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import selectorMainFilter from '../recoil/selectors/selectorMainFilter'
 import { lazy, Suspense, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import axios from 'axios'
+
 import { MainContext } from '../contexts/MainContext'
-import recoilMainFilter from '../recoil/recoilMainFilter'
-import recoilAvailability from '../recoil/recoilAvailability'
-import { classNames } from 'primereact/utils'
-import recoilSpa from '../recoil/recoilSpa'
 import { rowsPerPage } from '../data/constants'
+
+import { classNames } from 'primereact/utils'
 import { Button } from 'primereact/button'
-import Icon from '../molecules/Icon.jsx'
 import { Dropdown } from 'primereact/dropdown'
 import { Badge } from 'primereact/badge'
+
+import { useRecoilState, useRecoilValue } from 'recoil'
+import selectorMainFilter from '../recoil/selectors/selectorMainFilter'
+import recoilSpa from '../recoil/recoilSpa'
+import recoilMainFilter from '../recoil/recoilMainFilter'
+import recoilAvailability from '../recoil/recoilAvailability'
 import recoilSubfilter from '../recoil/recoilSubfilter'
-import { getYmd } from '../services/dates'
-import axios from 'axios'
-import MainFilter from '../components/mainfilter/MainFilter.jsx'
+import recoilConfig from '../recoil/recoilConfig.js'
+
+import Icon from '../molecules/Icon.jsx'
+import Loading from '../molecules/Loading.jsx'
 import Takeover from '../molecules/Takeover.jsx'
 import PoweredBy from '../molecules/PoweredBy.jsx'
+
+import { col, lte } from '../services/buttstrip'
+import { getYmd } from '../services/dates'
 import scrollIntoViewWithOffset from '../services/scrollIntoViewWithOffset.js'
-import recoilConfig from '../recoil/recoilConfig.js'
+
+import MainFilter from '../components/mainfilter/MainFilter.jsx'
+import SubFilter from '../components/subfilter/SubFilter.jsx'
 
 const SpaList = lazy(() => import('../components/availability/SpaList.jsx'))
 const MapStays = lazy(() => import('../components/maps/MapStays.jsx'))
@@ -42,6 +49,30 @@ export default function Spa() {
   const [spa, setSpa] = useRecoilState(recoilSpa)
   const config = useRecoilValue(recoilConfig)
   const ref = useRef()
+  const [searchParams] = useSearchParams()
+  const [spCategory] = useState(searchParams.get('category'))
+  const [run, setRun] = useState(false)
+
+  /**
+   * When we have the parameter ?category
+   * Set the recoil state for the type filter
+   * Always set run to true
+   * Run is the so we do not run 2 times
+   */
+  useEffect(() => {
+    if (spCategory) {
+      setMainFilter(old => {
+        return {
+          ...old, type: {
+            disabled: false,
+            category: spCategory.split(',')
+          }
+        }
+      })
+    }
+    setRun(true)
+  }, [spCategory, setMainFilter])
+
 
   const {
     pre_init,
@@ -107,6 +138,8 @@ export default function Spa() {
        */
       if (pre_init) return
 
+      if (!run) return
+
       /**
        * Below some 'run once' code (only when the request changes)
        * or list/map switch
@@ -134,13 +167,13 @@ export default function Spa() {
           setAvailability(res.data)
           setLoading.current(false)
 
-          if(refContext.current.forceScroll) {
+          if (refContext.current.forceScroll) {
             refContext.current.setForceScroll(false)
             scrollIntoViewWithOffset(ref.current, config.offset, config.scroll)
           }
         }
       })
-    }, [request, pre_init, setAvailability, setNothingFound, config.offset, config.scroll]
+    }, [request, pre_init, setAvailability, setNothingFound, config.offset, config.scroll, run]
   )
 
   const resetMainFilters = () => {
@@ -162,7 +195,7 @@ export default function Spa() {
         type: {
           disabled: false,
           category: []
-        },
+        }
       }
     })
     setNothingFound(false)
