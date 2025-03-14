@@ -72,6 +72,7 @@ if (import.meta.env.PROD) {
 }
 
 
+
 // First get the locale data @todo get config too
 axios.get(`/localbooker/locale?locale=${data.locale}`).then(res => {
 
@@ -93,6 +94,7 @@ axios.get(`/localbooker/locale?locale=${data.locale}`).then(res => {
             content={data.content !== 'false'}
             scroll={data.scroll !== 'false'}
             scrollto={window.localbooker_container.getBoundingClientRect().y}
+            params={Object.fromEntries((new URLSearchParams(window.location.search)).entries())}
           />
         </ThemeLoader>
       </MainContextProvider>

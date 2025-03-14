@@ -76,6 +76,8 @@ Dit kan via de attribuut data-hostcss. Hier kan een (relatief!) pad naar een ext
 =================================================================================================
 == Hieronder een uitleg hoe de filters via het data-mainfilter attribuut kan worden ingesteld:
 == Voorbeeld: data-mainfilter='{"where":{"regionId":"6BAB4CCF-C0E8-4B99-A5E0-02FD4B7EFD35"}}'
+
+http://localhost:5173/?mainFilter=[where=[regionId=6BAB4CCF-C0E8-4B99-A5E0-02FD4B7EFD35]]
 =================================================================================================
 data-mainfilter: (json object|niet meegegeven)
 

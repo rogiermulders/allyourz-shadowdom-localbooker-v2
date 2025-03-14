@@ -6,8 +6,11 @@ import { locale } from 'primereact/api'
 import { useContext, useEffect, lazy } from 'react'
 import recoilConfig from './recoil/recoilConfig.js'
 import recoilMainFilter from './recoil/recoilMainFilter.js'
+
 import deviceCheck from './services/deviceCheck.js'
 import { plotBreakpint } from './services/debug.js'
+import mergeParamsWithMainFilterAndChangeSlugsToCodes from './services/mergeParamsWithMainFilterAndChangeSlugsToCodes.js'
+
 import Spa from './pages/Spa.jsx'
 import Pdp from './pages/Pdp.jsx'
 import PageTest from './pages/PageTest.jsx'
@@ -16,6 +19,7 @@ import PageConfirm from './pages/PageConfirm.jsx'
 import PageThankYou from './pages/PageThankYou.jsx'
 import recoilReservation from './recoil/recoilReservation.js'
 import recoilSpa from './recoil/recoilSpa.js'
+
 
 const PageStripe = lazy(() => import('./pages/PageStripe.jsx'))
 
@@ -28,7 +32,8 @@ function App({
                hostlocale,
                mainfilter,
                spa,
-               scroll
+               scroll,
+               params
              }) {
 
   
@@ -47,15 +52,16 @@ function App({
       mainfilter
     ]} />
   }
+
+  // == Voorbeeld: data-spa='{"mapListMode":"map"}'
   try {
     spa = JSON.parse(spa || null)
   } catch (e) {
     return <PageError messages={[
       'No valid JSON in the data-spa parameter',
-      mainfilter
+      spa
     ]} />
   }
-
 
   if (typeof offset !== 'undefined') {
     if (isNaN(offset)) {
@@ -71,6 +77,8 @@ function App({
       }
     }
   }
+
+  mainfilter = mergeParamsWithMainFilterAndChangeSlugsToCodes(params,mainfilter)
 
   /**
    * !! This one is here for primereact !!
