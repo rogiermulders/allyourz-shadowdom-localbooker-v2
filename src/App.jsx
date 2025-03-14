@@ -78,6 +78,12 @@ function App({
     }
   }
 
+  /**
+   * This one does what it says. If you have params in the url
+   * it will merge them *in* the mainFilter.
+   * Parameters overrule the mainFilter specific parameter setting
+   */
+
   mainfilter = mergeParamsWithMainFilterAndChangeSlugsToCodes(params,mainfilter)
 
   /**

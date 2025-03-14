@@ -3,15 +3,53 @@ import { DESTINATIONS, REGIONS } from '../data/constants.js'
 
 const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter) => {
 
+
   /**
    * Merge the params with the mainFilter start with category
+   * hotel,b-b
+   * or hotel,b-b:off
+   * or hotel,b-b:on to explicitly enable (overrule the mainFilter)
    */
   if (params.category) {
-    const split = params.category.split(':disabled')
-    const disabled = split.length > 1
+    // Check if the category is disabled
+    const split = params.category.split(':')
+    const disabled = (split.length > 1) ? (split[1] === 'off') : (mainFilter?.type.disabled || false)
+    // Split cuz we need an array
     const category = split[0].split(',')
-    mainFilter.type = { disabled, category }
+    mainFilter = {
+      ...mainFilter, type: {
+        disabled,
+        category
+      }
+    }
   }
+
+  if (params.city) {
+    const split = params.city.split(':')
+    const disabled = (split.length > 1) ? (split[1] === 'off') : (mainFilter?.where.disabled || false)
+    mainFilter = {
+      ...mainFilter, where: {
+        disabled,
+        regionId: '0',
+        destinationZip: split[0],
+        range: mainFilter?.where.range || 2
+      }
+    }
+  }
+
+  if (params.regio) {
+    const split = params.regio.split(':')
+    const disabled = (split.length > 1) ? (split[1] === 'off') : (mainFilter?.where.disabled || false)
+    mainFilter = {
+      ...mainFilter, where: {
+        disabled,
+        regionId: split[0],
+        destinationZip: null,
+        range: 2
+      }
+    }
+  }
+
 
   /**
    * Change possible slugs to id's
@@ -22,6 +60,12 @@ const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter) => {
   return mainFilter
 }
 
+
+/**
+ * Change slugs to id's
+ * @param mainFilter
+ * @returns {*}
+ */
 const slugToId = (mainFilter) => {
   /**
    * Check if the regionId is a slug and change it to it's id
@@ -35,6 +79,9 @@ const slugToId = (mainFilter) => {
     // create map from slug to id
     let slugToId = {}
     REGIONS.forEach(e => slugToId[e.slug] = e.value)
+    // Debug info
+    if (!slugToId[where.regionId]) console.log(where.regionId, 'not valid as slug')
+
     // alter the filter
     mainFilter.where = {
       disabled: where.disabled || false,
@@ -50,6 +97,9 @@ const slugToId = (mainFilter) => {
   if (where.destinationZip && !isZip(where.destinationZip)) {
     const slugToId = {}
     DESTINATIONS.forEach(e => slugToId[e.slug] = e.value)
+    // Debug info
+    if (!slugToId[where.regionId]) console.log(where.destinationZip, 'not valid as slug')
+
     mainFilter.where = {
       disabled: where.disabled || false,
       regionId: '0',
