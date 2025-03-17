@@ -181,9 +181,9 @@ Wanneer de categorie door de gebruiker niet mag worden aangepast:
 "type":{"category":["camping","hotel"],"disabled":true}
 
 == OF als GET parameter ==
-?category=camping,hotel
-?category=camping,hotel:enabled  -- Type verblijf knop niet klikbaar  (optioneel)
-?category=camping,hotel:disabled -- Type verblijf knop wel klikbaar   (optioneel)
+?type=camping,hotel
+?type=camping,hotel:enabled  -- Type verblijf knop niet klikbaar  (optioneel)
+?type=camping,hotel:disabled -- Type verblijf knop wel klikbaar   (optioneel)
 
 -- mogelijke waarden --
 b-b

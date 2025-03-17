@@ -8,8 +8,8 @@ const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter, spa)
    * hotel,b-b
    * or hotel,b-b|disabled/enabled to explicitly enable (overrule the attribute)
    */
-  if (params.category) {
-    const split = params.category.split('|') // Split for disabled
+  if (params.type) {
+    const split = params.type.split('|') // Split for disabled
     const disabled = (split.length > 1) ? (split[1] === 'disabled') : (mainFilter?.type?.disabled || false)
     const category = split[0].split(',')
     mainFilter = {
@@ -57,10 +57,12 @@ const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter, spa)
   /**
    * range=10
    */
-  if(params.range) {
+  if (params.range) {
     mainFilter = {
       ...mainFilter, where: {
-        ...mainFilter.where,
+        disabled: mainFilter?.where?.disabled || false,
+        regionId: mainFilter?.where?.regionId || '0',
+        destinationZip: mainFilter?.where?.destinationZip || null,
         range: parseInt(params.range)
       }
     }
@@ -69,7 +71,7 @@ const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter, spa)
   /**
    * mode=map|list
    */
-  if(params.mode) {
+  if (params.mode) {
     spa.mapListMode = params.mode
   }
 
