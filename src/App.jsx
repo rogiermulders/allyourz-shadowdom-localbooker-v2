@@ -6,8 +6,11 @@ import { locale } from 'primereact/api'
 import { useContext, useEffect, lazy } from 'react'
 import recoilConfig from './recoil/recoilConfig.js'
 import recoilMainFilter from './recoil/recoilMainFilter.js'
+
 import deviceCheck from './services/deviceCheck.js'
 import { plotBreakpint } from './services/debug.js'
+import mergeParamsWithMainFilterAndChangeSlugsToCodes from './services/mergeParamsWithMainFilterAndChangeSlugsToCodes.js'
+
 import Spa from './pages/Spa.jsx'
 import Pdp from './pages/Pdp.jsx'
 import PageTest from './pages/PageTest.jsx'
@@ -16,6 +19,7 @@ import PageConfirm from './pages/PageConfirm.jsx'
 import PageThankYou from './pages/PageThankYou.jsx'
 import recoilReservation from './recoil/recoilReservation.js'
 import recoilSpa from './recoil/recoilSpa.js'
+
 
 const PageStripe = lazy(() => import('./pages/PageStripe.jsx'))
 
@@ -28,7 +32,8 @@ function App({
                hostlocale,
                mainfilter,
                spa,
-               scroll
+               scroll,
+               params
              }) {
 
   
@@ -47,15 +52,16 @@ function App({
       mainfilter
     ]} />
   }
+
+  // == Voorbeeld: data-spa='{"mapListMode":"map"}'
   try {
-    spa = JSON.parse(spa || null)
+    spa = JSON.parse(spa || '{"mapListMode": "list"}')
   } catch (e) {
     return <PageError messages={[
       'No valid JSON in the data-spa parameter',
-      mainfilter
+      spa
     ]} />
   }
-
 
   if (typeof offset !== 'undefined') {
     if (isNaN(offset)) {
@@ -73,13 +79,21 @@ function App({
   }
 
   /**
+   * This one does what it says. If you have params in the url
+   * it will merge them *in* the mainFilter.
+   * Parameters overrule the mainFilter specific parameter setting
+   */
+
+  mainfilter = mergeParamsWithMainFilterAndChangeSlugsToCodes(params,mainfilter,spa)
+
+  /**
    * !! This one is here for primereact !!
    */
   locale(hostlocale || 'nl')
 
 
   // eslint-disable-next-line react/prop-types
-  const MyRouter = ({ content, page, slug, pid, scroll, offset, mainfilter, spa, hostlocale }) => {
+  const MyRouter = ({ content, page, slug, pid, scroll, offset, mainfilter, spa, hostlocale, params }) => {
     const { stripeClientSecret } = useRecoilValue(recoilReservation)
     const context = useContext(MainContext)
     const [config, setConfig] = useRecoilState(recoilConfig)
@@ -98,6 +112,23 @@ function App({
       lbRoot = JSON.parse(`{"${hostlocale}":{"${page}":"/"},"basenameSwitched":true,"type":"bare"}`)
     }
     const basename = lbRoot[hostlocale][page]
+
+    /**
+     * Detect a change in params
+     *
+     * It is possible to change the mainFilter with params
+     * We must detect a change in this because if we land
+     * from different links we should treat the same as if
+     * a basename switch happened.
+     */
+    if(params.category || params.city || params.regio || params.range || params.mode) {
+      const urlParams = JSON.stringify(params)
+      const sessionParams = sessionStorage.getItem('localbooker-params')
+      if(sessionParams !== urlParams) {
+        lbRoot.basenameSwitched = true
+        sessionStorage.setItem('localbooker-params',urlParams)
+      }
+    }
 
     useEffect(() => {
 
@@ -221,6 +252,7 @@ function App({
           hostlocale={hostlocale || 'nl'}
           mainfilter={mainfilter || null}
           spa={spa || null}
+          params={params || null}
         />
       </div>
     </RecoilRoot>

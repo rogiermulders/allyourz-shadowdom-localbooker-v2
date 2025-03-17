@@ -1,5 +1,5 @@
 import { lazy, Suspense, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+//import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 
 import { MainContext } from '../contexts/MainContext'
@@ -49,29 +49,29 @@ export default function Spa() {
   const [spa, setSpa] = useRecoilState(recoilSpa)
   const config = useRecoilValue(recoilConfig)
   const ref = useRef()
-  const [searchParams] = useSearchParams()
-  const [spCategory] = useState(searchParams.get('category'))
-  const [run, setRun] = useState(false)
+  // const [searchParams] = useSearchParams()
+  // const [spCategory] = useState(searchParams.get('category'))
+  // const [run, setRun] = useState(false)
 
-  /**
-   * When we have the parameter ?category
-   * Set the recoil state for the type filter
-   * Always set run to true
-   * Run is the so we do not run 2 times
-   */
-  useEffect(() => {
-    if (spCategory) {
-      setMainFilter(old => {
-        return {
-          ...old, type: {
-            disabled: false,
-            category: spCategory.split(',')
-          }
-        }
-      })
-    }
-    setRun(true)
-  }, [spCategory, setMainFilter])
+  // /**
+  //  * When we have the parameter ?category
+  //  * Set the recoil state for the type filter
+  //  * Always set run to true
+  //  * Run is the so we do not run 2 times
+  //  */
+  // useEffect(() => {
+  //   if (spCategory) {
+  //     setMainFilter(old => {
+  //       return {
+  //         ...old, type: {
+  //           disabled: false,
+  //           category: spCategory.split(',')
+  //         }
+  //       }
+  //     })
+  //   }
+  //   setRun(true)
+  // }, [spCategory, setMainFilter])
 
 
   const {
@@ -138,7 +138,7 @@ export default function Spa() {
        */
       if (pre_init) return
 
-      if (!run) return
+      // if (!run) return
 
       /**
        * Below some 'run once' code (only when the request changes)
@@ -173,7 +173,7 @@ export default function Spa() {
           }
         }
       })
-    }, [request, pre_init, setAvailability, setNothingFound, config.offset, config.scroll, run]
+    }, [request, pre_init, setAvailability, setNothingFound, config.offset, config.scroll]
   )
 
   const resetMainFilters = () => {

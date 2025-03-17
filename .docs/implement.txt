@@ -79,70 +79,99 @@ Dit kan via de attribuut data-hostcss. Hier kan een (relatief!) pad naar een ext
 =================================================================================================
 data-mainfilter: (json object|niet meegegeven)
 
-== Regio ==
-"where":{"regionId":"6BAB4CCF-C0E8-4B99-A5E0-02FD4B7EFD35"}
+============================================================================
+==                              REGIO                                     ==
+============================================================================
+"where":{"regionId":"zeeuws-vlaanderen"}
 Wanneer de regio door de gebruiker niet mag worden aangepast:
-"where":{"regionId":"6BAB4CCF-C0E8-4B99-A5E0-02FD4B7EFD35","disabled":true}
+"where":{"regionId":"zeeuws-vlaanderen","disabled":true}
 
--- mogelijke waarden --
-4519714F-EC6C-4A5E-86E4-F6ED52401246 - Zuid-Beveland
-6138FCBE-FF4F-4ABE-86B2-DEB3B9A50070 - Goeree-Overflakkee
-62201A77-E505-452A-BFDF-DB1CCD834469 - Walcheren
-6BAB4CCF-C0E8-4B99-A5E0-02FD4B7EFD35 - Zeeuws-Vlaanderen
-8EE7A816-5100-43B7-8909-4F5AC09A3311 - Tholen & Sint Philipsland
-B0BA847B-D0A7-4106-AD60-132C43BBAD21 - Schouwen-Duiveland
-FDCC48AA-2771-431D-9C77-1236BDEA6056 - Noord-Beveland
+== OF als GET parameter ==
+?regio=zeeuws-vlaanderen
+?regio=zeeuws-vlaanderen|enabled  -- 'Waar wil je heen' knop niet klikbaar (optioneel)
+?regio=zeeuws-vlaanderen|disabled -- 'Waar wil je heen' knop wel klikbaar  (optioneel)
 
-== Stad ==
-"where":{"destinationZip":"4461AJ","range":2}
+-- mogelijke waarden, je kunt het ID of de SLUG gebruiken --
+-----------------------------------    -------------------
+               *ID*                          *SLUG*
+-----------------------------------    -------------------
+0                                    - heel-zeeland
+4519714F-EC6C-4A5E-86E4-F6ED52401246 - zuid-beveland
+6138FCBE-FF4F-4ABE-86B2-DEB3B9A50070 - goeree-overflakkee
+62201A77-E505-452A-BFDF-DB1CCD834469 - walcheren
+6BAB4CCF-C0E8-4B99-A5E0-02FD4B7EFD35 - zeeuws-vlaanderen
+8EE7A816-5100-43B7-8909-4F5AC09A3311 - tholen-sint-philipsland
+B0BA847B-D0A7-4106-AD60-132C43BBAD21 - schouwen-duiveland
+FDCC48AA-2771-431D-9C77-1236BDEA6056 - noord-beveland
+
+============================================================================
+==                               STAD                                     ==
+============================================================================
+"where":{"destinationZip":"goes","range":2}
 Wanneer de stad door de gebruiker niet mag worden aangepast:
-"where":{"destinationZip":"4461AJ","range":2,"disabled":true}
+"where":{"destinationZip":"goes","range":2,"disabled":true}
 
--- mogelijke waarden --
-4363AC - Aagtekerke
-4341EP - Arnemuiden
-4511AN - Breskens
-4318EB - Brouwershaven
-4311AS - Bruinisse
-4328AE - Burgh-Haamstede
-4506JK - Cadzand
-4486AA - Colijnsplaat
-4371PW - Dishoek
-4357BG - Domburg
-4494NS - Geersdijk
-3252BZ - Goedereede
-4461AJ - Goes
-4503AG - Groede
-3249BA - Herkingen
-4561AS - Hulst
-4493PG - Kamperland
-4484CV - Kortgene
-4371AB - Koudekerke
-4331LK - Middelburg
-4504PR - Nieuwvliet
-4356BJ - Oostkapelle
-3253AR - Ouddorp
-4325AA - Renesse
-4525AH - Retranchement
-4322BP - Scharendijke
-4524CV - Sluis
-4696BZ - Stavenisse
-4531EP - Terneuzen
-4691BX - Tholen
-4351AG - Veere
-4381CK - Vlissingen
-4354AE - Vrouwenpolder
-4424CA - Wemeldinge
-4361AE - Westkapelle
-4471NC - Wolphaartsdijk
-4401ED - Yerseke
-4301JD - Zierikzee
-4374AX - Zoutelande
+== OF als GET parameter ==
+?stad=goes
+?stad=goes:enabled  -- 'Waar wil je heen knop' niet klikbaar (optioneel)
+?stad=goes:disabled -- 'Waar wil je heen knop' wel klikbaar  (optioneel)
 
-== Type instellen:
+
+-- mogelijke waarden, je kunt de ZIP of de SLUG gebruiken --
+------   ------------------   ----------
+*ZIP*                           *SLUG*
+------   ------------------   ----------
+4363AC - Aagtekerke         - aagtekerke
+4341EP - Arnemuiden         - arnemuiden
+4511AN - Breskens           - breskens
+4318EB - Brouwershaven      - brouwershaven
+4311AS - Bruinisse          - bruinisse
+4328AE - Burgh-Haamstede    - burgh-haamstede
+4506JK - Cadzand            - cadzand
+4486AA - Colijnsplaat       - colijnsplaat
+4371PW - Dishoek            - dishoek
+4357BG - Domburg            - domburg
+4494NS - Geersdijk          - geersdijk
+3252BZ - Goedereede         - goedereede
+4461AJ - Goes               - goes
+4503AG - Groede             - groede
+3249BA - Herkingen          - herkingen
+4561AS - Hulst              - hulst
+4493PG - Kamperland         - kamperland
+4484CV - Kortgene           - kortgene
+4371AB - Koudekerke         - koudekerke
+4331LK - Middelburg         - middelburg
+4504PR - Nieuwvliet         - nieuwvliet
+4356BJ - Oostkapelle        - oostkapelle
+3253AR - Ouddorp            - ouddorp
+4325AA - Renesse            - renesse
+4525AH - Retranchement      - retranchement
+4322BP - Scharendijke       - scharendijke
+4524CV - Sluis              - sluis
+4696BZ - Stavenisse         - stavenisse
+4531EP - Terneuzen          - terneuzen
+4691BX - Tholen             - tholen
+4351AG - Veere              - veere
+4381CK - Vlissingen         - vlissingen
+4354AE - Vrouwenpolder      - vrouwenpolder
+4424CA - Wemeldinge         - wemeldinge
+4361AE - Westkapelle        - westkapelle
+4471NC - Wolphaartsdijk     - wolphaartsdijk
+4401ED - Yerseke            - yerseke
+4301JD - Zierikzee          - zierikzee
+4374AX - Zoutelande         - zoutelande
+
+============================================================================
+==                              TYPE                                      ==
+============================================================================
 "type":{"category":["camping","hotel"]}
 Wanneer de categorie door de gebruiker niet mag worden aangepast:
 "type":{"category":["camping","hotel"],"disabled":true}
+
+== OF als GET parameter ==
+?category=camping,hotel
+?category=camping,hotel:enabled  -- Type verblijf knop niet klikbaar  (optioneel)
+?category=camping,hotel:disabled -- Type verblijf knop wel klikbaar   (optioneel)
 
 -- mogelijke waarden --
 b-b
@@ -156,7 +185,11 @@ vacation-home
 =================================================================================================
 == Als je de kaart als default wil laten zien voeg je het data-spa attribuut toe.
 == Voorbeeld: data-spa='{"mapListMode":"map"}'
+
+== OF als GET parameter ==
+?mode=map|list
 =================================================================================================
+
 -- mogelijke waarden --
 mapListMode: "map" | "list"
 

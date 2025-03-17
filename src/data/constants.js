@@ -487,16 +487,19 @@ export const accomodationMap = (slug, locale) => {
   ACCOMMODATION_TYPES.forEach(e => map[e.value] = e.label[locale])
   return map[slug]
 }
+
 export const destinationMap = (index) => {
   const map = {}
   DESTINATIONS.forEach(e => map[e.value] = e.label)
   return map[index]
 }
+
 export const regionMap = (index) => {
   const map = {}
   REGIONS.forEach(e => map[e.value] = e.label)
   return map[index]
 }
+
 // @TODO: test if these validations work correctry for all possible countries
 export const VALIDATIONS = {
   first_name: /^[a-zA-ZÀ-ſ][a-zA-ZÀ-ſ .-]*(?:_[a-zA-ZÀ-ſ .-]+)*$/,
