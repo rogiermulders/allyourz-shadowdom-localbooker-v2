@@ -10,7 +10,7 @@ const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter, spa)
    */
   if (params.category) {
     const split = params.category.split('|') // Split for disabled
-    const disabled = (split.length > 1) ? (split[1] === 'disabled') : (mainFilter?.type.disabled || false)
+    const disabled = (split.length > 1) ? (split[1] === 'disabled') : (mainFilter?.type?.disabled || false)
     const category = split[0].split(',')
     mainFilter = {
       ...mainFilter, type: {
@@ -26,7 +26,7 @@ const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter, spa)
    */
   if (params.city) {
     const split = params.city.split('|')
-    const disabled = (split.length > 1) ? (split[1] === 'disabled') : (mainFilter?.where.disabled || false)
+    const disabled = (split.length > 1) ? (split[1] === 'disabled') : (mainFilter?.where?.disabled || false)
     mainFilter = {
       ...mainFilter, where: {
         disabled,
@@ -43,7 +43,7 @@ const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter, spa)
    */
   if (params.regio) {
     const split = params.regio.split('|')
-    const disabled = (split.length > 1) ? (split[1] === 'disabled') : (mainFilter?.where.disabled || false)
+    const disabled = (split.length > 1) ? (split[1] === 'disabled') : (mainFilter?.where?.disabled || false)
     mainFilter = {
       ...mainFilter, where: {
         disabled,

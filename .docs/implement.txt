@@ -1,3 +1,15 @@
+== NIEW! Parameters! ==
+Voorbeelden:
+
+city=domburg
+region=walcheren
+type=hotel,b-b
+mode=map|list
+
+?city=domburg&range=10&category=hotel,b-b|disabled&mode=map
+
+Voor een volledige lijst van mogelijke waarden zie de documentatie hier onder.
+
 =================================================================================================
 == Localbooker kent twee soorten pagina's:
 == - Zoek pagina (spa)
