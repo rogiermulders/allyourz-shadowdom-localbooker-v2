@@ -32,7 +32,7 @@ const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter, spa)
         disabled,
         regionId: '0',
         destinationZip: split[0],
-        range: mainFilter?.where.range || 2
+        range: mainFilter?.where?.range || 2
       }
     }
   }
