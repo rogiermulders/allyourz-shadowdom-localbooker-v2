@@ -7,14 +7,11 @@ const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter) => {
   /**
    * Merge the params with the mainFilter start with category
    * hotel,b-b
-   * or hotel,b-b:off
-   * or hotel,b-b:on to explicitly enable (overrule the mainFilter)
+   * or hotel,b-b:off/on to explicitly enable (overrule the mainFilter)
    */
   if (params.category) {
-    // Check if the category is disabled
-    const split = params.category.split(':')
+    const split = params.category.split(':') // Split for disabled
     const disabled = (split.length > 1) ? (split[1] === 'off') : (mainFilter?.type.disabled || false)
-    // Split cuz we need an array
     const category = split[0].split(',')
     mainFilter = {
       ...mainFilter, type: {
@@ -24,6 +21,10 @@ const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter) => {
     }
   }
 
+  /**
+   * city=domburg
+   * city=domburg:off/on
+   */
   if (params.city) {
     const split = params.city.split(':')
     const disabled = (split.length > 1) ? (split[1] === 'off') : (mainFilter?.where.disabled || false)
@@ -37,6 +38,10 @@ const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter) => {
     }
   }
 
+  /**
+   * regio=walcheren
+   * regio=walcheren:off/on
+   */
   if (params.regio) {
     const split = params.regio.split(':')
     const disabled = (split.length > 1) ? (split[1] === 'off') : (mainFilter?.where.disabled || false)
@@ -45,7 +50,19 @@ const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter) => {
         disabled,
         regionId: split[0],
         destinationZip: null,
-        range: 2
+        range: 2 // regio has no range so set to default
+      }
+    }
+  }
+
+  /**
+   * range=10
+   */
+  if(params.range) {
+    mainFilter = {
+      ...mainFilter, where: {
+        ...mainFilter.where,
+        range: parseInt(params.range)
       }
     }
   }
