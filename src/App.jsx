@@ -55,7 +55,7 @@ function App({
 
   // == Voorbeeld: data-spa='{"mapListMode":"map"}'
   try {
-    spa = JSON.parse(spa || null)
+    spa = JSON.parse(spa || '{"mapListMode": "list"}')
   } catch (e) {
     return <PageError messages={[
       'No valid JSON in the data-spa parameter',
@@ -84,7 +84,7 @@ function App({
    * Parameters overrule the mainFilter specific parameter setting
    */
 
-  mainfilter = mergeParamsWithMainFilterAndChangeSlugsToCodes(params,mainfilter)
+  mainfilter = mergeParamsWithMainFilterAndChangeSlugsToCodes(params,mainfilter,spa)
 
   /**
    * !! This one is here for primereact !!
@@ -93,7 +93,7 @@ function App({
 
 
   // eslint-disable-next-line react/prop-types
-  const MyRouter = ({ content, page, slug, pid, scroll, offset, mainfilter, spa, hostlocale }) => {
+  const MyRouter = ({ content, page, slug, pid, scroll, offset, mainfilter, spa, hostlocale, params }) => {
     const { stripeClientSecret } = useRecoilValue(recoilReservation)
     const context = useContext(MainContext)
     const [config, setConfig] = useRecoilState(recoilConfig)
@@ -112,6 +112,23 @@ function App({
       lbRoot = JSON.parse(`{"${hostlocale}":{"${page}":"/"},"basenameSwitched":true,"type":"bare"}`)
     }
     const basename = lbRoot[hostlocale][page]
+
+    /**
+     * Detect a change in params
+     *
+     * It is possible to change the mainFilter with params
+     * We must detect a change in this because if we land
+     * from different links we should treat the same as if
+     * a basename switch happened.
+     */
+    if(params.category || params.city || params.regio || params.range || params.mode) {
+      const urlParams = JSON.stringify(params)
+      const sessionParams = sessionStorage.getItem('localbooker-params')
+      if(sessionParams !== urlParams) {
+        lbRoot.basenameSwitched = true
+        sessionStorage.setItem('localbooker-params',urlParams)
+      }
+    }
 
     useEffect(() => {
 
@@ -235,6 +252,7 @@ function App({
           hostlocale={hostlocale || 'nl'}
           mainfilter={mainfilter || null}
           spa={spa || null}
+          params={params || null}
         />
       </div>
     </RecoilRoot>

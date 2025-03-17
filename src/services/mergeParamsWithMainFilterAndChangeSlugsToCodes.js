@@ -1,17 +1,16 @@
 import { DESTINATIONS, REGIONS } from '../data/constants.js'
 
 
-const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter) => {
-
+const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter, spa) => {
 
   /**
    * Merge the params with the mainFilter start with category
    * hotel,b-b
-   * or hotel,b-b:off/on to explicitly enable (overrule the mainFilter)
+   * or hotel,b-b|disabled/enabled to explicitly enable (overrule the attribute)
    */
   if (params.category) {
-    const split = params.category.split(':') // Split for disabled
-    const disabled = (split.length > 1) ? (split[1] === 'off') : (mainFilter?.type.disabled || false)
+    const split = params.category.split('|') // Split for disabled
+    const disabled = (split.length > 1) ? (split[1] === 'disabled') : (mainFilter?.type.disabled || false)
     const category = split[0].split(',')
     mainFilter = {
       ...mainFilter, type: {
@@ -23,11 +22,11 @@ const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter) => {
 
   /**
    * city=domburg
-   * city=domburg:off/on
+   * city=domburg|disabled/enabled to explicitly enable (overrule the attribute)
    */
   if (params.city) {
-    const split = params.city.split(':')
-    const disabled = (split.length > 1) ? (split[1] === 'off') : (mainFilter?.where.disabled || false)
+    const split = params.city.split('|')
+    const disabled = (split.length > 1) ? (split[1] === 'disabled') : (mainFilter?.where.disabled || false)
     mainFilter = {
       ...mainFilter, where: {
         disabled,
@@ -40,11 +39,11 @@ const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter) => {
 
   /**
    * regio=walcheren
-   * regio=walcheren:off/on
+   * regio=walcheren|disabled/enabled to explicitly enable (overrule the attribute)
    */
   if (params.regio) {
-    const split = params.regio.split(':')
-    const disabled = (split.length > 1) ? (split[1] === 'off') : (mainFilter?.where.disabled || false)
+    const split = params.regio.split('|')
+    const disabled = (split.length > 1) ? (split[1] === 'disabled') : (mainFilter?.where.disabled || false)
     mainFilter = {
       ...mainFilter, where: {
         disabled,
@@ -67,6 +66,12 @@ const mergeParamsWithMainFilterAndChangeSlugsToCodes = (params, mainFilter) => {
     }
   }
 
+  /**
+   * mode=map|list
+   */
+  if(params.mode) {
+    spa.mapListMode = params.mode
+  }
 
   /**
    * Change possible slugs to id's
@@ -90,9 +95,9 @@ const slugToId = (mainFilter) => {
   const where = mainFilter?.where || {}
 
   /**
-   * regionId is a slug
+   * regionId is a slug (not a uuid) and not '0' (heel-zeeland)
    */
-  if (where.regionId && !isUuid(where.regionId)) {
+  if (where.regionId && !isUuid(where.regionId) && where.regionId !== '0') {
     // create map from slug to id
     let slugToId = {}
     REGIONS.forEach(e => slugToId[e.slug] = e.value)
@@ -115,7 +120,8 @@ const slugToId = (mainFilter) => {
     const slugToId = {}
     DESTINATIONS.forEach(e => slugToId[e.slug] = e.value)
     // Debug info
-    if (!slugToId[where.regionId]) console.log(where.destinationZip, 'not valid as slug')
+    if (!slugToId[where.destinationZip]) console.log(where.destinationZip, 'not valid as slug')
+
 
     mainFilter.where = {
       disabled: where.disabled || false,

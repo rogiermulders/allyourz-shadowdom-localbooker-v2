@@ -76,8 +76,6 @@ Dit kan via de attribuut data-hostcss. Hier kan een (relatief!) pad naar een ext
 =================================================================================================
 == Hieronder een uitleg hoe de filters via het data-mainfilter attribuut kan worden ingesteld:
 == Voorbeeld: data-mainfilter='{"where":{"regionId":"6BAB4CCF-C0E8-4B99-A5E0-02FD4B7EFD35"}}'
-
-http://localhost:5173/?mainFilter=[where=[regionId=6BAB4CCF-C0E8-4B99-A5E0-02FD4B7EFD35]]
 =================================================================================================
 data-mainfilter: (json object|niet meegegeven)
 
@@ -90,8 +88,8 @@ Wanneer de regio door de gebruiker niet mag worden aangepast:
 
 == OF als GET parameter ==
 ?regio=zeeuws-vlaanderen
-?regio=zeeuws-vlaanderen:on  -- Waar wil je heen knop niet klikbaar (optioneel)
-?regio=zeeuws-vlaanderen:off -- Waar wil je heen knop wel klikbaar  (optioneel)
+?regio=zeeuws-vlaanderen|enabled  -- 'Waar wil je heen' knop niet klikbaar (optioneel)
+?regio=zeeuws-vlaanderen|disabled -- 'Waar wil je heen' knop wel klikbaar  (optioneel)
 
 -- mogelijke waarden, je kunt het ID of de SLUG gebruiken --
 -----------------------------------    -------------------
@@ -115,8 +113,8 @@ Wanneer de stad door de gebruiker niet mag worden aangepast:
 
 == OF als GET parameter ==
 ?stad=goes
-?stad=goes:on  -- Waar wil je heen knop niet klikbaar (optioneel)
-?stad=goes:off -- Waar wil je heen knop wel klikbaar  (optioneel)
+?stad=goes:enabled  -- 'Waar wil je heen knop' niet klikbaar (optioneel)
+?stad=goes:disabled -- 'Waar wil je heen knop' wel klikbaar  (optioneel)
 
 
 -- mogelijke waarden, je kunt de ZIP of de SLUG gebruiken --
@@ -172,8 +170,8 @@ Wanneer de categorie door de gebruiker niet mag worden aangepast:
 
 == OF als GET parameter ==
 ?category=camping,hotel
-?category=camping,hotel:on  -- Type verblijf knop niet klikbaar  (optioneel)
-?category=camping,hotel:off -- Type verblijf knop wel klikbaar   (optioneel)
+?category=camping,hotel:enabled  -- Type verblijf knop niet klikbaar  (optioneel)
+?category=camping,hotel:disabled -- Type verblijf knop wel klikbaar   (optioneel)
 
 -- mogelijke waarden --
 b-b
@@ -187,7 +185,11 @@ vacation-home
 =================================================================================================
 == Als je de kaart als default wil laten zien voeg je het data-spa attribuut toe.
 == Voorbeeld: data-spa='{"mapListMode":"map"}'
+
+== OF als GET parameter ==
+?mode=map|list
 =================================================================================================
+
 -- mogelijke waarden --
 mapListMode: "map" | "list"
 
