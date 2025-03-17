@@ -1,4 +1,4 @@
-== NIEW! Parameters! ==
+== NIEUW! Parameters! ==
 Voorbeelden:
 
 city=domburg
