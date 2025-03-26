@@ -6,9 +6,9 @@ region=walcheren
 type=hotel,b-b
 mode=map|list
 
-?city=domburg&range=10&category=hotel,b-b|disabled&mode=map
+?city=domburg&range=10&type=hotel,b-b|disabled&mode=map
 
-Voor een volledige lijst van mogelijke waarden zie de documentatie hier onder.
+Voor een volledige lijst van mogelijke waarden zie de documentatie hieronder.
 
 =================================================================================================
 == Localbooker kent twee soorten pagina's:
@@ -124,9 +124,9 @@ Wanneer de stad door de gebruiker niet mag worden aangepast:
 "where":{"destinationZip":"goes","range":2,"disabled":true}
 
 == OF als GET parameter ==
-?stad=goes
-?stad=goes:enabled  -- 'Waar wil je heen knop' niet klikbaar (optioneel)
-?stad=goes:disabled -- 'Waar wil je heen knop' wel klikbaar  (optioneel)
+?city=goes
+?city=goes:enabled  -- 'Waar wil je heen knop' niet klikbaar (optioneel)
+?city=goes:disabled -- 'Waar wil je heen knop' wel klikbaar  (optioneel)
 
 
 -- mogelijke waarden, je kunt de ZIP of de SLUG gebruiken --
